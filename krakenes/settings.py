@@ -83,7 +83,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'krakenesdb',
         'USER': 'postgres',
-        'PASSWORD': 'tenhnk911',
+        'PASSWORD': 'test1234',
         'HOST': 'localhost',
         'PORT': '5432',
     }

@@ -22,7 +22,7 @@
                     <div class="d-flex align-items-center flex-wrap">       
                       <div class="date"><i class="icon-clock"></i> {{post.pub_date_pretty}}</div>
                       <div class="views"><i class="icon-eye"></i> {% get_hit_count for post %}</div>
-                      <div class="comments meta-last"><i class="icon-comment"></i>12</div>
+                      <div class="comments meta-last"><i class="icon-comment"></i>{{comment_count}}</div>
                     </div>
                   </div>
                   <div class="post-body">
@@ -35,56 +35,42 @@
                   </div>
                   <div class="post-comments">
                     <header>
-                      <h3 class="h6">Post Comments<span class="no-of-comments">(3)</span></h3>
+                      <h3 class="h6">Post Comments<span class="no-of-comments">({{comment_count}})</span></h3>
                     </header>
+                    {% for comment in post.comments.all %}
+                    {% if comment.approved_comment %}
                     <div class="comment">
                       <div class="comment-header d-flex justify-content-between">
                         <div class="user d-flex align-items-center">
-                          <div class="image"><img src="img/user.svg" alt="..." class="img-fluid rounded-circle"></div>
-                          <div class="title"><strong>Jabi Hernandiz</strong><span class="date">May 2016</span></div>
+                          <div class="image"><img src="{% static 'img/user.svg' %}" alt="..." class="img-fluid rounded-circle"></div>
+                          <div class="title"><strong>{{ comment.author }}</strong><span class="date">{{ comment.created_date }}</span></div>
                         </div>
                       </div>
                       <div class="comment-body">
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
+                        <p>{{ comment.text|linebreaks }}</p>
                       </div>
                     </div>
-                    <div class="comment">
-                      <div class="comment-header d-flex justify-content-between">
-                        <div class="user d-flex align-items-center">
-                          <div class="image"><img src="img/user.svg" alt="..." class="img-fluid rounded-circle"></div>
-                          <div class="title"><strong>Nikolas</strong><span class="date">May 2016</span></div>
-                        </div>
-                      </div>
-                      <div class="comment-body">
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
-                      </div>
-                    </div>
-                    <div class="comment">
-                      <div class="comment-header d-flex justify-content-between">
-                        <div class="user d-flex align-items-center">
-                          <div class="image"><img src="img/user.svg" alt="..." class="img-fluid rounded-circle"></div>
-                          <div class="title"><strong>John Doe</strong><span class="date">May 2016</span></div>
-                        </div>
-                      </div>
-                      <div class="comment-body">
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
-                      </div>
-                    </div>
-                  </div>
+                    {% endif %}
+                  {% empty %}
+                      <p>No comments here yet :(</p>
+                  
+                  {% endfor %}
+
                   <div class="add-comment">
                     <header>
                       <h3 class="h6">Leave a reply</h3>
                     </header>
-                    <form action="#" class="commenting-form">
+                    <form action="{% url 'post' post.id %}" class="commenting-form" method="POST">
+                      {% csrf_token %}
                       <div class="row">
                         <div class="form-group col-md-6">
                           <input type="text" name="username" id="username" placeholder="Name" class="form-control">
                         </div>
                         <div class="form-group col-md-6">
-                          <input type="email" name="username" id="useremail" placeholder="Email Address (will not be published)" class="form-control">
+                          <input type="email" name="email" id="useremail" placeholder="Email Address (will not be published)" class="form-control">
                         </div>
                         <div class="form-group col-md-12">
-                          <textarea name="usercomment" id="usercomment" placeholder="Type your comment" class="form-control"></textarea>
+                          <textarea name="comment" id="usercomment" placeholder="Type your comment" class="form-control"></textarea>
                         </div>
                         <div class="form-group col-md-12">
                           <button type="submit" class="btn btn-secondary">Submit Comment</button>
