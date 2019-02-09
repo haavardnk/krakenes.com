@@ -1,6 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from posts.models import BlogPost
 from projects.models import Project
+from posts.models import BlogPost
 from django.core.paginator import Paginator
 
 def home(request):
@@ -15,3 +16,7 @@ def blog(request):
     page = request.GET.get('page')
     posts = paginator.get_page(page)
     return render(request, 'blog/blog.html', {'posts':posts}, {'range':range(posts.paginator.num_pages+1)})
+
+def post(request, post_id):
+    post = get_object_or_404(BlogPost, pk=post_id)
+    return render(request, 'blog/post.html',{'post':post})

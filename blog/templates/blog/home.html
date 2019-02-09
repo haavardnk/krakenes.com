@@ -36,7 +36,7 @@
       <div class="row">
         {% for project in projects.all|slice:":3" %}
         <div class="post col-md-4">
-          <div class="post-thumbnail"><a href="post.html"><img src="{{project.image.url}}" alt="..." class="img-fluid"></a></div>
+          <div class="post-thumbnail"><a href=""><img src="{{project.image.url}}" alt="..." class="" width=350 height=250 style="object-fit: cover"></a></div>
           <div class="post-details">
             <div class="post-meta d-flex justify-content-between">
               <div class="date">{{project.pub_date_pretty}}</div>
@@ -60,12 +60,12 @@
       <div class="row">
       {% for post in posts.all|slice:":3" %}
         <div class="post col-md-4">
-          <div class="post-thumbnail"><a href="post.html"><img src="{{post.image.url}}" alt="..." class="img-fluid"></a></div>
+          <div class="post-thumbnail"><a href="{% url 'post' post.id %}"><img src="{{post.image.url}}" alt="..." class="" width=350 height=250 style="object-fit: cover"></a></div>
           <div class="post-details">
             <div class="post-meta d-flex justify-content-between">
               <div class="date">{{post.pub_date_pretty}}</div>
               <div class="category"><a href="#">{{post.category}}</a></div>
-            </div><a href="post.html">
+            </div><a href="{% url 'post' post.id %}">
               <h3 class="h4">{{post.title}}</h3></a>
             <p class="text-muted">{{post.summary}}</p>
           </div>

@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% load staticfiles %}
+
+<div class="container">
+        <div class="row">
+          <!-- Latest Posts -->
+          <main class="post blog-post col-lg-12"> 
+            <div class="container">
+              <div class="post-single">
+                <div class="post-thumbnail"><img src="{{project.image.url}}" alt="..." class="img-fluid"></div>
+                <div class="post-details">
+                  <div class="post-meta d-flex justify-content-between">
+                    <div class="category"><a href="#">{{project.category}}</a></div>
+                  </div>
+                  <h1>{{project.title}}<a href="#"><i class="fa fa-bookmark-o"></i></a></h1>
+                  <div class="post-footer d-flex align-items-center flex-column flex-sm-row"><a href="#" class="author d-flex align-items-center flex-wrap">
+                      <div class="avatar"><img src="{% static 'img/havard.jpg' %}" alt="..." class="img-fluid"></div>
+                      <div class="title"><span>{{project.author}}</span></div></a>
+                    <div class="d-flex align-items-center flex-wrap">       
+                      <div class="date"><i class="icon-clock"></i> {{project.pub_date_pretty}}</div>
+                      <div class="views"><i class="icon-eye"></i> 500</div>
+                      <div class="comments meta-last"><i class="icon-comment"></i>12</div>
+                    </div>
+                  </div>
+                  <div class="post-body">
+                    <p>{{project.content}}</p>
+                  </div>
+                  <div class="post-tags">
+                    {%for tag in project.tags.all%}
+                    <a href="#" class="tag">{{tag}}</a>
+                    {% endfor %}
+                  </div>
+                  
+              </div>
+            </div>
+          </main>
+        </div>
+      </div>
+
+{% endblock %}
