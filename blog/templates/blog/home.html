@@ -34,39 +34,19 @@
         <p class="text-big">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
       </header>
       <div class="row">
+        {% for project in projects.all|slice:":3" %}
         <div class="post col-md-4">
-          <div class="post-thumbnail"><a href="post.html"><img src="http://placehold.it/350x250" alt="..." class="img-fluid"></a></div>
+          <div class="post-thumbnail"><a href="post.html"><img src="{{project.image.url}}" alt="..." class="img-fluid"></a></div>
           <div class="post-details">
             <div class="post-meta d-flex justify-content-between">
-              <div class="date">20 May | 2016</div>
-              <div class="category"><a href="#">Business</a></div>
+              <div class="date">{{project.pub_date_pretty}}</div>
+              <div class="category"><a href="#">{{project.category}}</a></div>
             </div><a href="post.html">
-              <h3 class="h4">Ways to remember your important ideas</h3></a>
-            <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore.</p>
+              <h3 class="h4">{{project.title}}</h3></a>
+            <p class="text-muted">{{project.summary}}</p>
           </div>
         </div>
-        <div class="post col-md-4">
-          <div class="post-thumbnail"><a href="post.html"><img src="http://placehold.it/350x250" alt="..." class="img-fluid"></a></div>
-          <div class="post-details">
-            <div class="post-meta d-flex justify-content-between">
-              <div class="date">20 May | 2016</div>
-              <div class="category"><a href="#">Technology</a></div>
-            </div><a href="post.html">
-              <h3 class="h4">Diversity in Engineering: Effect on Questions</h3></a>
-            <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore.</p>
-          </div>
-        </div>
-        <div class="post col-md-4">
-          <div class="post-thumbnail"><a href="post.html"><img src="http://placehold.it/350x250" alt="..." class="img-fluid"></a></div>
-          <div class="post-details">
-            <div class="post-meta d-flex justify-content-between">
-              <div class="date">20 May | 2016</div>
-              <div class="category"><a href="#">Financial</a></div>
-            </div><a href="post.html">
-              <h3 class="h4">Alberto Savoia Can Teach You About Interior</h3></a>
-            <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore.</p>
-          </div>
-        </div>
+      {% endfor %}
       </div>
     </div>
   </section>
@@ -78,39 +58,19 @@
         <p class="text-big">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
       </header>
       <div class="row">
+      {% for post in posts.all|slice:":3" %}
         <div class="post col-md-4">
-          <div class="post-thumbnail"><a href="post.html"><img src="http://placehold.it/350x250" alt="..." class="img-fluid"></a></div>
+          <div class="post-thumbnail"><a href="post.html"><img src="{{post.image.url}}" alt="..." class="img-fluid"></a></div>
           <div class="post-details">
             <div class="post-meta d-flex justify-content-between">
-              <div class="date">20 May | 2016</div>
-              <div class="category"><a href="#">Business</a></div>
+              <div class="date">{{post.pub_date_pretty}}</div>
+              <div class="category"><a href="#">{{post.category}}</a></div>
             </div><a href="post.html">
-              <h3 class="h4">Ways to remember your important ideas</h3></a>
-            <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore.</p>
+              <h3 class="h4">{{post.title}}</h3></a>
+            <p class="text-muted">{{post.summary}}</p>
           </div>
         </div>
-        <div class="post col-md-4">
-          <div class="post-thumbnail"><a href="post.html"><img src="http://placehold.it/350x250" alt="..." class="img-fluid"></a></div>
-          <div class="post-details">
-            <div class="post-meta d-flex justify-content-between">
-              <div class="date">20 May | 2016</div>
-              <div class="category"><a href="#">Technology</a></div>
-            </div><a href="post.html">
-              <h3 class="h4">Diversity in Engineering: Effect on Questions</h3></a>
-            <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore.</p>
-          </div>
-        </div>
-        <div class="post col-md-4">
-          <div class="post-thumbnail"><a href="post.html"><img src="http://placehold.it/350x250" alt="..." class="img-fluid"></a></div>
-          <div class="post-details">
-            <div class="post-meta d-flex justify-content-between">
-              <div class="date">20 May | 2016</div>
-              <div class="category"><a href="#">Financial</a></div>
-            </div><a href="post.html">
-              <h3 class="h4">Alberto Savoia Can Teach You About Interior</h3></a>
-            <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore.</p>
-          </div>
-        </div>
+      {% endfor %}
       </div>
     </div>
   </section>
