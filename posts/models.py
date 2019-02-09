@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
+from hitcount.models import HitCount
+from hitcount.views import HitCountMixin
 
 class Category(models.Model):
         name = models.CharField(max_length=32)
@@ -15,7 +17,7 @@ class Tag(models.Model):
         def __str__(self):
             return self.name
 
-class BlogPost(models.Model):
+class BlogPost(models.Model, HitCountMixin):
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     title = models.CharField(max_length=255)

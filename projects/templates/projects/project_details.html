@@ -2,10 +2,11 @@
 
 {% block content %}
 {% load staticfiles %}
+{% load hitcount_tags %}
 
 <div class="container">
         <div class="row">
-          <!-- Latest Posts -->
+          <!-- Project -->
           <main class="post blog-post col-lg-12"> 
             <div class="container">
               <div class="post-single">
@@ -20,8 +21,7 @@
                       <div class="title"><span>{{project.author}}</span></div></a>
                     <div class="d-flex align-items-center flex-wrap">       
                       <div class="date"><i class="icon-clock"></i> {{project.pub_date_pretty}}</div>
-                      <div class="views"><i class="icon-eye"></i> 500</div>
-                      <div class="comments meta-last"><i class="icon-comment"></i>12</div>
+                      <div class="views"><i class="icon-eye"></i>{% get_hit_count for project %}</div>
                     </div>
                   </div>
                   <div class="post-body">
