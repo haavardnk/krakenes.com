@@ -5,18 +5,18 @@ from hitcount.models import HitCount
 from hitcount.views import HitCountMixin
 
 class Category(models.Model):
-        name = models.CharField(max_length=32)
-        class Meta:
-                verbose_name_plural = "Categories"
-        def __str__(self):
-            return self.name
+    name = models.CharField(max_length=32)
+    class Meta:
+        verbose_name_plural = "Categories"
+    def __str__(self):
+        return self.name
 
 class Tag(models.Model):
-        name = models.CharField(max_length=32)
-        class Meta:
-            ordering = ['name']
-        def __str__(self):
-            return self.name
+    name = models.CharField(max_length=32)
+    class Meta:
+        ordering = ['name']
+    def __str__(self):
+        return self.name
 
 class BlogPost(models.Model, HitCountMixin):
     author = models.ForeignKey(User, on_delete=models.CASCADE)
