@@ -30,6 +30,9 @@ class BlogPost(models.Model, HitCountMixin):
 
     def __str__(self):
         return self.title
+
+    def comment_count(self):
+        return self.comments.filter(approved_comment = True).count()
         
     def summary(self):
         return self.content[:100] + "..."

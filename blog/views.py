@@ -20,16 +20,14 @@ def blog(request):
 
 def post(request, post_id):
     post = get_object_or_404(BlogPost, pk=post_id)
-    comment_count = post.comments.filter(approved_comment = True).count()
+    posts = BlogPost.objects.all()
 
     if request.method == "POST":
         comment = Comment.objects.create(post=post, author = request.POST['username'], text=request.POST['comment'], email = request.POST['email'])
         comment.save()
-        return render(request, 'blog/post.html', {'post':post, 'comment_count':comment_count})
+        return render(request, 'blog/post.html', {'post':post})
 
     hit_count = HitCount.objects.get_for_object(post)
     HitCountMixin.hit_count(request, hit_count)
 
-    comment_count = post.comments.filter(approved_comment = True).count()
-
-    return render(request, 'blog/post.html', {'post':post, 'comment_count':comment_count})
+    return render(request, 'blog/post.html', {'post':post, 'posts':posts})
