@@ -627,7 +627,7 @@ div[class*="-btn"] {
 */
 section.hero {
   padding: 0;
-  color: #fff;
+  color: rgb(255, 255, 255);
 }
 
 section.hero .container {
