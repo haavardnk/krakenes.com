@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django.utils import timezone
 from hitcount.models import HitCount
 from hitcount.views import HitCountMixin
+from ckeditor_uploader.fields import RichTextUploadingField
 
 class Category(models.Model):
     name = models.CharField(max_length=32)
@@ -18,13 +19,14 @@ class Tag(models.Model):
     def __str__(self):
         return self.name
 
-class BlogPost(models.Model, HitCountMixin):
+class BlogPost(models.Model, HitCountMixin, RichTextUploadingField):
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     title = models.CharField(max_length=255)
     tags = models.ManyToManyField(Tag)
     pub_date = models.DateTimeField(default=timezone.now)
-    content = models.TextField()
+    content = RichTextUploadingField()
+    summary = models.TextField(max_length=150)
     image = models.ImageField(upload_to='images/')
     search_fields = ['title','byline','symbol']
 
@@ -33,10 +35,7 @@ class BlogPost(models.Model, HitCountMixin):
 
     def comment_count(self):
         return self.comments.filter(approved_comment = True).count()
-        
-    def summary(self):
-        return self.content[:100] + "..."
-    
+
     def pub_date_pretty(self):
         return self.pub_date.strftime('%e %b | %Y')
 
