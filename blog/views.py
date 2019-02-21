@@ -13,13 +13,22 @@ def home(request):
     return render(request, 'blog/home.html', {'posts':posts, 'projects':projects})
 
 def blog(request):
-    post_list = BlogPost.objects.all()
+    # Blog search
+    if request.method == "POST":
+        search_vector = SearchVector('author__username', 'category__name', 'title', 'tags__name', 'content')
+        post_list = BlogPost.objects.annotate(search=search_vector).filter(search=request.POST['search']).distinct('title')
+    else:
+        post_list = BlogPost.objects.all()
+
     paginator = Paginator(post_list, 4)
     tags = Tag.objects.all()
     categories = Category.objects.all().annotate(posts_count=Count('blogpost'))
 
     page = request.GET.get('page')
     posts = paginator.get_page(page)
+
+    # if request.method == "POST":
+    #     return render(request, 'blog/blog.html', {'posts':posts, 'range':range(posts.paginator.num_pages+1), 'tags':tags, 'categories':categories, 'message':'Search results'})
     return render(request, 'blog/blog.html', {'posts':posts, 'range':range(posts.paginator.num_pages+1), 'tags':tags, 'categories':categories})
 
 def post(request, post_id):
@@ -38,10 +47,4 @@ def post(request, post_id):
 
     return render(request, 'blog/post.html', {'post':post, 'posts':posts, 'tags':tags, 'categories':categories})
 
-def search(request):
-    if request.method == "POST":
-        posts = BlogPost.objects.annotate(
-            search=SearchVector('author', 'category', 'title', 'tags', 'content' )
-        ).filter(search=request.POST('search')).all()
-        return render(request, 'blog/blog.html', {'posts':posts})
     

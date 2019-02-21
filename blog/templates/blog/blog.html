@@ -63,7 +63,7 @@
               <header>
                 <h3 class="h6">Search the blog</h3>
               </header>
-              <form action="{% url 'search' %}" class="search-form" method="POST">
+              <form action="{% url 'blog' %}" class="search-form" method="POST">
                 {% csrf_token %}
                 <div class="form-group">
                   <input type="search" placeholder="What are you looking for?" name="search">
