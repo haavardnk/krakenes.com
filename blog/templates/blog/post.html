@@ -102,7 +102,7 @@
               </header>
               <div class="blog-posts"><a href="#">
                 {% for post in posts|slice:":3" %}
-                <a href="#">
+                <a href="{% url 'post' post.id %}">
                   <div class="item d-flex align-items-center">
                     <div class="image"><img src="{{post.image.url}}" alt="..." class="" width=60 height=60 style="object-fit: cover"></div>
                     <div class="title"><strong>{{post.title}}</strong>

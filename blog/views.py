@@ -4,6 +4,7 @@ from projects.models import Project
 from django.core.paginator import Paginator
 from hitcount.models import HitCount
 from hitcount.views import HitCountMixin
+from django.contrib.postgres.search import SearchVector
 
 def home(request):
     posts = BlogPost.objects
@@ -31,3 +32,11 @@ def post(request, post_id):
     HitCountMixin.hit_count(request, hit_count)
 
     return render(request, 'blog/post.html', {'post':post, 'posts':posts})
+
+def search(request):
+    if request.method == "POST":
+        posts = BlogPost.objects.annotate(
+            search=SearchVector('author', 'category', 'title', 'tags', 'content' )
+        ).filter(search=request.POST('search')).all()
+        return render(request, 'blog/blog.html', {'posts':posts})
+    

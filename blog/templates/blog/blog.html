@@ -63,9 +63,10 @@
               <header>
                 <h3 class="h6">Search the blog</h3>
               </header>
-              <form action="#" class="search-form">
+              <form action="{% url 'search' %}" class="search-form" method="POST">
+                {% csrf_token %}
                 <div class="form-group">
-                  <input type="search" placeholder="What are you looking for?">
+                  <input type="search" placeholder="What are you looking for?" name="search">
                   <button type="submit" class="submit"><i class="icon-search"></i></button>
                 </div>
               </form>
@@ -77,7 +78,7 @@
               </header>
               <div class="blog-posts">
                 {% for post in posts|slice:":3" %}
-                <a href="#">
+                <a href="{% url 'post' post.id %}">
                   <div class="item d-flex align-items-center">
                     <div class="image"><img src="{{post.image.url}}" alt="..." class="" width=60 height=60 style="object-fit: cover"></div>
                     <div class="title"><strong>{{post.title}}</strong>

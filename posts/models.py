@@ -28,8 +28,7 @@ class BlogPost(models.Model, HitCountMixin, RichTextUploadingField):
     content = RichTextUploadingField()
     summary = models.TextField(max_length=150)
     image = models.ImageField(upload_to='images/')
-    search_fields = ['title','byline','symbol']
-
+    
     def __str__(self):
         return self.title
 
