@@ -15,8 +15,10 @@ def home(request):
 def blog(request):
     # Blog search
     if request.method == "POST":
-        search_vector = SearchVector('author__username', 'category__name', 'title', 'tags__name', 'content')
-        post_list = BlogPost.objects.annotate(search=search_vector).filter(search=request.POST['search']).distinct('title')
+        search_vector = SearchVector(
+            'author__username', 'category__name', 'title', 'tags__name', 'content')
+        post_list = BlogPost.objects.annotate(search=search_vector).filter(
+            search=request.POST['search']).distinct('title')
     else:
         post_list = BlogPost.objects.all()
 
@@ -29,9 +31,28 @@ def blog(request):
 
     if request.method == "POST":
         if post_list:
-            return render(request, 'blog/blog.html', {'posts':posts, 'range':range(posts.paginator.num_pages+1), 'tags':tags, 'categories':categories, 'message':'Search results for '+ "'"+request.POST['search']+"':"})
-        return render(request, 'blog/blog.html', {'posts':posts, 'range':range(posts.paginator.num_pages+1), 'tags':tags, 'categories':categories, 'message':'There are no results that match your search.'})
-    return render(request, 'blog/blog.html', {'posts':posts, 'range':range(posts.paginator.num_pages+1), 'tags':tags, 'categories':categories})
+            return render(request, 'blog/blog.html', {
+                'posts':posts,
+                'range':range(posts.paginator.num_pages+1),
+                'tags':tags,
+                'categories':categories,
+                'message':'Search results for '+ "'"+request.POST['search']+"':"
+                })
+
+        return render(request, 'blog/blog.html', {
+            'posts':posts,
+            'range':range(posts.paginator.num_pages+1),
+            'tags':tags,
+            'categories':categories,
+            'message':'There are no results that match your search.'
+            })
+
+    return render(request, 'blog/blog.html', {
+        'posts':posts,
+        'range':range(posts.paginator.num_pages+1),
+        'tags':tags,
+        'categories':categories
+        })
 
 def post(request, post_id):
     post = get_object_or_404(BlogPost, pk=post_id)
@@ -40,7 +61,12 @@ def post(request, post_id):
     categories = Category.objects.all().annotate(posts_count=Count('blogpost'))
 
     if request.method == "POST":
-        comment = Comment.objects.create(post=post, author = request.POST['username'], text=request.POST['comment'], email = request.POST['email'])
+        comment = Comment.objects.create(
+            post=post,
+            author=request.POST['username'],
+            text=request.POST['comment'],
+            email=request.POST['email']
+            )
         comment.save()
         return render(request, 'blog/post.html', {'post':post})
 
