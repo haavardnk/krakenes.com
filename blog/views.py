@@ -27,8 +27,10 @@ def blog(request):
     page = request.GET.get('page')
     posts = paginator.get_page(page)
 
-    # if request.method == "POST":
-    #     return render(request, 'blog/blog.html', {'posts':posts, 'range':range(posts.paginator.num_pages+1), 'tags':tags, 'categories':categories, 'message':'Search results'})
+    if request.method == "POST":
+        if post_list:
+            return render(request, 'blog/blog.html', {'posts':posts, 'range':range(posts.paginator.num_pages+1), 'tags':tags, 'categories':categories, 'message':'Search results for '+ "'"+request.POST['search']+"':"})
+        return render(request, 'blog/blog.html', {'posts':posts, 'range':range(posts.paginator.num_pages+1), 'tags':tags, 'categories':categories, 'message':'There are no results that match your search.'})
     return render(request, 'blog/blog.html', {'posts':posts, 'range':range(posts.paginator.num_pages+1), 'tags':tags, 'categories':categories})
 
 def post(request, post_id):
