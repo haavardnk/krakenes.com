@@ -9,8 +9,7 @@ from django.db.models import Count
 
 def home(request):
     posts = BlogPost.objects
-    projects = Project.objects
-    return render(request, 'blog/home.html', {'posts':posts, 'projects':projects})
+    return render(request, 'blog/home.html', {'posts':posts})
 
 def blog(request):
     # Blog search
