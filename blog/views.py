@@ -6,6 +6,7 @@ from hitcount.models import HitCount
 from hitcount.views import HitCountMixin
 from django.contrib.postgres.search import SearchVector
 from django.db.models import Count
+from django.contrib.auth.models import User
 
 def home(request):
     posts = BlogPost.objects.all().order_by('-id')
@@ -65,18 +66,30 @@ def post(request, post_id):
     tags = Tag.objects.all()
     categories = Category.objects.all().annotate(posts_count=Count('blogpost'))
 
-    if request.method == "POST":
-        comment = Comment.objects.create(
-            post=post,
-            author=request.POST['username'],
-            text=request.POST['comment'],
-            email=request.POST['email']
-            )
-        comment.save()
-        return render(request, 'blog/post.html', {'post':post})
-
     hit_count = HitCount.objects.get_for_object(post)
     HitCountMixin.hit_count(request, hit_count)
+
+    if request.method == "POST":
+        if request.user.is_authenticated:
+            comment = Comment.objects.create(
+                post=post,
+                author=request.user.username,
+                text=request.POST['comment'],
+                email=request.user.email
+                )
+            comment.approve()
+            message = "Comment submitted."
+        else:
+            comment = Comment.objects.create(
+                post=post,
+                author=request.POST['username'],
+                text=request.POST['comment'],
+                email=request.POST['email']
+                )
+            message = "Comment submitted for approval. Please log in to comment without approval."
+
+        comment.save()
+        return render(request, 'blog/post.html', {'post':post, 'posts':posts, 'tags':tags, 'categories':categories, 'message':message})
 
     return render(request, 'blog/post.html', {'post':post, 'posts':posts, 'tags':tags, 'categories':categories})
 
