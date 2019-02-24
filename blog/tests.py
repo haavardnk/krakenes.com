@@ -20,7 +20,7 @@ class BaseTestCase(TestCase):
 class HomePageTests(BaseTestCase):
     '''
     Tests of the home page
-    ''' 
+    '''
     def test_home_page_status_code(self):
         response = self.client.get('/')
         self.assertEquals(response.status_code, 200)
@@ -40,6 +40,9 @@ class HomePageTests(BaseTestCase):
             response, 'Not in home')
     
     def test_home_page_contains_three_blogposts(self):
+        '''
+        Checks that the home page only contains the latest three blog posts
+        '''
         response = self.client.get('/')
         for i in range(5, 2, -1):
             self.assertContains(response, BlogPost.objects.get(id=i).summary)
@@ -88,15 +91,25 @@ class BlogPageTests(BaseTestCase):
     def test_blog_page_search(self):
         '''
         Checks that a search for only returns correct post.
+        Also checks for correct message to user.
         '''
         response = self.client.post('/blog/', {'search': 'test5'})
         self.assertContains(response, BlogPost.objects.get(id=5).summary)
         self.assertNotContains(response, BlogPost.objects.get(id=4).summary)
         self.assertNotContains(response, BlogPost.objects.get(id=3).summary)
-    
+        self.assertContains(response, "Search results for")
+
+    def test_blog_page_search_no_results(self):
+        '''
+        Checks that a search with no results gives the right message.
+        '''
+        response = self.client.post('/blog/', {'search': 'thiswillgivenoresults'})
+        self.assertContains(response, 'There are no results that match your search.')
+
     def test_blog_page_categories(self):
         '''
         Checks that the category shows and returns correct post count.
         '''
         response = self.client.get('/blog/')
+
         self.assertContains(response, '<a href="#">Test_cat</a><span>5</span>')
