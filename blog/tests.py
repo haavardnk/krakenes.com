@@ -29,15 +29,6 @@ class HomePageTests(BaseTestCase):
         response = self.client.get(reverse('home'))
         self.assertEquals(response.status_code, 200)
         self.assertTemplateUsed(response, 'blog/home.html')
-
-    def test_home_page_contains_correct_html(self):
-        response = self.client.get('/')
-        self.assertContains(response, '<h1>Håvard Kråkenes  - Automation</h1>')
-
-    def test_home_page_does_not_contain_incorrect_html(self):
-        response = self.client.get('/')
-        self.assertNotContains(
-            response, 'Not in home')
     
     def test_home_page_contains_three_blogposts(self):
         '''
@@ -60,15 +51,6 @@ class BlogPageTests(BaseTestCase):
         response = self.client.get(reverse('blog'))
         self.assertEquals(response.status_code, 200)
         self.assertTemplateUsed(response, 'blog/blog.html')
-
-    def test_blog_page_contains_correct_html(self):
-        response = self.client.get('/blog/')
-        self.assertContains(response, 'Search the blog')
-
-    def test_blog_page_does_not_contain_incorrect_html(self):
-        response = self.client.get('/blog/')
-        self.assertNotContains(
-            response, 'Not in blog')
 
     def test_blog_page_contains_four_blogposts(self):
         '''
