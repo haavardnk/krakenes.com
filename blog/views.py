@@ -18,8 +18,8 @@ def blog(request):
     if request.method == "POST":
         search_vector = SearchVector(
             'author__username', 'category__name', 'title', 'tags__name', 'content')
-        post_list = BlogPost.objects.annotate(search=search_vector).filter(
-            search=request.POST['search']).distinct('title')
+        post_list = BlogPost.objects.all().annotate(search=search_vector).filter(
+            search=request.POST['search']).order_by('title', '-id').distinct('title')
     else:
         post_list = all_posts
 
