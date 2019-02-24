@@ -82,7 +82,7 @@
                 <h3 class="h6">Latest Posts</h3>
               </header>
               <div class="blog-posts">
-                {% for post in posts|slice:":3" %}
+                {% for post in all_posts|slice:":3" %}
                 <a href="{% url 'post' post.id %}">
                   <div class="item d-flex align-items-center">
                     <div class="image"><img src="{{post.image.url}}" alt="..." class="" width=60 height=60 style="object-fit: cover"></div>

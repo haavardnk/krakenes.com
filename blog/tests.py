@@ -1,24 +1,26 @@
 from django.test import TestCase
 from django.urls import reverse
-from posts.models import BlogPost, Category
+from posts.models import BlogPost, Category, Tag
 from django.utils import timezone
 from django.contrib.auth.models import User
 from django.core.files.uploadedfile import SimpleUploadedFile
 
 # Create your tests here.
-class BaseTestClass(TestCase):
+class BaseTestCase(TestCase):
+    '''
+    Basic test setup for pages
+    ''' 
     def setUp(self):
         user = User.objects.create_user(username='testuser', email='test@test.com', password='testpass')
-        category = Category.objects.create(name='Automation')
+        category = Category.objects.create(name='Test_cat')
         image = SimpleUploadedFile("test.png", b"\x00\x01\x02\x03")
         for i in range(1,6):
-            BlogPost.objects.create(author=user, title='test'+str(i), content='test', category=category, image=image)
+            BlogPost.objects.create(id= i, author=user, title='test'+str(i), content='test', category=category, image=image, summary=str(i)+str(i)+str(i))
 
-class HomePageTests(BaseTestClass):
+class HomePageTests(BaseTestCase):
     '''
     Tests of the home page
     ''' 
-
     def test_home_page_status_code(self):
         response = self.client.get('/')
         self.assertEquals(response.status_code, 200)
@@ -39,12 +41,11 @@ class HomePageTests(BaseTestClass):
     
     def test_home_page_contains_three_blogposts(self):
         response = self.client.get('/')
-        posts = BlogPost.objects.all()
-        for i in range(0,3):
-            self.assertContains(response, posts[i].title)
-        self.assertNotContains(response, posts[3].title)
+        for i in range(5, 2, -1):
+            self.assertContains(response, BlogPost.objects.get(id=i).summary)
+        self.assertNotContains(response, BlogPost.objects.get(id=2).summary)
 
-class BlogPageTests(BaseTestClass):
+class BlogPageTests(BaseTestCase):
     '''
     Tests of the blog page
     '''
@@ -67,16 +68,35 @@ class BlogPageTests(BaseTestClass):
             response, 'Not in blog')
 
     def test_blog_page_contains_four_blogposts(self):
+        '''
+        Checks that blog page contains correct amount of blog posts
+        '''
         response = self.client.get('/blog/')
-        posts = BlogPost.objects.all()
-        for i in range(0,4):
-            self.assertContains(response, posts[i].title)
-        self.assertNotContains(response, posts[4].title)
+        for i in range(5, 1, -1):
+            self.assertContains(response, BlogPost.objects.get(id=i).summary)
+        self.assertNotContains(response, BlogPost.objects.get(id=1).summary)
     
-    def test_blog_page_contains_one_post_on_page_two(self):
-        response = self.client.get('/blog/?page=2/')
-        # posts = BlogPost.objects.all()
-        # self.assertContains(response, posts[4].title)
+    def test_blog_page_pagination(self):
+        '''
+        Checks that blog page contains correct amount of pages.
+        '''
+        response = self.client.get('/blog/')
         self.assertContains(response, '?page=1')
         self.assertContains(response, '?page=2')
         self.assertNotContains(response, '?page=3')
+
+    def test_blog_page_search(self):
+        '''
+        Checks that a search for only returns correct post.
+        '''
+        response = self.client.post('/blog/', {'search': 'test5'})
+        self.assertContains(response, BlogPost.objects.get(id=5).summary)
+        self.assertNotContains(response, BlogPost.objects.get(id=4).summary)
+        self.assertNotContains(response, BlogPost.objects.get(id=3).summary)
+    
+    def test_blog_page_categories(self):
+        '''
+        Checks that the category shows and returns correct post count.
+        '''
+        response = self.client.get('/blog/')
+        self.assertContains(response, '<a href="#">Test_cat</a><span>5</span>')
