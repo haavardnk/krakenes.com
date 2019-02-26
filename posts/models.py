@@ -5,19 +5,26 @@ from hitcount.models import HitCount
 from hitcount.views import HitCountMixin
 from ckeditor_uploader.fields import RichTextUploadingField
 
+
 class Category(models.Model):
     name = models.CharField(max_length=32)
+
     class Meta:
         verbose_name_plural = "Categories"
+
     def __str__(self):
         return self.name
 
+
 class Tag(models.Model):
     name = models.CharField(max_length=32)
+
     class Meta:
         ordering = ['name']
+
     def __str__(self):
         return self.name
+
 
 class BlogPost(models.Model, HitCountMixin, RichTextUploadingField):
     author = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -28,18 +35,20 @@ class BlogPost(models.Model, HitCountMixin, RichTextUploadingField):
     content = RichTextUploadingField()
     summary = models.TextField(max_length=150)
     image = models.ImageField(upload_to='images/')
-    
+
     def __str__(self):
         return self.title
 
     def comment_count(self):
-        return self.comments.filter(approved_comment = True).count()
+        return self.comments.filter(approved_comment=True).count()
 
     def pub_date_pretty(self):
         return self.pub_date.strftime('%e %b | %Y')
 
+
 class Comment(models.Model):
-    post = models.ForeignKey(BlogPost, on_delete=models.CASCADE, related_name='comments')
+    post = models.ForeignKey(
+        BlogPost, on_delete=models.CASCADE, related_name='comments')
     author = models.CharField(max_length=200)
     email = models.EmailField()
     text = models.TextField()
