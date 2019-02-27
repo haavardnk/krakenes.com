@@ -4,8 +4,7 @@
 <!-- Hero Section-->
 <section
   style="background: url({% static 'img/automation9.jpg'%}); background-size: cover; background-position: 50% 19% "
-  class="hero"
->
+  class="hero">
   <div class="container">
     <div class="row">
       <div class="col-lg-7">
@@ -13,12 +12,15 @@
         <a href="#" class="hero-link">Discover More</a>
       </div>
     </div>
-    <a href=".intro" class="continue link-scroll"
-      ><i class="fa fa-long-arrow-down"></i> Scroll Down</a
-    >
+    <a href="javascript: window.scroll({
+      top: 600, 
+      behavior: 'smooth' 
+      });" 
+      class="continue link-scroll"
+      ><i class="fa fa-long-arrow-down"></i> Scroll Down</a>
   </div>
 </section>
-<section class="no-padding-top no-padding-bottom">
+<section class="no-padding-top no-padding-bottom" id="scroll">
   <div class="container py-5">
     <div class="row">
       <div class="col-lg-8">
