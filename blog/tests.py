@@ -105,4 +105,4 @@ class BlogPageTests(BaseTestCase):
         '''
         response = self.client.get('/blog/')
 
-        self.assertContains(response, '<a href="#">Test_cat</a><span>5</span>')
+        self.assertContains(response, '<a href="#">Test_cat')
