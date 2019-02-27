@@ -25,7 +25,7 @@
                     <h3 class="h4">{{post.title}}</h3></a>
                   <p class="text-muted">{{post.summary}}</p>
                   <footer class="post-footer d-flex align-items-center"><a href="#" class="author d-flex align-items-center flex-wrap">
-                      <div class="avatar"><img src="{% static 'img/havard.jpg' %}" alt="..." class="img-fluid"></div>
+                      <div class="avatar"><img src="{{post.author.profile.profile_picture.url}}" alt="..." class="img-fluid"></div>
                       <div class="title"><span>{{post.author}}</span></div></a>
                     <div class="date"><i class="icon-clock"></i>{{post.pub_date_pretty}}</div>
                     <div class="comments meta-last"><i class="icon-comment"></i>{{post.comment_count}}</div>

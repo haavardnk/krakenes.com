@@ -19,7 +19,7 @@
                     <h3 class="h4">{{project.title}}</h3></a>
                   <p class="text-muted">{{project.summary}}</p>
                   <footer class="post-footer d-flex align-items-center"><a href="#" class="author d-flex align-items-center flex-wrap">
-                      <div class="avatar"><img src="{% static 'img/havard.jpg' %}" alt="..." class="img-fluid"></div>
+                      <div class="avatar"><img src="{{project.author.profile.profile_picture.url}}" alt="..." class="img-fluid"></div>
                       <div class="title"><span>{{project.author}}</span></div></a>
                     <div class="date"><i class="icon-clock"></i>{{project.pub_date_pretty}}</div>
                 </footer>

@@ -19,7 +19,7 @@
                   </div>
                   <h1>{{post.title}}<a href="#"><i class="fa fa-bookmark-o"></i></a></h1>
                   <div class="post-footer d-flex align-items-center flex-column flex-sm-row"><a href="#" class="author d-flex align-items-center flex-wrap">
-                      <div class="avatar"><img src="{% static 'img/havard.jpg' %}" alt="..." class="img-fluid"></div>
+                      <div class="avatar"><img src="{{post.author.profile.profile_picture.url}}" alt="..." class="img-fluid"></div>
                       <div class="title"><span>{{post.author}}</span></div></a>
                     <div class="d-flex align-items-center flex-wrap">       
                       <div class="date"><i class="icon-clock"></i> {{post.pub_date_pretty}}</div>
