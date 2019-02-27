@@ -8,8 +8,18 @@
     padding-bottom: 150px; /* height of your footer */
    }
 
-   .main-footer {
+.main-footer {
     position: absolute;
     bottom: 0;
     width: 100%;
    }
+
+.profile_pic {
+    max-width: 40px;
+    min-width: 40px;
+    height: 40px;
+    overflow: hidden;
+    border-radius: 50%;
+    margin-left: 10px;
+    margin-right: 0px;
+  }
