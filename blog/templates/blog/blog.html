@@ -168,8 +168,11 @@
         </header>
         {%for category in categories%}
         <div class="item d-flex justify-content-between">
-          <a href="#">{{ category }}
-            </a><span>{{ category.posts_count }}</span>
+          <form id="{{ category }}" action="{% url 'blog' %}" method="POST">{% csrf_token %}
+            <input type="hidden" value="{{ category }}" name="search">
+            <a href="#" onclick="document.forms['{{ category }}'].submit();">{{ category }}</a>
+          </form>
+          <span>{{ category.posts_count }}</span>
         </div>
         {% endfor %}
       </div>
@@ -181,7 +184,10 @@
         <ul class="list-inline">
           {%for tag in tags%}
           <li class="list-inline-item">
-            <a href="#" class="tag">{{ tag }}</a>
+            <form id="{{ tag }}" action="{% url 'blog' %}" method="POST">{% csrf_token %}
+              <input type="hidden" value="{{ tag }}" name="search">
+              <a href="#" class="tag" onclick="document.forms['{{ tag }}'].submit();">{{ tag }}</a>
+            </form>
           </li>
           {% endfor %}
         </ul>

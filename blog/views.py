@@ -76,22 +76,13 @@ def post(request, post_id):
         if request.user.is_authenticated:
             comment = Comment.objects.create(
                 post=post,
-                author=request.user.username,
+                author=request.user,
                 text=request.POST['comment'],
-                email=request.user.email
             )
             comment.approve()
             message = "Comment submitted."
-        else:
-            comment = Comment.objects.create(
-                post=post,
-                author=request.POST['username'],
-                text=request.POST['comment'],
-                email=request.POST['email']
-            )
-            message = "Comment submitted for approval. Please log in to comment without approval."
+            comment.save()
 
-        comment.save()
         return render(request, 'blog/post.html', {'post': post, 'posts': posts, 'tags': tags, 'categories': categories, 'message': message})
 
     return render(request, 'blog/post.html', {'post': post, 'posts': posts, 'tags': tags, 'categories': categories})

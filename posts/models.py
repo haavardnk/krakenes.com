@@ -45,12 +45,10 @@ class BlogPost(models.Model, HitCountMixin, RichTextUploadingField):
     def pub_date_pretty(self):
         return self.pub_date.strftime('%e %b | %Y')
 
-
 class Comment(models.Model):
     post = models.ForeignKey(
         BlogPost, on_delete=models.CASCADE, related_name='comments')
-    author = models.CharField(max_length=200)
-    email = models.EmailField()
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
     text = models.TextField()
     created_date = models.DateTimeField(default=timezone.now)
     approved_comment = models.BooleanField(default=False)
