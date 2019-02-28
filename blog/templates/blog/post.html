@@ -124,10 +124,14 @@
                       id="usercomment"
                       placeholder="Please log in to comment."
                       class="form-control"
+                      readonly
                     ></textarea>
                   </div>
                   <div class="form-group col-md-12">
-                    <a href="{% url 'login' %}" ><button class="btn btn-disabled">
+                    <a class="nav-item nav-link}"
+                    href="#login"
+                    data-toggle="modal"
+                    data-target="#loginModal"><button class="btn btn-disabled">
                       Login
                     </button></a>
                   </div>
