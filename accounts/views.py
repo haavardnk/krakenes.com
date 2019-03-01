@@ -1,25 +1,23 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, reverse
 from django.contrib.auth.models import User
 from django.contrib import auth
-from django.http import HttpResponseRedirect, JsonResponse, HttpResponse
+from django.http import HttpResponsePermanentRedirect, JsonResponse, HttpResponse
+from django.contrib.auth.decorators import login_required
 
 
 def login(request):
     response_data = {}
-    response_data['url'] = request.POST['next']
-    username = request.POST['username']
-    password = request.POST['password']
     if request.method == 'POST' and request.is_ajax:
+        response_data['url'] = request.POST['next']
+        username = request.POST['username']
+        password = request.POST['password']
         try:
             get_user = User.objects.get(username=username)
             if get_user.check_password(password):
                 user = auth.authenticate(
                     username=username, password=password)
-                if user is not None:
-                    auth.login(request, user)
-                    response_data['login'] = "success"
-                else:
-                    response_data['login'] = "nouser"
+                auth.login(request, user)
+                response_data['login'] = "success"
             else:
                 response_data['login'] = "password"
         except:
@@ -32,8 +30,8 @@ def login(request):
 
 def signup(request):
     response_data = {}
-    response_data['url'] = request.POST['next']
     if request.method == 'POST' and request.is_ajax:
+        response_data['url'] = request.POST['next']
         if request.POST['password1'] == request.POST['password2']:
             try:
                 user = User.objects.get(email=request.POST['email'])
@@ -58,8 +56,8 @@ def signup(request):
         response_data['register'] = "failed"
         return HttpResponse(JsonResponse(response_data))
 
-
+@login_required(login_url=('home'))
 def logout(request):
     if request.method == 'POST':
         auth.logout(request)
-        return redirect('home')
+        return HttpResponsePermanentRedirect(reverse('home'))

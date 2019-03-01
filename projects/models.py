@@ -1,5 +1,7 @@
 from django.db import models
+from django.utils import timezone
 from django.contrib.auth.models import User
+from django.contrib.contenttypes.fields import GenericRelation
 from posts.models import Category, Tag
 from hitcount.models import HitCount
 from hitcount.views import HitCountMixin
@@ -11,11 +13,10 @@ class Project(models.Model, HitCountMixin, RichTextUploadingField):
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     title = models.CharField(max_length=255)
     tags = models.ManyToManyField(Tag)
-    pub_date = models.DateTimeField()
+    pub_date = models.DateTimeField(default=timezone.now)
     content = RichTextUploadingField()
     summary = models.TextField(max_length=150)
     image = models.ImageField(upload_to='images/')
-    search_fields = ['title', 'category']
 
     def __str__(self):
         return self.title

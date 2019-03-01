@@ -7,7 +7,7 @@ from hitcount.views import HitCountMixin
 
 
 def projects(request):
-    project_list = Project.objects.all()
+    project_list = Project.objects.all().order_by('-id')
     paginator = Paginator(project_list, 4)
 
     page = request.GET.get('page')
