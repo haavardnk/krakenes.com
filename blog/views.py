@@ -65,7 +65,7 @@ def blog(request):
 
 def post(request, post_id):
     post = get_object_or_404(BlogPost, pk=post_id)
-    posts = BlogPost.objects.all()
+    posts = BlogPost.objects.all().order_by('-id')
     tags = Tag.objects.all()
     categories = Category.objects.all().annotate(posts_count=Count('blogpost'))
 
@@ -79,7 +79,6 @@ def post(request, post_id):
                 author=request.user,
                 text=request.POST['comment'],
             )
-            comment.approve()
             message = "Comment submitted."
             comment.save()
 

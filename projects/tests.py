@@ -1,12 +1,10 @@
 from django.test import TestCase
-from django.shortcuts import get_object_or_404
-from projects.models import Project
-from posts.models import Category, Tag
-from hitcount.models import HitCount
 from django.contrib.auth.models import User
 from django.core.files.uploadedfile import SimpleUploadedFile
+from projects.models import Project
+from posts.models import Category
 
-# Create your tests here.
+
 class BaseTestCase(TestCase):
     '''
     Basic test setup for pages
@@ -26,6 +24,7 @@ class ProjectsPageTests(BaseTestCase):
     '''
     Tests of the project page
     '''
+
     def test_view_uses_correct_template(self):
         response = self.client.get('/projects/')
         self.assertEqual(response.status_code, 200)
@@ -41,6 +40,7 @@ class ProjectsPageTests(BaseTestCase):
             self.assertContains(response, Project.objects.get(id=i).summary)
         self.assertNotContains(response, Project.objects.get(id=1).title)
         self.assertNotContains(response, Project.objects.get(id=1).summary)
+
     def test_projects_page_pagination(self):
         '''
         Checks that projects page contains correct amount of pages.
@@ -50,23 +50,40 @@ class ProjectsPageTests(BaseTestCase):
         self.assertContains(response, '?page=2')
         self.assertNotContains(response, '?page=3')
 
+
 class ProjectDetailPageTests(BaseTestCase):
+    '''
+    Tests of the project detail page
+    '''
 
     def test_project_details(self):
+        '''
+        Tests rendering of a project
+        '''
         response = self.client.get('/projects/1/')
         self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'projects/project_details.html')
         self.assertContains(response, Project.objects.get(id=1).title)
         self.assertContains(response, Project.objects.get(id=1).content)
         self.assertContains(response, Project.objects.get(id=1).image)
-        self.assertContains(response, Project.objects.get(id=1).pub_date.strftime('%e %b | %Y'))
-        self.assertContains(response, Project.objects.get(id=1).author.username)
+        self.assertContains(response, Project.objects.get(
+            id=1).pub_date.strftime('%e %b | %Y'))
+        self.assertContains(
+            response, Project.objects.get(id=1).author.username)
         self.assertContains(response, "Test_cat")
 
     def test_wrong_project_404(self):
+        '''
+        Tests requesting a project that does not exist
+        '''
         response = self.client.get('/projects/1337/')
         self.assertEqual(response.status_code, 404)
 
+
 class ProjectModelTests(BaseTestCase):
+    '''
+    Tests Project model __str__
+    '''
 
     def test_project_model_str(self):
         project = Project.objects.get(id=1)
