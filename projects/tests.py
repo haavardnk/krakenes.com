@@ -65,3 +65,9 @@ class ProjectDetailPageTests(BaseTestCase):
     def test_wrong_project_404(self):
         response = self.client.get('/projects/1337/')
         self.assertEqual(response.status_code, 404)
+
+class ProjectModelTests(BaseTestCase):
+
+    def test_project_model_str(self):
+        project = Project.objects.get(id=1)
+        self.assertEqual(str(project), "test1")

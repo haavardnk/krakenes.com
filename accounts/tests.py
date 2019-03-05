@@ -78,8 +78,8 @@ class LogoutTests(BaseTestCase):
         response = self.client.post("/accounts/logout")
         self.assertEqual(response.status_code, 302)
 
-class ProfileTests(BaseTestCase):
+class ProfileModelTests(BaseTestCase):
     
-    def test_profile_str_name(self):
+    def test_profile_model_str(self):
         user = User.objects.get(username='testuser')
         self.assertEqual(str(user.profile), user.username)

@@ -16,7 +16,7 @@ class BaseTestCase(TestCase):
     def setUp(self):
         user = User.objects.create_user(
             username='testuser', email='test@test.com', password='testpass')
-        category = Category.objects.create(name='Test_cat')
+        category = Category.objects.create(id=11, name='Test_cat')
         image = SimpleUploadedFile("test.png", b"\x00\x01\x02\x03")
         for i in range(1, 6):
             BlogPost.objects.create(id=i, author=user, title='test'+str(
@@ -106,3 +106,22 @@ class BlogPageTests(BaseTestCase):
         response = self.client.get('/blog/')
 
         self.assertContains(response, '<a href="#">Test_cat')
+
+class BlogPostModelTests(BaseTestCase):
+
+    def test_blogpost_model_str(self):
+        post = BlogPost.objects.get(id=1)
+        self.assertEqual(str(post), "test1")
+
+class CategoryModelTests(BaseTestCase):
+
+    def test_category_model_str(self):
+        category = Category.objects.get(id=11)
+        self.assertEqual(str(category), "Test_cat")
+
+class TagModelTests(BaseTestCase):
+
+    def test_tag_model_str(self):
+        Tag.objects.create(id=12, name='Test_tag')
+        tag = Tag.objects.get(id=12)
+        self.assertEqual(str(tag), "Test_tag")
