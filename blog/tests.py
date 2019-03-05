@@ -1,6 +1,6 @@
 from django.test import TestCase
 from django.urls import reverse
-from posts.models import BlogPost, Category, Tag
+from posts.models import BlogPost, Category, Tag, Comment
 from django.utils import timezone
 from django.contrib.auth.models import User
 from django.core.files.uploadedfile import SimpleUploadedFile
@@ -125,3 +125,11 @@ class TagModelTests(BaseTestCase):
         Tag.objects.create(id=12, name='Test_tag')
         tag = Tag.objects.get(id=12)
         self.assertEqual(str(tag), "Test_tag")
+
+class CommentModelTests(BaseTestCase):
+
+    def test_comment_model_str(self):
+        post = BlogPost.objects.get(id=1)
+        user = User.objects.get(username='testuser')
+        comment = Comment.objects.create(post=post, author=user, text="test_comment")
+        self.assertEqual(str(comment), "test_comment")
