@@ -16,6 +16,8 @@
 
 .header-logo {
     height: 30px;
+    max-width: 100%;
+    max-height: auto;
 }
 
 .profile-pic {
