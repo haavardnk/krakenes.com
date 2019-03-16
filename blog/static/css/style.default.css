@@ -589,10 +589,11 @@ div[class*="-btn"] {
 }
 
 .navbar .navbar-nav a.nav-link {
+  font-family: 'bikoregular';
   color: #333;
   margin: 0 5px;
   font-weight: 400;
-  font-size: 0.95em;
+  font-size: 1em;
 }
 
 .navbar .navbar-nav a.nav-link:hover {
@@ -600,7 +601,7 @@ div[class*="-btn"] {
 }
 
 .navbar .navbar-nav a.nav-link.active {
-  color: #999;
+  color: #333;
   font-weight: bold;
 }
 
@@ -636,6 +637,7 @@ section.hero .container {
 }
 
 section.hero h1 {
+  font-family: 'bikoregular';
   line-height: 1.2em;
 }
 

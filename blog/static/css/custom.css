@@ -1,5 +1,13 @@
 /* your styles go here */
 
+@font-face {
+    font-family: 'bikoregular';
+    src: url('../fonts/biko_regular-webfont.woff2') format('woff2'),
+         url('../fonts/biko_regular-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
 .main-container {
     min-height: 100vh; /* will cover the 100% of viewport */
     overflow: hidden;
@@ -115,3 +123,4 @@
 .signup-email-error {
     display: none
 }
+
