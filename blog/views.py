@@ -11,7 +11,8 @@ from django.contrib.auth.models import User
 
 def home(request):
     posts = BlogPost.objects.all().order_by('-id')
-    return render(request, 'blog/home.html', {'posts': posts})
+    projects = Project.objects.all().order_by('-id')
+    return render(request, 'blog/home.html', {'posts': posts, 'projects': projects})
 
 
 def blog(request):
