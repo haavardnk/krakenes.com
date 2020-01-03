@@ -1,9 +1,21 @@
 {% extends 'base.html' %} {% block content %} 
-{% load static %}
+{% load staticfiles %} {% load hitcount_tags %}
+<div class="page-header header-small" data-parallax="true" style="background-image: url({% static 'img/blackboard-background.jpg'%})">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-8 ml-auto mr-auto">
+        <div class="brand text-center">
+          <h1>Kråkenes</h1>
+          <h3 class="title text-center">A tech blog.</h3>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="main main-raised">
 <div class="container">
   <div class="row">
     <!--Posts -->
-    <main class="posts-listing col-lg-8">
       <div class="container">
         {% if message %}
         <div class="alert alert-light text-center" role="alert">
@@ -11,54 +23,40 @@
         </div>
         {% endif %}
 
-        <div class="row">
-          {% for post in posts %}
-          <div class="post col-xl-6">
-            <div class="post-thumbnail">
-              <a href="{% url 'post' post.id %}"
-                ><img
-                  src="{{ post.image.url }}"
-                  alt="..."
-                  class=""
-                  width="350"
-                  height="250"
-                  style="object-fit: cover"
-              /></a>
-            </div>
-            <div class="post-details">
-              <div class="post-meta d-flex justify-content-between">
-                <div class="date meta-last">20 May | 2016</div>
-                <div class="category">
-                  <a href="#">{{ post.category }}</a>
+        <!--     *********     BLOGS 3      *********      -->
+        <div class="blogs-3">
+          <div class="container">
+            {% for post in posts %}
+            <div class="row">
+              <div class="col-md-10 ml-auto mr-auto">
+                <div class="card card-plain card-blog">
+                  <div class="row">
+                    <div class="col-md-4">
+                      <div class="card-header card-header-image">
+                        <img class="img img-raised" src="{{ post.image.url }}">
+                      </div>
+                    </div>
+                    <div class="col-md-8">
+                      <h6 class="card-category text-info">{{ post.category }}</h6>
+                      <h3 class="card-title">
+                        <a href="{% url 'post' post.id %}">{{ post.title }}</a>
+                      </h3>
+                      <p class="card-description"> {{ post.summary }} <a href="{% url 'post' post.id %}"> Read More </a></p>
+                      <p class="author">
+                        by
+                        <a href="{% url 'post' post.id %}">
+                          <b>{{ post.author }}</b>
+                        </a>, {{ post.pub_date_pretty }}
+                      </p>
+                    </div>
+                  </div>
                 </div>
               </div>
-              <a href="{% url 'post' post.id %}">
-                <h3 class="h4">{{ post.title }}</h3></a>
-              <p class="text-muted">{{ post.summary }}</p>
-              <footer class="post-footer d-flex align-items-center">
-                <a href="#" class="author d-flex align-items-center flex-wrap">
-                  <div class="avatar">
-                    <img
-                      src="{{ post.author.profile.profile_picture.url }}"
-                      alt="..."
-                      class="img-fluid"
-                      />
-                  </div>
-                  <div class="title">
-                    <span>{{ post.author }}</span>
-                  </div></a>
-                <div class="date">
-                  <i class="icon-clock"></i>{{ post.pub_date_pretty }}
-                </div>
-                <div class="comments meta-last">
-                  <i class="icon-comment"></i>{{ post.comment_count }}
-                </div>
-              </footer>
             </div>
+            {% endfor %}
           </div>
-          {% endfor %}
         </div>
-
+        
         <!-- Pagination -->
         {% if posts.has_other_pages %}
         <nav aria-label="Page navigation example">
@@ -105,59 +103,6 @@
         </nav>
         {% endif %}
       </div>
-    </main>
-    <aside class="col-lg-4">
-      <!-- Widget [Search Bar Widget]-->
-      <div class="widget search">
-        <header>
-          <h3 class="h6">Search the blog</h3>
-        </header>
-        <form action="{% url 'blog' %}" class="search-form" method="POST">
-          {% csrf_token %}
-          <div class="form-group">
-            <input
-              type="search"
-              placeholder="What are you looking for?"
-              name="search"
-            />
-            <button type="submit" class="submit">
-              <i class="icon-search"></i>
-            </button>
-          </div>
-        </form>
-      </div>
-      <!-- Widget [Latest Posts Widget]        -->
-      <div class="widget latest-posts">
-        <header>
-          <h3 class="h6">Latest Posts</h3>
-        </header>
-        <div class="blog-posts">
-          {% for post in all_posts|slice:":3" %}
-          <a href="{% url 'post' post.id %}">
-            <div class="item d-flex align-items-center">
-              <div class="image">
-                <img
-                  src="{{ post.image.url }}"
-                  alt="..."
-                  class=""
-                  width="60"
-                  height="60"
-                  style="object-fit: cover"
-                />
-              </div>
-              <div class="title">
-                <strong>{{ post.title }}</strong>
-                <div class="d-flex align-items-center">
-                  <div class="comments">
-                    <i class="icon-comment"></i>{{ post.comment_count }}
-                  </div>
-                </div>
-              </div>
-            </div>
-          </a>
-          {% endfor %}
-        </div>
-      </div>
       <!-- Widget [Categories Widget]-->
       <div class="widget categories">
         <header>
@@ -189,7 +134,7 @@
           {% endfor %}
         </ul>
       </div>
-    </aside>
   </div>
+</div>
 </div>
 {% endblock %}

@@ -1,5 +1,5 @@
 {% extends 'base.html' %} {% block content %} 
-{% load static %}
+{% load staticfiles %} {% load hitcount_tags %}
 
 <div class="container">
   <div class="row">
@@ -40,7 +40,7 @@
                   <i class="icon-clock"></i> {{ project.pub_date_pretty }}
                 </div>
                 <div class="views">
-                  <i class="icon-eye"></i>views
+                  <i class="icon-eye"></i>{% get_hit_count for project %}
                 </div>
               </div>
             </div>

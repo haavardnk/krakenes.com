@@ -31,6 +31,7 @@ ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'testserver']
 # Application definition
 
 INSTALLED_APPS = [
+    'hitcount',
     'projects.apps.ProjectsConfig',
     'accounts.apps.AccountsConfig',
     'posts.apps.PostsConfig',

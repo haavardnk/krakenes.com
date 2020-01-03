@@ -17,7 +17,7 @@
     <link href="{% static 'css/material-kit.css' %}" rel="stylesheet" />
   </head>
   <body class="sidebar-collapse">
-    <nav class="navbar navbar-color-on-scroll navbar-transparent    fixed-top  navbar-expand-lg " color-on-scroll="100" id="sectionsNav">
+    <nav class="navbar navbar-color-on-scroll navbar-transparent fixed-top navbar-expand-lg  bg-dark" color-on-scroll="100" id="sectionsNav">
       <div class="container">
         <div class="navbar-translate">
           <a class="navbar-brand" href="{% url 'home' %}">
@@ -40,26 +40,31 @@
             </li>
             <li class="nav-item">
               <a
-                href="{% url 'projects' %}"
-                class="nav-link {% if request.resolver_match.url_name == 'projects' or request.resolver_match.url_name == 'project_details' %}active{% endif %}"
-              >
-                Projects
-              </a>
-            </li>
-            <li class="nav-item">
-              <a
                 href="{% url 'blog' %}"
                 class="nav-link {% if request.resolver_match.url_name == 'blog' or request.resolver_match.url_name == 'post' %}active{% endif %}"
               >
                 Blog
               </a>
             </li>
-            <li class="button-container nav-item iframe-extern">
-              <a href="https://www.creative-tim.com/product/material-kit-pro?ref=presentation" target="_blank" class="btn  btn-rose   btn-round btn-block">
-                <i class="material-icons">shopping_cart</i> Buy Now
+            <li class="nav-item">
+              <a
+                href="{% url 'projects' %}"
+                class="nav-link {% if request.resolver_match.url_name == 'projects' or request.resolver_match.url_name == 'project_details' %}active{% endif %}"
+              >
+                Projects
               </a>
             </li>
+            <form class="form-inline ml-auto" action="{% url 'blog' %}" method="POST">
+              {% csrf_token %}
+              <div class="bmd-form-group form-group no-border">
+                <input type="search" name="search" id="search" class="form-control" placeholder="Search">
+              </div>
+              <button type="submit" class="btn btn-white btn-just-icon btn-round">
+                  <i class="material-icons">search</i>
+              </button>
+            </form>
           </ul>
+          
         </div>
       </div>
     </nav>
