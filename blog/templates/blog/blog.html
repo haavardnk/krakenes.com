@@ -1,5 +1,5 @@
 {% extends 'base.html' %} {% block content %} 
-{% load staticfiles %} {% load hitcount_tags %}
+{% load static %}
 <div class="container">
   <div class="row">
     <!--Posts -->
@@ -148,9 +148,6 @@
               <div class="title">
                 <strong>{{ post.title }}</strong>
                 <div class="d-flex align-items-center">
-                  <div class="views">
-                    <i class="icon-eye"></i>{% get_hit_count for post %}
-                  </div>
                   <div class="comments">
                     <i class="icon-comment"></i>{{ post.comment_count }}
                   </div>
