@@ -17,11 +17,11 @@ def home(request):
 def blog(request):
     all_posts = BlogPost.objects.all().order_by('-id')
 
-    if request.method == "POST":
+    if request.method == 'GET' and 'cat' in request.GET:
         search_vector = SearchVector(
             'author__username', 'category__name', 'title', 'tags__name', 'content')
-        post_list = BlogPost.objects.all().annotate(search=search_vector).filter(
-            search=request.POST['search']).order_by('title', '-id').distinct('title')
+        post_list = BlogPost.objects.all().annotate(cat=search_vector).filter(
+            cat=request.GET['cat']).order_by('-id')
     else:
         post_list = all_posts
 
@@ -29,11 +29,12 @@ def blog(request):
     tags = Tag.objects.all()
     categories = Category.objects.all().annotate(posts_count=Count('blogpost'))
 
+
     page = request.GET.get('page')
     posts = paginator.get_page(page)
 
     # Search for blog post
-    if request.method == "POST":
+    if request.method == 'GET' and 'cat' in request.GET:
         # If result:
         if post_list:
             return render(request, 'blog/blog.html', {
@@ -42,7 +43,7 @@ def blog(request):
                 'range': range(posts.paginator.num_pages+1),
                 'tags': tags,
                 'categories': categories,
-                'message': request.POST['search']
+                'selected_category': request.GET['cat']
             })
         # If no result:
         return render(request, 'blog/blog.html', {
@@ -51,7 +52,7 @@ def blog(request):
             'range': range(posts.paginator.num_pages+1),
             'tags': tags,
             'categories': categories,
-            'message': 'There are no results that match your search.'
+            'selected_category': 'There are no results that match your search.'
         })
     # No search:
     return render(request, 'blog/blog.html', {
@@ -79,9 +80,9 @@ def post(request, post_id):
                 author=request.user,
                 text=request.POST['comment'],
             )
-            message = "Comment submitted."
+            selected_category = "Comment submitted."
             comment.save()
 
-        return render(request, 'blog/post.html', {'post': post, 'posts': posts, 'tags': tags, 'categories': categories, 'message': message})
+        return render(request, 'blog/post.html', {'post': post, 'posts': posts, 'tags': tags, 'categories': categories, 'selected_category': selected_category})
 
     return render(request, 'blog/post.html', {'post': post, 'posts': posts, 'tags': tags, 'categories': categories})
