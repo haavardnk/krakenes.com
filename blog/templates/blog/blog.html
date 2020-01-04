@@ -25,7 +25,7 @@
             </li>
             {%for category in categories%}
             <li class="nav-item">
-              <form id="{{ category }}" action="{% url 'blog' %}" method="POST">{% csrf_token %}
+              <form id="{{ category }}" action="{% url 'blog' %}" method="GET">
                 <input type="hidden" value="{{ category }}" name="search">
                 <a class="nav-link {% ifequal message category.name %} active {% else %} {% endifequal %}" href="#" onclick="document.forms['{{ category }}'].submit();">{{ category }}</a>
               </form>
@@ -109,7 +109,7 @@
           {% endfor %} 
           {% if posts.has_next %}
           <li class="page-item">
-            <a class="page-link" href="?page={{ posts.next_page_number }}"
+            <a class="page-link" href="?search={{ message }}&page={{ posts.next_page_number }}"
               ><i class="fa fa-angle-right"></i
             ></a>
           </li>

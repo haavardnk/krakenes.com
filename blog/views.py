@@ -17,11 +17,11 @@ def home(request):
 def blog(request):
     all_posts = BlogPost.objects.all().order_by('-id')
 
-    if request.method == "POST":
+    if request.method == 'GET' and 'search' in request.GET:
         search_vector = SearchVector(
             'author__username', 'category__name', 'title', 'tags__name', 'content')
         post_list = BlogPost.objects.all().annotate(search=search_vector).filter(
-            search=request.POST['search']).order_by('title', '-id').distinct('title')
+            search=request.GET['search']).order_by('title', '-id').distinct('title')
     else:
         post_list = all_posts
 
@@ -29,11 +29,12 @@ def blog(request):
     tags = Tag.objects.all()
     categories = Category.objects.all().annotate(posts_count=Count('blogpost'))
 
+
     page = request.GET.get('page')
     posts = paginator.get_page(page)
 
     # Search for blog post
-    if request.method == "POST":
+    if request.method == 'GET' and 'search' in request.GET:
         # If result:
         if post_list:
             return render(request, 'blog/blog.html', {
@@ -42,7 +43,7 @@ def blog(request):
                 'range': range(posts.paginator.num_pages+1),
                 'tags': tags,
                 'categories': categories,
-                'message': request.POST['search']
+                'message': request.GET['search']
             })
         # If no result:
         return render(request, 'blog/blog.html', {
