@@ -1688,7 +1688,7 @@ pre {
   padding: 0.4375rem 0;
   font-size: 1rem;
   line-height: 1.5;
-  color: #495057;
+  color: #d2d2d2;
   background-color: rgba(0, 0, 0, 0);
   background-clip: padding-box;
   border: 1px solid #d2d2d2;
@@ -1700,7 +1700,7 @@ pre {
     background-color: transparent;
     border: 0; }
   .form-control:focus {
-    color: #495057;
+    color: #d2d2d2;
     background-color: rgba(0, 0, 0, 0);
     border-color: #9acffa;
     outline: 0;
@@ -10496,8 +10496,8 @@ textarea {
   .page-header .title {
     color: #fff; }
   .page-header.header-small {
-    height: 65vh;
-    min-height: 65vh; }
+    height: 45vh;
+    min-height: 45vh; }
   .page-header .iframe-container iframe {
     width: 100%;
     box-shadow: 0 16px 38px -12px rgba(0, 0, 0, 0.56), 0 4px 25px 0px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.2); }
@@ -15076,7 +15076,7 @@ select.selectpicker {
 
 .presentation-page .page-header,
 .index-page .page-header {
-  height: 90vh;
+  height: 65vh;
   overflow: hidden; }
 
 .presentation-page .brand,

@@ -5,104 +5,122 @@
     <div class="row">
       <div class="col-md-8 ml-auto mr-auto">
         <div class="brand text-center">
-          <h1>Kråkenes</h1>
-          <h3 class="title text-center">A tech blog.</h3>
+          <h1>Blog</h1>
+          <h3 class="title text-center"></h3>
         </div>
       </div>
     </div>
   </div>
 </div>
 <div class="main main-raised">
-<div class="container">
-  <div class="row">
-    <!--Posts -->
-      <div class="container">
-        {% if message %}
-        <div class="alert alert-light text-center" role="alert">
-          {{ message }}
-        </div>
-        {% endif %}
+  <div class="container">
+    <div class="section">
 
-        <!--     *********     BLOGS 3      *********      -->
-        <div class="blogs-3">
-          <div class="container">
-            {% for post in posts %}
-            <div class="row">
-              <div class="col-md-10 ml-auto mr-auto">
-                <div class="card card-plain card-blog">
-                  <div class="row">
-                    <div class="col-md-4">
-                      <div class="card-header card-header-image">
-                        <img class="img img-raised" src="{{ post.image.url }}">
-                      </div>
+      <!--Categories -->
+      <div class="row">
+        <div class="col-md-8 ml-auto mr-auto d-flex justify-content-center">
+          <ul class="nav nav-pills nav-pills-primary">
+            <li class="nav-item">
+              <a class="nav-link {% if message|length > 0 %} {% else %} active {% endif %}" href="{% url 'blog' %}">All</a>
+            </li>
+            {%for category in categories%}
+            <li class="nav-item">
+              <form id="{{ category }}" action="{% url 'blog' %}" method="POST">{% csrf_token %}
+                <input type="hidden" value="{{ category }}" name="search">
+                <a class="nav-link {% ifequal message category.name %} active {% else %} {% endifequal %}" href="#" onclick="document.forms['{{ category }}'].submit();">{{ category }}</a>
+              </form>
+            </li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+
+      <!--Messages -->
+      {% if message == "There are no results that match your search." %}
+      <div class="alert alert-light text-center" role="alert">
+        {{ message }}
+      </div>
+      {% endif %}
+      
+      <!--    Posts     -->
+      <div class="blogs-3">
+        <div class="container">
+          {% for post in posts %}
+          <div class="row">
+            <div class="col-md-10 ml-auto mr-auto">
+              <div class="card card-plain card-blog">
+                <div class="row">
+                  <div class="col-md-4">
+                    <div class="card-header card-header-image">
+                      <img class="img img-raised" src="{{ post.image.url }}">
                     </div>
-                    <div class="col-md-8">
-                      <h6 class="card-category text-info">{{ post.category }}</h6>
-                      <h3 class="card-title">
-                        <a href="{% url 'post' post.id %}">{{ post.title }}</a>
-                      </h3>
-                      <p class="card-description"> {{ post.summary }} <a href="{% url 'post' post.id %}"> Read More </a></p>
-                      <p class="author">
-                        by
-                        <a href="{% url 'post' post.id %}">
-                          <b>{{ post.author }}</b>
-                        </a>, {{ post.pub_date_pretty }}
-                      </p>
-                    </div>
+                  </div>
+                  <div class="col-md-8">
+                    <h6 class="card-category text-info">{{ post.category }}</h6>
+                    <h3 class="card-title">
+                      <a href="{% url 'post' post.id %}">{{ post.title }}</a>
+                    </h3>
+                    <p class="card-description"> {{ post.summary }} <a href="{% url 'post' post.id %}"> Read More </a></p>
+                    <p class="author">
+                      by
+                      <a href="{% url 'post' post.id %}">
+                        <b>{{ post.author }}</b>
+                      </a>, {{ post.pub_date_pretty }}
+                    </p>
                   </div>
                 </div>
               </div>
             </div>
-            {% endfor %}
           </div>
+          {% endfor %}
         </div>
-        
-        <!-- Pagination -->
-        {% if posts.has_other_pages %}
-        <nav aria-label="Page navigation example">
-          <ul
-            class="pagination pagination-template d-flex justify-content-center"
-          >
-            {% if posts.has_previous %}
-            <li class="page-item">
-              <a
-                href="?page={{ posts.previous_page_number }}"
-                class="page-link"
-              >
-                <i class="fa fa-angle-left"></i
-              ></a>
-            </li>
-            {% else %}
-            <li class="page-item">
-              <a href="" class="page-link"> <i class="fa fa-angle-left"></i></a>
-            </li>
-            {% endif %} 
-            {% for i in posts.paginator.page_range %} 
-            {% if posts.number == i %}
-            <li class="page-item">
-              <a href="?page={{ i }}" class="page-link active">{{ i }}</a>
-            </li>
-            {% else %}
-            <li class="page-item">
-              <a href="?page={{ i }}" class="page-link">{{ i }}</a>
-            </li>
-            {% endif %} 
-            {% endfor %} 
-            {% if posts.has_next %}
-            <li class="page-item">
-              <a class="page-link" href="?page={{ posts.next_page_number }}"
-                ><i class="fa fa-angle-right"></i
-              ></a>
-            </li>
-            {% else %}
-            <li class="page-item">
-              <a class="page-link" href=><i class="fa fa-angle-right"></a></i>
-            </li>
-            {% endif %}
-          </ul>
-        </nav>
-        {% endif %}
       </div>
+      
+      <!-- Pagination -->
+      {% if posts.has_other_pages %}
+      <nav aria-label="Page navigation example">
+        <ul
+          class="pagination pagination-template d-flex justify-content-center"
+        >
+          {% if posts.has_previous %}
+          <li class="page-item">
+            <a
+              href="?page={{ posts.previous_page_number }}"
+              class="page-link"
+            >
+              <i class="fa fa-angle-left"></i
+            ></a>
+          </li>
+          {% else %}
+          <li class="page-item disabled">
+            <a href="" class="page-link"> <i class="fa fa-angle-left"></i></a>
+          </li>
+          {% endif %} 
+          {% for i in posts.paginator.page_range %} 
+          {% if posts.number == i %}
+          <li class="page-item active">
+            <a href="?page={{ i }}" class="page-link">{{ i }}</a>
+          </li>
+          {% else %}
+          <li class="page-item">
+            <a href="?page={{ i }}" class="page-link">{{ i }}</a>
+          </li>
+          {% endif %} 
+          {% endfor %} 
+          {% if posts.has_next %}
+          <li class="page-item">
+            <a class="page-link" href="?page={{ posts.next_page_number }}"
+              ><i class="fa fa-angle-right"></i
+            ></a>
+          </li>
+          {% else %}
+          <li class="page-item disabled">
+            <a class="page-link" href=><i class="fa fa-angle-right"></a></i>
+          </li>
+          {% endif %}
+        </ul>
+      </nav>
+      {% endif %}
       <!-- Widget [Categories Widget]-->
       <div class="widget categories">
         <header>
@@ -134,7 +152,7 @@
           {% endfor %}
         </ul>
       </div>
+    </div>
   </div>
-</div>
 </div>
 {% endblock %}

@@ -42,7 +42,7 @@ def blog(request):
                 'range': range(posts.paginator.num_pages+1),
                 'tags': tags,
                 'categories': categories,
-                'message': 'Search results for ' + "'"+request.POST['search']+"':"
+                'message': request.POST['search']
             })
         # If no result:
         return render(request, 'blog/blog.html', {
