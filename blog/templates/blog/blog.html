@@ -35,10 +35,10 @@
         </div>
       </div>
 
-      <!--Messages -->
-      {% if selected_category == "There are no results that match your search." %}
+      <!--No posts -->
+      {% if posts|length == 0 %}
       <div class="alert alert-light text-center" role="alert">
-        {{ selected_category }}
+        There are no matching posts.
       </div>
       {% endif %}
       
@@ -52,7 +52,9 @@
                 <div class="row">
                   <div class="col-md-4">
                     <div class="card-header card-header-image">
-                      <img class="img img-raised" src="{{ post.image.url }}">
+                      <a href="{% url 'post' post.id %}">
+                        <img class="img img-raised" src="{{ post.image.url }}">
+                      </a>
                     </div>
                   </div>
                   <div class="col-md-8">
@@ -81,12 +83,8 @@
       <nav aria-label="Page navigation example">
         <ul class="pagination pagination-template d-flex justify-content-center">
           {% if posts.has_previous %}
-          {% if selected_category %}
-
-          {% else %}
-          {% endif %}
           <li class="page-item">
-            <a href="?page={{ posts.previous_page_number }}" class="page-link">
+            <a href="?{% if selected_category %}cat={{ selected_category }}&{% endif %}page={{ posts.previous_page_number }}" class="page-link">
               <i class="fa fa-angle-left"></i></a>
           </li>
           {% else %}
@@ -97,17 +95,17 @@
           {% for i in posts.paginator.page_range %} 
           {% if posts.number == i %}
           <li class="page-item active">
-            <a href="?page={{ i }}" class="page-link">{{ i }}</a>
+            <a href="?{% if selected_category %}cat={{ selected_category }}&{% endif %}page={{ i }}" class="page-link">{{ i }}</a>
           </li>
           {% else %}
           <li class="page-item">
-            <a href="?page={{ i }}" class="page-link">{{ i }}</a>
+            <a href="?{% if selected_category %}cat={{ selected_category }}&{% endif %}page={{ i }}" class="page-link">{{ i }}</a>
           </li>
           {% endif %} 
           {% endfor %} 
           {% if posts.has_next %}
           <li class="page-item">
-            <a class="page-link" href="?cat={{ selected_category }}&page={{ posts.next_page_number }}"
+            <a class="page-link" href="?{% if selected_category %}cat={{ selected_category }}&{% endif %}page={{ posts.next_page_number }}"
               ><i class="fa fa-angle-right"></i
             ></a>
           </li>
@@ -119,37 +117,6 @@
         </ul>
       </nav>
       {% endif %}
-      <!-- Widget [Categories Widget]-->
-      <div class="widget categories">
-        <header>
-          <h3 class="h6">Categories</h3>
-        </header>
-        {%for category in categories%}
-        <div class="item d-flex justify-content-between">
-          <form id="{{ category }}" action="{% url 'blog' %}" method="POST">{% csrf_token %}
-            <input type="hidden" value="{{ category }}" name="search">
-            <a href="#" onclick="document.forms['{{ category }}'].submit();">{{ category }}</a>
-          </form>
-          <span>{{ category.posts_count }}</span>
-        </div>
-        {% endfor %}
-      </div>
-      <!-- Widget [Tags Cloud Widget]-->
-      <div class="widget tags">
-        <header>
-          <h3 class="h6">Tags</h3>
-        </header>
-        <ul class="list-inline">
-          {%for tag in tags%}
-          <li class="list-inline-item">
-            <form id="{{ tag }}" action="{% url 'blog' %}" method="POST">{% csrf_token %}
-              <input type="hidden" value="{{ tag }}" name="search">
-              <a href="#" class="tag" onclick="document.forms['{{ tag }}'].submit();">{{ tag }}</a>
-            </form>
-          </li>
-          {% endfor %}
-        </ul>
-      </div>
     </div>
   </div>
 </div>
