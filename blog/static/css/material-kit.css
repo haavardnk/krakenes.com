@@ -10496,8 +10496,8 @@ textarea {
   .page-header .title {
     color: #fff; }
   .page-header.header-small {
-    height: 45vh;
-    min-height: 45vh; }
+    height: 65vh;
+    min-height: 65vh; }
   .page-header .iframe-container iframe {
     width: 100%;
     box-shadow: 0 16px 38px -12px rgba(0, 0, 0, 0.56), 0 4px 25px 0px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.2); }
@@ -10643,8 +10643,8 @@ footer {
       .navbar .navbar-nav .nav-item .nav-link.profile-photo:after {
         display: none; }
       .navbar .navbar-nav .nav-item .nav-link.profile-photo .profile-photo-small {
-        height: 40px;
-        width: 40px; }
+        height: 41px;
+        width: 41px; }
       .navbar .navbar-nav .nav-item .nav-link.profile-photo .ripple-container {
         border-radius: 50%; }
   .navbar .navbar-nav .dropdown-menu-right {
@@ -15075,22 +15075,22 @@ select.selectpicker {
   margin-bottom: 30px; }
 
 .presentation-page .page-header,
-.index-page1 .page-header {
+.index-page .page-header {
   height: 65vh;
   overflow: hidden; }
 
 .presentation-page .brand,
-.index-page1 .brand {
+.index-page .brand {
   color: #fff;
   text-align: center; }
   .presentation-page .brand h1,
-  .index-page1 .brand h1 {
+  .index-page .brand h1 {
     font-size: 4.2rem;
     font-weight: 600;
     display: inline-block;
     position: relative; }
   .presentation-page .brand h3,
-  .index-page1 .brand h3 {
+  .index-page .brand h3 {
     font-size: 1.313rem;
     max-width: 500px;
     margin: 10px auto 0; }
