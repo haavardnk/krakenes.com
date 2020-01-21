@@ -1,0 +1,40 @@
+.index-header .page-header {
+    height: 65vh;
+    overflow: hidden; }
+
+.index-header .brand {
+    color: #fff;
+    text-align: center; }
+    .index-header .brand h1 {
+    font-size: 4.2rem;
+    font-weight: 600;
+    display: inline-block;
+    position: relative; }
+    .presentation-page .brand h3,
+    .index-header .brand h3 {
+    font-size: 1.313rem;
+    max-width: 500px;
+    margin: 10px auto 0; }
+
+.date-views{
+    white-space:pre; /* or pre-wrap if you want wrapping to still work. */
+}
+.login-password-error {
+    display: none
+}
+.login-user-error {
+    display: none
+}
+.signup-password-error {
+    display: none
+}
+.signup-user-error {
+    display: none
+}
+.signup-email-error {
+    display: none
+}
+.login-alert {
+    margin-top: 15px;
+    margin-bottom: -15px
+}

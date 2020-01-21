@@ -16,7 +16,7 @@ def home(request):
 
 def blog(request):
     all_posts = BlogPost.objects.all().order_by('-id')
-
+    
     if request.method == 'GET' and 'cat' in request.GET:
         search_vector = SearchVector('category__name')
         post_list = BlogPost.objects.all().annotate(cat=search_vector).filter(
