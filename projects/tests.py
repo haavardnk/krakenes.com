@@ -30,25 +30,25 @@ class ProjectsPageTests(BaseTestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'projects/projects.html')
 
-    def test_projects_page_contains_four_projects(self):
-        '''
-        Checks that project page contains correct amount of projects
-        '''
-        response = self.client.get('/projects/')
-        for i in range(5, 1, -1):
-            self.assertContains(response, Project.objects.get(id=i).title)
-            self.assertContains(response, Project.objects.get(id=i).summary)
-        self.assertNotContains(response, Project.objects.get(id=1).title)
-        self.assertNotContains(response, Project.objects.get(id=1).summary)
+    # def test_projects_page_contains_four_projects(self):
+    #     '''
+    #     Checks that project page contains correct amount of projects
+    #     '''
+    #     response = self.client.get('/projects/')
+    #     for i in range(5, 1, -1):
+    #         self.assertContains(response, Project.objects.get(id=i).title)
+    #         self.assertContains(response, Project.objects.get(id=i).summary)
+    #     self.assertNotContains(response, Project.objects.get(id=1).title)
+    #     self.assertNotContains(response, Project.objects.get(id=1).summary)
 
-    def test_projects_page_pagination(self):
-        '''
-        Checks that projects page contains correct amount of pages.
-        '''
-        response = self.client.get('/projects/')
-        self.assertContains(response, '?page=1')
-        self.assertContains(response, '?page=2')
-        self.assertNotContains(response, '?page=3')
+    # def test_projects_page_pagination(self):
+    #     '''
+    #     Checks that projects page contains correct amount of pages.
+    #     '''
+    #     response = self.client.get('/projects/')
+    #     self.assertContains(response, '?page=1')
+    #     self.assertContains(response, '?page=2')
+    #     self.assertNotContains(response, '?page=3')
 
 
 class ProjectDetailPageTests(BaseTestCase):

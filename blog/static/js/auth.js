@@ -87,3 +87,8 @@ $('#loginForm').submit(function(e){
 	});/*./ajax*/
 });
 /*End of loin form AJAX */
+
+/* Fixing modal scrolling upon second modal opening */
+$(document).on('hidden.bs.modal', '.modal', function () {
+    $('.modal:visible').length && $(document.body).addClass('modal-open');
+});

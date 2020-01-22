@@ -55,20 +55,20 @@
                 Projects
               </a>
             </li>
-            <form class="form-inline ml-auto" action="{% url 'blog' %}" method="GET">
-                <div class="bmd-form-group form-group no-border">
-                  <input type="search" name="search" id="search" class="form-control" placeholder="Search">
-                </div>
-                <button type="submit" class="btn btn-rose btn-just-icon btn-round btn-raised">
-                    <i class="material-icons">search</i>
-                </button>
-              </form>
+            <!-- <form id="search_form" class="form-inline ml-auto" action="{% url 'blog' %}" method="GET">
+              <div class="bmd-form-group form-group no-border">
+                <input type="search" name="search" id="search" class="form-control" placeholder="Search">
+              </div>
+              
+              <a href="#" class="nav-link" onclick="document.getElementById('search_form').submit()"><i style="color:white" class="material-icons">search</i><div class="ripple-container"></div></a>
+            </form> -->
+
+           
             {% if user.is_authenticated %}
             <li class="dropdown nav-item">
-              <a href="#" class="profile-photo dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false">
-                <div class="profile-photo-small">
-                  <img src="{{ user.profile.profile_picture.url }}" alt="Circle Image" class="rounded-circle img-fluid">
-                </div>
+              <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false">
+                <i class="material-icons">person</i>
+                <b class="caret"></b>
               <div class="ripple-container"></div></a>
               <div class="dropdown-menu dropdown-menu-right">
                 <a href="#pablo" class="dropdown-item">Profile</a>
@@ -114,7 +114,7 @@
               <div class="login-alert login-user-error text-center">
                 <p>Username does not exist</p>
               </div>
-              <form class="form" method="post" id="loginForm">
+              <form class="form" method="POST" id="loginForm">
                 {% csrf_token %}
                 <div class="card-body">
 
@@ -143,10 +143,110 @@
                   <input type="submit" class="btn btn-primary btn-round btn-raised" value="Log in"/>
                 </div>
               </form>
+
               <div class="modal-footer justify-content-center">
-                  <a href="#pablo" class="btn btn-primary btn-link btn-wd btn-lg">Register</a>
+                <button class="btn btn-primary btn-link btn-wd btn-lg" data-toggle="modal" data-target="#signupModal" data-dismiss="modal">
+                <i class="material-icons">assignment</i>
+                Register
+                </button>
               </div>
+              
             </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    
+    <!-- Sign up modal -->
+    <div class="modal fade" id="signupModal" tabindex="-1" role="dialog">
+      <div class="modal-dialog modal-signup" role="document">
+        <div class="modal-content">
+          <div class="card card-signup card-plain">
+            <div class="modal-header">
+              <h5 class="modal-title card-title">Register</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <i class="material-icons">clear</i>
+              </button>
+            </div>
+            <div class="modal-body">
+              <div class="alert alert-primary signup-password-error" role="alert">
+                Passwords does not match
+              </div>
+              <div class="alert alert-primary signup-email-error" role="alert">
+                Email already in use
+              </div>
+              <div class="alert alert-primary signup-user-error" role="alert">
+                Username already in use
+              </div>
+
+              <form id="signupForm" class="form" method="POST">
+                {% csrf_token %}
+                <div class="card-body">
+                  <div class="form-group">
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <div class="input-group-text"><i class="material-icons">account_circle</i></div>
+                      </div>
+                        <input type="text" class="form-control" placeholder="Username..." required="required" name="username">
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <div class="input-group-text"><i class="material-icons">email</i></div>
+                      </div>
+                        <input type="text" class="form-control" placeholder="Email..." required="required" name="email">
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <div class="input-group-text"><i class="material-icons">lock_outline</i></div>
+                      </div>
+                        <input type="password" placeholder="Password..." class="form-control" required="required" name="password1"/>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <div class="input-group-text"><i class="material-icons">lock_outline</i></div>
+                      </div>
+                        <input type="password" placeholder="Password..." class="form-control" required="required" name="password2"/>
+                    </div>
+                  </div>
+
+                  <input type="hidden" name="next" value="{{ request.get_full_path }}"/>
+
+                  <div class="form-group text-center">
+                    <input type="submit" class="btn btn-primary btn-round" value="Sign Up"/>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Error Modal -->
+    <div id="errorModal" class="modal" tabindex="-1" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Error</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p>An unknown error has occured. Please try again.</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
           </div>
         </div>
       </div>
@@ -203,8 +303,7 @@
     <!-- Control Center for Material Kit: parallax effects, scripts for the example pages etc -->
     <script src="{% static 'js/material-kit.js' %}" type="text/javascript"></script>
       
-  
-    <script src="{% static 'js/front.js' %}"></script>
+    <!-- Custom Javascript -->
     <script src="{% static 'js/auth.js' %}"></script>
 
 
