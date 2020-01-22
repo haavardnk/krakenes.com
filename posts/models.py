@@ -28,10 +28,11 @@ class Tag(models.Model):
 
 class BlogPost(models.Model, HitCountMixin, RichTextUploadingField):
     author = models.ForeignKey(User, on_delete=models.CASCADE)
-    category = models.ForeignKey(Category, on_delete=models.CASCADE)
-    title = models.CharField(max_length=255)
-    tags = models.ManyToManyField(Tag)
     pub_date = models.DateTimeField(default=timezone.now)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    tags = models.ManyToManyField(Tag)
+    title = models.CharField(max_length=255)
+    description = models.TextField(max_length=30, blank=True)
     content = RichTextUploadingField()
     summary = models.TextField(max_length=150)
     image = models.ImageField(upload_to='images/')
