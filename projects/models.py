@@ -3,12 +3,10 @@ from django.utils import timezone
 from django.contrib.auth.models import User
 from django.contrib.contenttypes.fields import GenericRelation
 from posts.models import Category, Tag
-from hitcount.models import HitCount
-from hitcount.views import HitCountMixin
 from ckeditor_uploader.fields import RichTextUploadingField
 
 
-class Project(models.Model, HitCountMixin, RichTextUploadingField):
+class Project(models.Model, RichTextUploadingField):
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     title = models.CharField(max_length=255)

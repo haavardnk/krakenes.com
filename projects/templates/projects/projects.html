@@ -1,104 +1,21 @@
-{% extends 'base.html' %} {% block content %} {% load staticfiles %}
-<div class="container">
-  <div class="row">
-    <!--Projects -->
-    <main class="posts-listing col-lg-12">
-      <div class="container">
-        <div class="row">
-          {% for project in projects %}
-          <div class="post col-xl-4">
-            <div class="post-thumbnail">
-              <a href="{% url 'project_details' project.id %}"
-                ><img
-                  src="{{ project.image.url }}"
-                  alt="..."
-                  class=""
-                  width="350"
-                  height="250"
-                  style="object-fit: cover"
-              /></a>
-            </div>
-            <div class="post-details">
-              <div class="post-meta d-flex justify-content-between">
-                <div class="date meta-last">20 May | 2016</div>
-                <div class="category">
-                  <a href="#">{{ project.category }}</a>
-                </div>
-              </div>
-              <a href="{% url 'project_details' project.id %}">
-                <h3 class="h4">{{ project.title }}</h3></a
-              >
-              <p class="text-muted">{{ project.summary }}</p>
-              <footer class="post-footer d-flex align-items-center">
-                <a href="#" class="author d-flex align-items-center flex-wrap">
-                  <div class="avatar">
-                    <img
-                      src="{{ project.author.profile.profile_picture.url }}"
-                      alt="..."
-                      class="img-fluid"
-                    />
-                  </div>
-                  <div class="title">
-                    <span>{{ project.author }}</span>
-                  </div></a
-                >
-                <div class="date">
-                  <i class="icon-clock"></i>{{ project.pub_date_pretty }}
-                </div>
-              </footer>
-            </div>
-          </div>
-          {% endfor %}
+{% extends 'base.html' %} {% block content %} 
+{% load staticfiles %} {% load hitcount_tags %}
+<div class="page-header header-small header-filter" data-parallax="true" style="background-image: url({% static 'img/blackboard-background.jpg'%})">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-8 ml-auto mr-auto">
+        <div class="brand text-center">
+          <h1>Nothing here yet...</h1>
+          <h3 class="title text-center"></h3>
         </div>
-
-        <!-- Pagination -->
-        {% if projects.has_other_pages %}
-        <nav aria-label="Page navigation example">
-          <ul
-            class="pagination pagination-template d-flex justify-content-center"
-          >
-            {% if projects.has_previous %}
-            <li class="page-item">
-              <a
-                href="?page={{ projects.previous_page_number }}"
-                class="page-link"
-              >
-                <i class="fa fa-angle-left"></i
-              ></a>
-            </li>
-            {% else %}
-            <li class="page-item">
-              <a href="" class="page-link"> <i class="fa fa-angle-left"></i></a>
-            </li>
-            {% endif %} 
-            {% for i in projects.paginator.page_range %} 
-            {% if projects.number == i %}
-            <li class="page-item">
-              <a href="?page={{ i }}" class="page-link active">{{ i }}</a>
-            </li>
-            {% else %}
-            <li class="page-item">
-              <a href="?page={{ i }}" class="page-link">{{ i }}</a>
-            </li>
-            {% endif %} 
-            {% endfor %} 
-            {% if projects.has_next %}
-            <li class="page-item">
-              <a class="page-link" href="?page={{ projects.next_page_number }}"
-                ><i class="fa fa-angle-right"></i
-              ></a>
-            </li>
-            {% else %}
-            <li class="page-item">
-              <a class="page-link" href=><i class="fa fa-angle-right"></i>
-            </li>
-            {% endif %}
-          </ul>
-        </nav>
-        {% endif %}
       </div>
-    </main>
+    </div>
   </div>
 </div>
-<br />
+<div class="main main-raised">
+  <div class="container">
+    <div class="section">
+    </div>
+  </div>
+</div>
 {% endblock %}

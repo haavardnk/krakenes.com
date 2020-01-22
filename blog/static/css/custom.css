@@ -1,112 +1,23 @@
-/* your styles go here */
+.index-header .page-header {
+    height: 65vh;
+    overflow: hidden; }
 
-@font-face {
-    font-family: 'bikoregular';
-    src: url('../fonts/biko_regular-webfont.woff2') format('woff2'),
-         url('../fonts/biko_regular-webfont.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-}
-
-.main-container {
-    min-height: 100vh; /* will cover the 100% of viewport */
-    overflow: hidden;
-    display: block;
-    position: relative;
-    padding-bottom: 150px; /* height of your footer */
-   }
-
-.main-footer {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-   }
-
-.header-logo {
-    height: 30px;
-    max-width: 100%;
-    max-height: auto;
-}
-
-.profile-pic {
-    margin-top: 14px;
-    margin-left: 15px;
-    margin-right: 0px;
-    height: 15px;
-    line-height: 20px;
-
-  }
-
-.modal-login {
-    color: #636363;
-    width: 350px;
-    padding-top: 100px
-}
-.modal-login .modal-content {
-    padding: 20px;
-    border-radius: 5px;
-    border: none;
-}
-.modal-login .modal-header {
-    border-bottom: none;
-    position: relative;
-    justify-content: center;
-}
-.modal-login h4 {
-    text-align: center;
-    font-size: 26px;
-}
-.modal-login  .form-group {
-    position: relative;
-}
-.modal-login i {
-    position: absolute;
-    left: 13px;
-    top: 11px;
-    font-size: 18px;
-}
-.modal-login .form-control {
-    padding-left: 40px;
-}
-.modal-login .form-control:focus {
-    border-color: #00ce81;
-}
-.modal-login .form-control, .modal-login .btn {
-    min-height: 40px;
-    border-radius: 3px; 
-}
-.modal-login .hint-text {
-    text-align: center;
-    padding-top: 10px;
-}
-.modal-login .close {
-    position: absolute;
-    top: -5px;
-    right: -5px;
-}
-.modal-login .btn {
-    background: #00ce81;
-    border: none;
-    line-height: normal;
-}
-.modal-login .btn:hover, .modal-login .btn:focus {
-    background: #00bf78;
-}
-.modal-login .modal-footer {
-    background: #ecf0f1;
-    border-color: #dee4e7;
-    text-align: center;
-    margin: 0 -20px -20px;
-    border-radius: 5px;
-    font-size: 13px;
-    justify-content: center;
-}
-.modal-login .modal-footer a {
-    color: #999;
-}
-.trigger-btn {
+.index-header .brand {
+    color: #fff;
+    text-align: center; }
+    .index-header .brand h1 {
+    font-size: 4.2rem;
+    font-weight: 600;
     display: inline-block;
-    margin: 100px auto;
+    position: relative; }
+    .presentation-page .brand h3,
+    .index-header .brand h3 {
+    font-size: 1.313rem;
+    max-width: 500px;
+    margin: 10px auto 0; }
+
+.date-views{
+    white-space:pre; /* or pre-wrap if you want wrapping to still work. */
 }
 .login-password-error {
     display: none
@@ -123,4 +34,7 @@
 .signup-email-error {
     display: none
 }
-
+.login-alert {
+    margin-top: 15px;
+    margin-bottom: -15px
+}

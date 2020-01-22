@@ -43,7 +43,7 @@ class BlogPost(models.Model, HitCountMixin, RichTextUploadingField):
         return self.comments.filter(approved_comment=True).count()
 
     def pub_date_pretty(self):
-        return self.pub_date.strftime('%e %b | %Y')
+        return self.pub_date.strftime('%e %b %Y')
 
 class Comment(models.Model):
     post = models.ForeignKey(
