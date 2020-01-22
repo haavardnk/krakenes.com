@@ -16,6 +16,9 @@
     <!-- CSS Files -->
     <link href="{% static 'css/material-kit.css' %}" rel="stylesheet" />
     <link href="{% static 'css/custom.css' %}" rel="stylesheet" />
+    <!-- Code Hightlighter -->
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/styles/tomorrow-night.min.css">
+    
   </head>
   <body class="sidebar-collapse">
     <nav class="navbar navbar-color-on-scroll navbar-transparent fixed-top navbar-expand-lg  bg-dark" color-on-scroll="100" id="sectionsNav">
@@ -302,6 +305,9 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <!-- Control Center for Material Kit: parallax effects, scripts for the example pages etc -->
     <script src="{% static 'js/material-kit.js' %}" type="text/javascript"></script>
+    <!-- Code highlighter -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script> 
       
     <!-- Custom Javascript -->
     <script src="{% static 'js/auth.js' %}"></script>

@@ -75,25 +75,24 @@ class BlogPageTests(BaseTestCase):
         self.assertContains(response, '?page=2')
         self.assertNotContains(response, '?page=3')
 
-    # def test_blog_page_search(self):
-    #     '''
-    #     Checks that a search for only returns correct post.
-    #     Also checks for correct message to user.
-    #     '''
-    #     response = self.client.get('/blog/', {'search': 'test5'})
-    #     self.assertContains(response, BlogPost.objects.get(id=5).title)
-    #     self.assertNotContains(response, BlogPost.objects.get(id=4).title)
-    #     self.assertNotContains(response, BlogPost.objects.get(id=3).title)
-    #     self.assertContains(response, "Search results for")
+    def test_blog_page_search(self):
+        '''
+        Checks that a search for only returns correct post.
+        Also checks for correct message to user.
+        '''
+        response = self.client.get('/blog/', {'search': 'test5'})
+        self.assertContains(response, BlogPost.objects.get(id=5).title)
+        self.assertNotContains(response, BlogPost.objects.get(id=4).title)
+        self.assertNotContains(response, BlogPost.objects.get(id=3).title)
 
-    # def test_blog_page_search_no_results(self):
-    #     '''
-    #     Checks that a search with no results gives the right message.
-    #     '''
-    #     response = self.client.get(
-    #         '/blog/', {'search': 'thiswillgivenoresults'})
-    #     self.assertContains(
-    #         response, 'There are no matching posts.')
+    def test_blog_page_search_no_results(self):
+        '''
+        Checks that a search with no results gives the right message.
+        '''
+        response = self.client.get(
+            '/blog/', {'search': 'thiswillgivenoresults'})
+        self.assertContains(
+            response, 'There are no matching posts.')
 
     def test_blog_page_categories(self):
         '''
