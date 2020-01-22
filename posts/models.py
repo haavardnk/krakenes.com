@@ -32,7 +32,7 @@ class BlogPost(models.Model, HitCountMixin, RichTextUploadingField):
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     tags = models.ManyToManyField(Tag)
     title = models.CharField(max_length=255)
-    description = models.TextField(max_length=30, blank=True)
+    description = models.TextField(max_length=50, blank=True)
     content = RichTextUploadingField()
     summary = models.TextField(max_length=150)
     image = models.ImageField(upload_to='images/')
