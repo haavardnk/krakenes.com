@@ -24,8 +24,11 @@
     <nav class="navbar navbar-color-on-scroll navbar-transparent fixed-top navbar-expand-lg  bg-dark" color-on-scroll="100" id="sectionsNav">
       <div class="container">
         <div class="navbar-translate">
-          <a class="navbar-brand" href="{% url 'home' %}">
-            Kråkenes </a>
+            <a class="navbar-brand" href="{% url 'home' %}">
+              <div class="logo-image">
+                <img src="{% static '/img/logo.svg' %}" class="img-fluid">
+              </div>
+            </a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" aria-expanded="false" aria-label="Toggle navigation">
             <span class="sr-only">Toggle navigation</span>
             <span class="navbar-toggler-icon"></span>
@@ -57,6 +60,9 @@
               >
                 Projects
               </a>
+            </li>
+            <li class="nav-item">
+              <a href="#" data-toggle="modal" data-target="#searchModal" class="nav-link"><i class="material-icons">search</i><div class="ripple-container"></div></a>
             </li>
             <!-- <form id="search_form" class="form-inline ml-auto" action="{% url 'blog' %}" method="GET">
               <div class="bmd-form-group form-group no-border">
@@ -236,7 +242,7 @@
     </div>
 
     <!-- Error Modal -->
-    <div id="errorModal" class="modal" tabindex="-1" role="dialog">
+    <div id="errorModal" class="modal fade" tabindex="-1" role="dialog">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
@@ -250,6 +256,46 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Search Modal -->
+    <div id="searchModal" class="modal fade" tabindex="-1" role="dialog">
+      <div class="modal-dialog modal-login" role="document">
+        <div class="modal-content">
+          <div class="card card-signup card-plain">
+            <div class="modal-header">
+              <div class="card-header card-header-primary text-center">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                  <i class="material-icons">clear</i>
+                </button>
+                <h4 class="card-title">Search</h4>
+                <br>
+              </div>
+            </div>
+            <div class="modal-body">
+              <form class="form" action="{% url 'blog' %}" method="GET" id="search_form">
+                {% csrf_token %}
+                <div class="card-body">
+
+                  <div class="form-group bmd-form-group">
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <div class="input-group-text"><i class="material-icons">search</i></div>
+                      </div>
+                      <input type="search" name="search" id="search" class="form-control" placeholder="Search for..." required="required">
+                    </div>
+                  </div>
+
+                  <div class="form-group text-center">
+                    <input type="submit" class="btn btn-primary btn-round" value="Search"/>
+                  </div>
+                  
+                </div>
+              </form>
+            </div>
           </div>
         </div>
       </div>
