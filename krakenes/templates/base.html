@@ -24,6 +24,11 @@
     <nav class="navbar navbar-color-on-scroll navbar-transparent fixed-top navbar-expand-lg  bg-dark" color-on-scroll="100" id="sectionsNav">
       <div class="container">
         <div class="navbar-translate">
+            <a class="navbar-brand" href="{% url 'home' %}">
+            <div class="logo-image">
+                <img src="{% static '/img/logo.svg' %}" class="img-fluid">
+              </div>
+            </a>
           <a class="navbar-brand" href="{% url 'home' %}">
             Kråkenes </a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" aria-expanded="false" aria-label="Toggle navigation">

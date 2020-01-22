@@ -38,3 +38,11 @@
     margin-top: 15px;
     margin-bottom: -15px
 }
+.logo-image {
+    width: 41px;
+    height: 41px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-top: 20px;
+
+  }
