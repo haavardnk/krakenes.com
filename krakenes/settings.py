@@ -211,8 +211,21 @@ CKEDITOR_CONFIGS = {
             'stylesheetparser',
             'codesnippet',
         ]),
-        'contentsCss' : '/static/css/material-kit.css',
+        'contentsCss' : ['/static/css/material-kit.css', 'https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700'],
         'codeSnippet_theme' : 'tomorrow-night',
+
+        'font_names' : 'Arial/Arial, Helvetica, sans-serif;' +
+            'Comic Sans MS/Comic Sans MS, cursive;' +
+            'Courier New/Courier New, Courier, monospace;' +
+            'Georgia/Georgia, serif;' +
+            'Lucida Sans Unicode/Lucida Sans Unicode, Lucida Grande, sans-serif;' +
+            'Tahoma/Tahoma, Geneva, sans-serif;' +
+            'Times New Roman/Times New Roman, Times, serif;' +
+            'Trebuchet MS/Trebuchet MS, Helvetica, sans-serif;' +
+            'Verdana/Verdana, Geneva, sans-serif;' + 
+            'Roboto/Roboto, Helvetica, Arial, sans-serif;'
+
+        
     }
 }
 
