@@ -89,9 +89,9 @@ WSGI_APPLICATION = 'krakenes.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'krakenesdb',
-        'USER': 'postgres',
-        'PASSWORD': 'test1234',
+        'NAME': 'haavardnk',
+        'USER': 'haavardnk',
+        'PASSWORD': '',
         'HOST': 'localhost',
         'PORT': '5432',
     }

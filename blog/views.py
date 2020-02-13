@@ -10,8 +10,15 @@ from django.contrib.auth.models import User
 
 
 def home(request):
-    posts = BlogPost.objects.all().order_by('-id')
-    return render(request, 'blog/home.html', {'posts': posts})
+    all_posts = BlogPost.objects.all().order_by('-id')
+    post_list = all_posts
+
+    paginator = Paginator(post_list, 6)
+    page = request.GET.get('page')
+    posts = paginator.get_page(page)
+
+
+    return render(request, 'blog/home.html', {'posts': posts, 'all_posts': all_posts, 'range': range(posts.paginator.num_pages+1)})
 
 
 def blog(request):
