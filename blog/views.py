@@ -12,13 +12,14 @@ from django.contrib.auth.models import User
 def home(request):
     all_posts = BlogPost.objects.all().order_by('-id')
     post_list = all_posts
+    categories = Category.objects.all()
 
     paginator = Paginator(post_list, 6)
     page = request.GET.get('page')
     posts = paginator.get_page(page)
 
 
-    return render(request, 'blog/home.html', {'posts': posts, 'all_posts': all_posts, 'range': range(posts.paginator.num_pages+1)})
+    return render(request, 'blog/home.html', {'posts': posts, 'categories': categories, 'range': range(posts.paginator.num_pages+1)})
 
 
 def blog(request):
@@ -94,3 +95,17 @@ def post(request, post_id):
         return render(request, 'blog/post.html', {'post': post, 'posts': posts, 'tags': tags, 'categories': categories, 'selected_category': selected_category})
 
     return render(request, 'blog/post.html', {'post': post, 'posts': posts, 'tags': tags, 'categories': categories})
+
+def category(request, category_name):
+    category = get_object_or_404(Category, name=category_name)
+
+    categories = Category.objects.all()
+    post_list = BlogPost.objects.all().filter(category=category).order_by('-id').distinct('id')
+
+    category_entries = len(post_list)
+
+    paginator = Paginator(post_list, 6)
+    page = request.GET.get('page')
+    posts = paginator.get_page(page)
+
+    return render(request, 'blog/category.html', {'posts': posts, 'category': category, 'categories':categories, 'category_entries':category_entries, 'range': range(posts.paginator.num_pages+1)})

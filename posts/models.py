@@ -8,6 +8,7 @@ from ckeditor_uploader.fields import RichTextUploadingField
 
 class Category(models.Model):
     name = models.CharField(max_length=32)
+    image = models.ImageField(upload_to='images/categories', blank=True)
 
     class Meta:
         verbose_name_plural = "Categories"

@@ -39,39 +39,30 @@
         <div class="collapse navbar-collapse">
           <ul class="navbar-nav ml-auto">
             <li class="nav-item">
-              <a
-                href="{% url 'home' %}"
-                class="nav-link {% if request.resolver_match.url_name == 'home' %}active{% endif %}"
-                >Home</a
-              >
-            </li>
-            <li class="nav-item">
-              <a
-                href="{% url 'blog' %}"
-                class="nav-link {% if request.resolver_match.url_name == 'blog' or request.resolver_match.url_name == 'post' %}active{% endif %}"
-              >
-                Blog
+              <a href="{% url 'home' %}"
+                class="nav-link {% if request.resolver_match.url_name == 'home' %}active{% endif %}">
+                Home
               </a>
             </li>
+            <li class="dropdown nav-item">
+              <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false">
+                Categories
+              <div class="ripple-container"></div></a>
+              <div class="dropdown-menu dropdown-menu-right">
+                {% for category in categories %}
+                <a href="{% url 'category' category.name %}" class="dropdown-item">{{ category.name }}</a>
+              </div>
+              {% endfor %}
+            </li>
             <li class="nav-item">
-              <a
-                href="{% url 'projects' %}"
-                class="nav-link {% if request.resolver_match.url_name == 'projects' or request.resolver_match.url_name == 'project_details' %}active{% endif %}"
-              >
+              <a href="{% url 'projects' %}"
+                class="nav-link {% if request.resolver_match.url_name == 'projects' or request.resolver_match.url_name == 'project_details' %}active{% endif %}">
                 Projects
               </a>
             </li>
             <li class="nav-item">
               <a href="#" data-toggle="modal" data-target="#searchModal" class="nav-link"><i class="material-icons">search</i><div class="ripple-container"></div></a>
             </li>
-            <!-- <form id="search_form" class="form-inline ml-auto" action="{% url 'blog' %}" method="GET">
-              <div class="bmd-form-group form-group no-border">
-                <input type="search" name="search" id="search" class="form-control" placeholder="Search">
-              </div>
-              
-              <a href="#" class="nav-link" onclick="document.getElementById('search_form').submit()"><i style="color:white" class="material-icons">search</i><div class="ripple-container"></div></a>
-            </form> -->
-
            
             {% if user.is_authenticated %}
             <li class="dropdown nav-item">
