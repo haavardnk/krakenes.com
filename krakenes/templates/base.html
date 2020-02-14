@@ -55,12 +55,6 @@
               {% endfor %}
             </li>
             <li class="nav-item">
-              <a href="{% url 'projects' %}"
-                class="nav-link {% if request.resolver_match.url_name == 'projects' or request.resolver_match.url_name == 'project_details' %}active{% endif %}">
-                Projects
-              </a>
-            </li>
-            <li class="nav-item">
               <a href="#" data-toggle="modal" data-target="#searchModal" class="nav-link"><i class="material-icons">search</i><div class="ripple-container"></div></a>
             </li>
            

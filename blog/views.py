@@ -1,9 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from posts.models import BlogPost, Comment, Tag, Category
-from projects.models import Project
 from django.core.paginator import Paginator
-from hitcount.models import HitCount
-from hitcount.views import HitCountMixin
 from django.contrib.postgres.search import SearchVector
 from django.db.models import Count
 from django.contrib.auth.models import User
@@ -78,9 +75,6 @@ def post(request, post_id):
     posts = BlogPost.objects.all().order_by('-id')
     tags = Tag.objects.all()
     categories = Category.objects.all().annotate(posts_count=Count('blogpost'))
-
-    hit_count = HitCount.objects.get_for_object(post)
-    HitCountMixin.hit_count(request, hit_count)
 
     if request.method == "POST":
         if request.user.is_authenticated:

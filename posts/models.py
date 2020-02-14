@@ -1,8 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils import timezone
-from hitcount.models import HitCount
-from hitcount.views import HitCountMixin
 from ckeditor_uploader.fields import RichTextUploadingField
 
 
@@ -27,7 +25,7 @@ class Tag(models.Model):
         return self.name
 
 
-class BlogPost(models.Model, HitCountMixin, RichTextUploadingField):
+class BlogPost(models.Model, RichTextUploadingField):
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     pub_date = models.DateTimeField(default=timezone.now)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
