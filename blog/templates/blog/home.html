@@ -16,42 +16,32 @@
     </div>
   </div>
 </div>
-<div class="main main-raised">
+<div class="main main-raised section-dark">
   <div class="container">
     <div class="section text-center">
       <div class="row">
 
         {% for post in posts %}
-        <div class="col-md-6">
-          <div class="card card-blog">
-            <div class="card-header card-header-image">
-              <a href="{% url 'post' post.id %}">
-                <img class="img" src="{{ post.image.url }}">
-              </a>
-            <div class="colored-shadow" style="background-image: url(&quot;{{ post.image.url }}&quot;); opacity: 1;"></div></div>
+        <div class="col-md-6 ml-auto">
+          <div class="card card-plain">
+            <a href="{% url 'post' post.id %}">
+              <div class="card-header card-header-image">
+                <img src="{{ post.image.url }}">
+              </div>
+            </a>
             <div class="card-body ">
-              <h6 class="card-category text-success">{{ post.category }}</h6>
-              <h4 class="card-title">
-                <a href="{% url 'post' post.id %}">{{ post.title }}</a>
-              </h4>
+              <h6 class="card-category">{{ post.category }}</h6>
+              <a href="{% url 'post' post.id %}">
+                <h4 class="card-title">{{ post.title }}</h4>
+              </a>
               <p class="card-description">
                 {{ post.summary }}
               </p>
             </div>
-            <div class="card-footer ">
-              <div class="author">
-                <a href="{% url 'post' post.id %}">
-                  <img src="{{ post.author.profile.profile_picture.url }}" alt="..." class="avatar img-raised">
-                  <span>{{ post.author }}</span>
-                </a>
-              </div>
-              <div class="stats ml-auto">
-                <i class="material-icons">schedule</i> {{ post.pub_date_pretty }}
-              </div>
-            </div>
           </div>
         </div>
         {% endfor %}
+
       </div>
 
       <!-- Pagination -->

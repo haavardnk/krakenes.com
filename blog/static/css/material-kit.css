@@ -15749,7 +15749,7 @@ select.selectpicker {
   /* Chrome10+,Safari5.1+ */
   /* Opera 12+ */
   /* IE10+ */
-  background: radial-gradient(ellipse at center, #585858 0%, #232323 100%);
+  /* background: radial-gradient(ellipse at center, #585858 0%, #232323 100%);
   /* W3C */
   background-size: 550% 450%; }
   .footer-black a {
