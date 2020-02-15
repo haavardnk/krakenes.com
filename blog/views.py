@@ -18,55 +18,31 @@ def home(request):
 
     return render(request, 'blog/home.html', {'posts': posts, 'categories': categories, 'range': range(posts.paginator.num_pages+1)})
 
-
-def blog(request):
+def search(request):
     all_posts = BlogPost.objects.all().order_by('-id')
-    
-    if request.method == 'GET' and 'cat' in request.GET:
-        search_vector = SearchVector('category__name')
-        post_list = BlogPost.objects.all().annotate(cat=search_vector).filter(
-            cat=request.GET['cat']).order_by('-id').distinct('id')
-        selected_category = request.GET['cat']
-        search_message = None
 
-    elif request.method == 'GET' and 'search' in request.GET:
+    if request.method == 'POST' and 'search' in request.POST:
         search_vector = SearchVector(
             'author__username', 'category__name', 'title', 'tags__name', 'content')
         post_list = BlogPost.objects.all().annotate(search=search_vector).filter(
-            search=request.GET['search']).order_by('-id', 'title').distinct('id')
-        search_message = request.GET['search']
-    else:
-        post_list = all_posts
-        selected_category = None
-        search_message = None
+            search=request.POST['search']).order_by('-id', 'title').distinct('id')
+        search_string = request.POST['search']
 
     paginator = Paginator(post_list, 6)
     tags = Tag.objects.all()
-    categories = Category.objects.all().annotate(posts_count=Count('blogpost'))
+    categories = Category.objects.all()
 
 
     page = request.GET.get('page')
     posts = paginator.get_page(page)
 
-    # If selected category and/or search
-    if request.method == 'GET' and ('cat' or 'search') in request.GET:
-        return render(request, 'blog/blog.html', {
-            'posts': posts,
-            'all_posts': all_posts,
-            'range': range(posts.paginator.num_pages+1),
-            'tags': tags,
-            'categories': categories,
-            'selected_category': selected_category,
-            'search_message': search_message
-        })
-
-    # No search or selected category:
-    return render(request, 'blog/blog.html', {
+    return render(request, 'blog/search.html', {
         'posts': posts,
         'all_posts': all_posts,
         'range': range(posts.paginator.num_pages+1),
         'tags': tags,
-        'categories': categories
+        'categories': categories,
+        'search_string': search_string
     })
 
 

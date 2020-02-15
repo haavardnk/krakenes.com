@@ -261,7 +261,7 @@
               </div>
             </div>
             <div class="modal-body">
-              <form class="form" action="{% url 'blog' %}" method="GET" id="search_form">
+              <form class="form" action="{% url 'search' %}" method="POST" id="search_form">
                 {% csrf_token %}
                 <div class="card-body">
 
