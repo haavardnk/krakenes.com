@@ -53,7 +53,7 @@
                 <div class="row">
                   <div class="col-md-4">
                     <div class="card-header card-header-image">
-                      <a href="{% url 'post' post.id %}">
+                      <a href="{% url 'post' post.slug %}">
                         <img class="img img-raised" src="{{ post.image.url }}">
                       </a>
                     </div>
@@ -61,12 +61,12 @@
                   <div class="col-md-8">
                     <h6 class="card-category text-info">{{ post.category }}</h6>
                     <h3 class="card-title">
-                      <a href="{% url 'post' post.id %}">{{ post.title }}</a>
+                      <a href="{% url 'post' post.slug %}">{{ post.title }}</a>
                     </h3>
-                    <p class="card-description"> {{ post.summary }} <a href="{% url 'post' post.id %}"> Read More </a></p>
+                    <p class="card-description"> {{ post.summary }} <a href="{% url 'post' post.slug %}"> Read More </a></p>
                     <p class="author">
                       by
-                      <a href="{% url 'post' post.id %}">
+                      <a href="{% url 'post' post.slug %}">
                         <b>{{ post.author }}</b>
                       </a>, {{ post.pub_date_pretty }}
                     </p>
