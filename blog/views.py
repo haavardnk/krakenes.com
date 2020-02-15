@@ -70,8 +70,8 @@ def blog(request):
     })
 
 
-def post(request, post_id):
-    post = get_object_or_404(BlogPost, pk=post_id)
+def post(request, post_slug):
+    post = get_object_or_404(BlogPost, slug=post_slug)
     posts = BlogPost.objects.all().order_by('-id')
     tags = Tag.objects.all()
     categories = Category.objects.all().annotate(posts_count=Count('blogpost'))

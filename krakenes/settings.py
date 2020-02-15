@@ -157,28 +157,28 @@ CKEDITOR_CONFIGS = {
             ['Source', '-', 'Bold', 'Italic']
         ],
         'toolbar_YourCustomToolbarConfig': [
-            {'name': 'document', 'items': ['Source',]},
-            {'name': 'clipboard', 'items': ['Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo']},
-            {'name': 'editing', 'items': ['Find', 'Replace', '-', 'SelectAll']},
             {'name': 'yourcustomtools', 'items': [
                 # put the name of your editor.ui.addButton here
                 'Preview',
                 'Maximize',
 
             ]},
+            {'name': 'document', 'items': ['Source',]},
+            {'name': 'clipboard', 'items': ['Paste', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo']},
+            {'name': 'editing', 'items': ['Replace', '-', 'SelectAll']},
+            
             '/',
             {'name': 'basicstyles',
              'items': ['Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', 'CodeSnippet', '-', 'RemoveFormat', ]},
             {'name': 'paragraph',
-             'items': ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote', 'CreateDiv', '-',
-                       'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock', '-', 'BidiLtr', 'BidiRtl',
+             'items': ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'CreateDiv', '-',
+                       'JustifyLeft', 'JustifyCenter', 'JustifyRight', '-',
                        ]},
             {'name': 'links', 'items': ['Link', 'Unlink']},
             {'name': 'insert',
              'items': ['Image', 'Table', 'HorizontalRule', 'Smiley', 'SpecialChar', 'PageBreak', 'Iframe']},
             '/',
             {'name': 'styles', 'items': ['Styles', 'Format', 'Font', 'FontSize']},
-            {'name': 'colors', 'items': ['TextColor', 'BGColor']},
             {'name': 'tools', 'items': ['ShowBlocks']},
             
         ],
@@ -212,17 +212,20 @@ CKEDITOR_CONFIGS = {
         'contentsCss' : ['/static/css/material-kit.css', 'https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700'],
         'codeSnippet_theme' : 'tomorrow-night',
 
-        'font_names' : 'Arial/Arial, Helvetica, sans-serif;' +
-            'Comic Sans MS/Comic Sans MS, cursive;' +
-            'Courier New/Courier New, Courier, monospace;' +
-            'Georgia/Georgia, serif;' +
-            'Lucida Sans Unicode/Lucida Sans Unicode, Lucida Grande, sans-serif;' +
-            'Tahoma/Tahoma, Geneva, sans-serif;' +
-            'Times New Roman/Times New Roman, Times, serif;' +
-            'Trebuchet MS/Trebuchet MS, Helvetica, sans-serif;' +
-            'Verdana/Verdana, Geneva, sans-serif;' + 
-            'Roboto/Roboto, Helvetica, Arial, sans-serif;'
+        'font_names' : 'Roboto Slab/Roboto Slab, Times New Roman, sans-serif;' + 
+            'Roboto/Roboto, Helvetica, Arial, sans-serif;',
 
+        'stylesSet' : [
+            {'name': 'quote' , 'element': 'div', 'attributes': {'class':'blockquote',}},
+            {'name': 'small' , 'element': 'small', 'attributes': {}},
+        ],
+        'format_p': {'element': 'p', 'attributes': {'class':'description',}},
+        'format_h1': {'element': 'h1', 'attributes': {'class':'title',}},
+        'format_h2': {'element': 'h2', 'attributes': {'class':'title',}},
+        'format_h3': {'element': 'h3', 'attributes': {'class':'title',}},
+        'format_h4': {'element': 'h4', 'attributes': {'class':'title',}},
+        'format_h5': {'element': 'h5', 'attributes': {'class':'description',}},
+        'format_h6': {'element': 'h6', 'attributes': {'class':'description',}},
         
     }
 }
