@@ -48,3 +48,6 @@
 .dark-background {
     background-color: #232323;
 }
+a:hover {
+    cursor:pointer;
+}

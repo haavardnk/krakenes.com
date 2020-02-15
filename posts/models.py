@@ -32,7 +32,7 @@ class BlogPost(models.Model, RichTextUploadingField):
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     tags = models.ManyToManyField(Tag, blank=True)
     title = models.CharField(max_length=100)
-    slug = models.SlugField(unique=True, default='Will auto update')
+    slug = models.SlugField(unique=True, default='will-auto-update')
     content = RichTextUploadingField()
     summary = models.TextField(max_length=255)
     image = models.ImageField(upload_to='images/')

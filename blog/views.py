@@ -21,17 +21,16 @@ def home(request):
 def search(request):
     all_posts = BlogPost.objects.all().order_by('-id')
 
-    if request.method == 'POST' and 'search' in request.POST:
+    if request.method == 'GET' and 'search' in request.GET:
         search_vector = SearchVector(
             'author__username', 'category__name', 'title', 'tags__name', 'content')
         post_list = BlogPost.objects.all().annotate(search=search_vector).filter(
-            search=request.POST['search']).order_by('-id', 'title').distinct('id')
-        search_string = request.POST['search']
+            search=request.GET['search']).order_by('-id', 'title').distinct('id')
+        search_string = request.GET['search']
 
     paginator = Paginator(post_list, 6)
     tags = Tag.objects.all()
     categories = Category.objects.all()
-
 
     page = request.GET.get('page')
     posts = paginator.get_page(page)
