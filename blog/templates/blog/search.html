@@ -1,6 +1,6 @@
 {% extends 'base.html' %} {% block content %} 
 {% load static %}
-<div class="page-header header-small header-filter" data-parallax="true" style="background-image: url({% static 'img/blackboard-background.jpg'%})">
+<div class="page-header header-small header-filter" data-parallax="true" style="background-image: url({% static 'img/search.jpg'%})">
   <div class="container">
     <div class="row">
       <div class="col-md-6 ml-auto mr-auto">
@@ -8,7 +8,8 @@
           <h3 class="title">Search:</h3>
           <div class="card card-raised card-form-horizontal">
             <div class="card-body ">
-              <form method="" action="">
+              <form class="form" action="{% url 'search' %}" method="POST" id="search_form">
+                {% csrf_token %}
                 <div class="row">
                   <div class="col-lg-8 col-md-6 ">
                     <span class="bmd-form-group"><div class="input-group">
@@ -17,11 +18,11 @@
                           <i class="material-icons">search</i>
                         </span>
                       </div>
-                      <input type="search" value="{{ search_string }}" placeholder="Search..." class="form-control">
+                      <input type="search" name="search" id="search" value="{{ search_string }}" placeholder="Search..." class="form-control" required="required">
                     </div></span>
                   </div>
                   <div class="col-lg-4 col-md-6 ">
-                    <button type="button" class="btn btn-primary btn-block">Search</button>
+                    <button type="submit" class="btn btn-primary btn-block">Search</button>
                   </div>
                 </div>
               </form>
@@ -38,9 +39,8 @@
       <div class="row">
         <!--No posts -->
         {% if posts|length == 0 %}
-        <br>
-        <div class="alert alert-light text-center" role="alert">
-          There are no matching posts.
+        <div class="col-md-6 ml-auto mr-auto">
+          <h4 class="title">There are no matching posts</h4>
         </div>
         {% endif %}
     
