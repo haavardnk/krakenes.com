@@ -15505,7 +15505,6 @@ select.selectpicker {
   .blog-post .section-text p {
     font-size: 1.188rem;
     line-height: 1.5em;
-    color: #555;
     margin-bottom: 30px; }
   .blog-post .section-text .blockquote p {
     font-size: 1.5rem; }
@@ -15528,9 +15527,6 @@ select.selectpicker {
 
 .blog-post .section-comments .title {
   margin-bottom: 30px; }
-
-.blog-post .media p {
-  color: #555; }
 
 .blog-posts .nav.nav-pills {
   display: -webkit-inline-box;
