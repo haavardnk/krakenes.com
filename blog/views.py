@@ -20,6 +20,11 @@ def home(request):
 
 def search(request):
     all_posts = BlogPost.objects.all().order_by('-id')
+    tags = Tag.objects.all()
+    categories = Category.objects.all()
+    post_list = []
+    search_string = ""
+    
 
     if request.method == 'GET' and 'search' in request.GET:
         search_vector = SearchVector(
@@ -29,8 +34,6 @@ def search(request):
         search_string = request.GET['search']
 
     paginator = Paginator(post_list, 6)
-    tags = Tag.objects.all()
-    categories = Category.objects.all()
 
     page = request.GET.get('page')
     posts = paginator.get_page(page)

@@ -18,12 +18,12 @@ class BaseTestCase(TestCase):
     def setUp(self):
         user = User.objects.create_user(
             username='testuser', email='test@test.com', password='testpass')
-        category = Category.objects.create(id=11, name='Test_cat')
         tag = Tag.objects.create(id=13, name='Test_tag')
         image = SimpleUploadedFile("test.png", b"\x00\x01\x02\x03")
+        category = Category.objects.create(id=11, name='Test_cat', image=image)
         for i in range(1, 8):
-            blogpost = BlogPost.objects.create(id=i, author=user, title='test'+str(
-                i), content='test', category=category, image=image, summary=str(i)+str(i)+str(i))
+            blogpost = BlogPost.objects.create(id=i, author=user, title='test '+str(
+                i), content='t', category=category, image=image, summary=str(i)+str(i)+str(i))
             blogpost.tags.add(tag)
 
 
@@ -37,71 +37,62 @@ class HomePageTests(BaseTestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'blog/home.html')
 
-    def test_home_page_contains_three_blogposts(self):
+    def test_home_page_contains_six_blogposts(self):
         '''
-        Checks that the home page only contains the latest three blog posts
+        Checks that home page contains correct amount of blog posts
         '''
         response = self.client.get('/')
-        for i in range(7, 4, -1):
-            self.assertContains(response, BlogPost.objects.get(id=i).title)
-        self.assertNotContains(response, BlogPost.objects.get(id=4).title)
-
-
-class BlogPageTests(BaseTestCase):
-    '''
-    Tests of the blog page
-    '''
-
-    def test_view_uses_correct_template(self):
-        response = self.client.get(reverse('blog'))
-        self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'blog/blog.html')
-
-    def test_blog_page_contains_six_blogposts(self):
-        '''
-        Checks that blog page contains correct amount of blog posts
-        '''
-        response = self.client.get('/blog/')
         for i in range(7, 1, -1):
             self.assertContains(response, BlogPost.objects.get(id=i).summary)
         self.assertNotContains(response, BlogPost.objects.get(id=1).summary)
 
-    def test_blog_page_pagination(self):
+    def test_home_page_pagination(self):
         '''
-        Checks that blog page contains correct amount of pages.
+        Checks that home page contains correct amount of pages.
         '''
-        response = self.client.get('/blog/')
+        response = self.client.get('/')
         self.assertContains(response, '?page=1')
         self.assertContains(response, '?page=2')
         self.assertNotContains(response, '?page=3')
 
-    def test_blog_page_search(self):
+
+class SearchPageTests(BaseTestCase):
+    '''
+    Tests of the search page
+    '''
+
+    def test_view_uses_correct_template(self):
+        response = self.client.get(reverse('search'))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'blog/search.html')
+
+    def test_search_page_search(self):
         '''
         Checks that a search for only returns correct post.
         Also checks for correct message to user.
         '''
-        response = self.client.get('/blog/', {'search': 'test5'})
+        response = self.client.get('/search/', {'search': 'test 5'})
         self.assertContains(response, BlogPost.objects.get(id=5).title)
         self.assertNotContains(response, BlogPost.objects.get(id=4).title)
         self.assertNotContains(response, BlogPost.objects.get(id=3).title)
 
-    def test_blog_page_search_no_results(self):
+    def test_search_page_contains_six_blogposts(self):
+        '''
+        Checks that search page contains correct amount of blog posts
+        '''
+        response = self.client.get('/search/', {'search': 'test'})
+        for i in range(7, 1, -1):
+            self.assertContains(response, BlogPost.objects.get(id=i).summary)
+        self.assertNotContains(response, BlogPost.objects.get(id=1).summary)
+
+    def test_search_page_search_no_results(self):
         '''
         Checks that a search with no results gives the right message.
         '''
         response = self.client.get(
-            '/blog/', {'search': 'thiswillgivenoresults'})
+            '/search/', {'search': 'thiswillgivenoresults'})
         self.assertContains(
-            response, 'There are no matching posts.')
-
-    def test_blog_page_categories(self):
-        '''
-        Checks that the category shows.
-        '''
-        response = self.client.get('/blog/')
-
-        self.assertContains(response, 'submit();">Test_cat')
-
+            response, 'There are no matching posts')
 
 class PostPageTests(BaseTestCase):
     '''
@@ -109,7 +100,7 @@ class PostPageTests(BaseTestCase):
     '''
 
     def test_view_uses_correct_template(self):
-        response = self.client.get('/blog/1/')
+        response = self.client.get('/blog/test-1/')
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'blog/post.html')
 
@@ -117,7 +108,7 @@ class PostPageTests(BaseTestCase):
         '''
         Tests rendering of a post
         '''
-        response = self.client.get('/blog/1/')
+        response = self.client.get('/blog/test-1/')
         self.assertContains(response, BlogPost.objects.get(id=1).title)
         self.assertContains(response, BlogPost.objects.get(id=1).content)
         self.assertContains(response, BlogPost.objects.get(id=1).image)
@@ -156,6 +147,33 @@ class PostPageTests(BaseTestCase):
     #     self.assertContains(response, "Comment submitted.")
     #     self.assertContains(response, "(1)")
 
+class CategoryPageTests(BaseTestCase):
+    '''
+    Tests of the category page
+    '''
+
+    def test_view_uses_correct_template(self):
+        response = self.client.get('/blog/category/Test_cat/')
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'blog/category.html')
+
+    def test_category_page_contains_six_blogposts(self):
+        '''
+        Checks that home page contains correct amount of blog posts
+        '''
+        response = self.client.get('/blog/category/Test_cat/')
+        for i in range(7, 1, -1):
+            self.assertContains(response, BlogPost.objects.get(id=i).summary)
+        self.assertNotContains(response, BlogPost.objects.get(id=1).summary)
+
+    def test_category_page_pagination(self):
+        '''
+        Checks that home page contains correct amount of pages.
+        '''
+        response = self.client.get('/blog/category/Test_cat/')
+        self.assertContains(response, '?page=1')
+        self.assertContains(response, '?page=2')
+        self.assertNotContains(response, '?page=3')
 
 class BlogPostModelTests(BaseTestCase):
     '''
@@ -164,7 +182,7 @@ class BlogPostModelTests(BaseTestCase):
 
     def test_blogpost_model_str(self):
         post = BlogPost.objects.get(id=1)
-        self.assertEqual(str(post), "test1")
+        self.assertEqual(str(post), "test 1")
 
 
 class CategoryModelTests(BaseTestCase):
