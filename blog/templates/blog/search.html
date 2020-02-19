@@ -1,0 +1,111 @@
+{% extends 'base.html' %} {% block content %} 
+{% load static %}
+<div class="page-header header-small header-filter" data-parallax="true" style="background-image: url({% static 'img/search.jpg'%})">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6 ml-auto mr-auto">
+        <div class="brand text-center">
+          <h3 class="title">Search:</h3>
+          <div class="card card-raised card-form-horizontal">
+            <div class="card-body ">
+              <form class="form" action="{% url 'search' %}" method="GET" id="search_form">
+                <div class="row">
+                  <div class="col-lg-8 col-md-6 ">
+                    <span class="bmd-form-group"><div class="input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text">
+                          <i class="material-icons">search</i>
+                        </span>
+                      </div>
+                      <input type="search" name="search" id="search" value="{{ search_string }}" placeholder="Search..." class="form-control" required="required">
+                    </div></span>
+                  </div>
+                  <div class="col-lg-4 col-md-6 ">
+                    <button type="submit" class="btn btn-primary btn-block">Search</button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="main main-raised section-dark">
+  <div class="container">
+    <div class="section text-center">
+      <div class="row">
+        <!--No posts -->
+        {% if posts|length == 0 %}
+        <div class="col-md-6 ml-auto mr-auto">
+          <h4 class="title">There are no matching posts</h4>
+        </div>
+        {% endif %}
+    
+        <!--    Posts     -->
+        {% for post in posts %}
+        <div class="col-md-6 mr-auto">
+          <div class="card card-plain">
+            <a href="{% url 'post' post.slug %}">
+              <div class="card-header card-header-image">
+                <img src="{{ post.image.url }}">
+              </div>
+            </a>
+            <div class="card-body ">
+              <h6 class="card-category text-info">{{ post.category }}</h6>
+              <a href="{% url 'post' post.slug %}">
+                <h4 class="card-title">{{ post.title }}</h4>
+              </a>
+              <p class="card-description">
+                {{ post.summary }}
+              </p>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    
+      <!-- Pagination -->
+      {% if posts.has_other_pages %}
+      <nav aria-label="Page navigation example">
+        <ul class="pagination pagination-template d-flex justify-content-center">
+          {% if posts.has_previous %}
+          <li class="page-item">
+            <a href="?{% if search_string %}search={{ search_string }}&{% endif %}page={{ posts.previous_page_number }}" class="page-link">
+              <i class="fa fa-angle-left"></i></a>
+          </li>
+          {% else %}
+          <li class="page-item disabled">
+            <a href="" class="page-link"> <i class="fa fa-angle-left"></i></a>
+          </li>
+          {% endif %} 
+          {% for i in posts.paginator.page_range %} 
+          {% if posts.number == i %}
+          <li class="page-item active">
+            <a href="?{% if search_string %}search={{ search_string }}&{% endif %}page={{ i }}" class="page-link">{{ i }}</a>
+          </li>
+          {% else %}
+          <li class="page-item">
+            <a href="?{% if search_string %}search={{ search_string }}&{% endif %}page={{ i }}" class="page-link">{{ i }}</a>
+          </li>
+          {% endif %} 
+          {% endfor %} 
+          {% if posts.has_next %}
+          <li class="page-item">
+            <a class="page-link" href="?{% if search_string %}search={{ search_string }}&{% endif %}page={{ posts.next_page_number }}"
+              ><i class="fa fa-angle-right"></i
+            ></a>
+          </li>
+          {% else %}
+          <li class="page-item disabled">
+            <a class="page-link" href=><i class="fa fa-angle-right"></a></i>
+          </li>
+          {% endif %}
+        </ul>
+      </nav>
+      {% endif %}
+    </div>
+  </div>
+</div>
+{% endblock %}

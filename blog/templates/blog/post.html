@@ -1,21 +1,22 @@
 {% extends 'base.html' %} {% block content %} 
-{% load staticfiles %} {% load hitcount_tags %}
+{% load static %}
 <div class="page-header header-filter" data-parallax="true" style="background-image: url({{ post.image.url }});">
   <div class="container">
     <div class="row">
       <div class="col-md-8 ml-auto mr-auto text-center">
         <h1 class="title">{{ post.title }}</h1>
-        <h4>{{ post.description }}</h4>
+        <h5 class="title">By {{ post.author.get_full_name|default:post.author.username }} - {{ post.pub_date_pretty }}</h4>
         <br>
-        <a href="javascript: window.scroll({
-          top: 800, 
-          behavior: 'smooth' 
+        <a href="javascript: window.scrollBy({
+          top: 80 * window.innerHeight/100,
+          left: 0,
+          behavior: 'smooth'
           });" class="btn btn-rose btn-round btn-lg"><i class="material-icons">format_align_left</i> Read Article</a>
       </div>
     </div>
   </div>
 </div>
-<div class="main blog-post main-raised">
+<div class="main blog-post main-raised section-dark">
   <div class="container">
     <div class="section section-text ">
       <div class="row">
@@ -29,15 +30,15 @@
         <div class="col-md-8 ml-auto mr-auto">
           <div class="row">
             <div class="col-md-9">
-              <div class="blog-tags">
+              <div class="blog-tags description">
                 Tags:
                 {%for tag in post.tags.all%}
                 <span class="badge badge-primary badge-pill">{{ tag }}</span>
                 {% endfor %}
               </div>
             </div>
-            <div class="col-md-3 text-right author">
-              <p class="date-views"><i class="fa fa-eye"></i>{% get_hit_count for post %}     <i class="fa fa-clock-o"></i>{{ post.pub_date_pretty }}</p>
+            <div class="col-md-3 text-right description">
+              <p class="date-views"><i class="fa fa-clock-o"></i>{{ post.pub_date_pretty }}</p>
             </div>
           </div>
           <hr>

@@ -1688,7 +1688,7 @@ pre {
   padding: 0.4375rem 0;
   font-size: 1rem;
   line-height: 1.5;
-  color: #d2d2d2;
+  color: #3C4858;
   background-color: rgba(0, 0, 0, 0);
   background-clip: padding-box;
   border: 1px solid #d2d2d2;
@@ -15749,7 +15749,7 @@ select.selectpicker {
   /* Chrome10+,Safari5.1+ */
   /* Opera 12+ */
   /* IE10+ */
-  background: radial-gradient(ellipse at center, #585858 0%, #232323 100%);
+  /* background: radial-gradient(ellipse at center, #585858 0%, #232323 100%);
   /* W3C */
   background-size: 550% 450%; }
   .footer-black a {

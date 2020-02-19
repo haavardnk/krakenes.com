@@ -20,7 +20,7 @@
     <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/styles/tomorrow-night.min.css">
     
   </head>
-  <body class="sidebar-collapse">
+  <body class="sidebar-collapse dark-background">
     <nav class="navbar navbar-color-on-scroll navbar-transparent fixed-top navbar-expand-lg  bg-dark" color-on-scroll="100" id="sectionsNav">
       <div class="container">
         <div class="navbar-translate">
@@ -39,48 +39,33 @@
         <div class="collapse navbar-collapse">
           <ul class="navbar-nav ml-auto">
             <li class="nav-item">
-              <a
-                href="{% url 'home' %}"
-                class="nav-link {% if request.resolver_match.url_name == 'home' %}active{% endif %}"
-                >Home</a
-              >
-            </li>
-            <li class="nav-item">
-              <a
-                href="{% url 'blog' %}"
-                class="nav-link {% if request.resolver_match.url_name == 'blog' or request.resolver_match.url_name == 'post' %}active{% endif %}"
-              >
-                Blog
+              <a href="{% url 'home' %}"
+                class="nav-link {% if request.resolver_match.url_name == 'home' %}active{% endif %}">
+                Home
               </a>
             </li>
-            <li class="nav-item">
-              <a
-                href="{% url 'projects' %}"
-                class="nav-link {% if request.resolver_match.url_name == 'projects' or request.resolver_match.url_name == 'project_details' %}active{% endif %}"
-              >
-                Projects
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="#" data-toggle="modal" data-target="#searchModal" class="nav-link"><i class="material-icons">search</i><div class="ripple-container"></div></a>
-            </li>
-            <!-- <form id="search_form" class="form-inline ml-auto" action="{% url 'blog' %}" method="GET">
-              <div class="bmd-form-group form-group no-border">
-                <input type="search" name="search" id="search" class="form-control" placeholder="Search">
+            <li class="dropdown nav-item">
+              <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false">
+                Categories
+              <div class="ripple-container"></div></a>
+              <div class="dropdown-menu dropdown-menu-right">
+                {% for category in categories %}
+                <a href="{% url 'category' category.name %}" class="dropdown-item">{{ category.name }}</a>
               </div>
-              
-              <a href="#" class="nav-link" onclick="document.getElementById('search_form').submit()"><i style="color:white" class="material-icons">search</i><div class="ripple-container"></div></a>
-            </form> -->
-
+              {% endfor %}
+            </li>
+            <li class="nav-item">
+              <a data-toggle="modal" data-target="#searchModal" class="nav-link"><i class="material-icons">search</i><div class="ripple-container"></div></a>
+            </li>
            
             {% if user.is_authenticated %}
             <li class="dropdown nav-item">
-              <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false">
+              <a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false">
                 <i class="material-icons">person</i>
                 <b class="caret"></b>
               <div class="ripple-container"></div></a>
               <div class="dropdown-menu dropdown-menu-right">
-                <a href="#pablo" class="dropdown-item">Profile</a>
+                <a class="dropdown-item">Profile</a>
                 <a class="dropdown-item"
                   href="javascript:document.getElementById('logout').submit();">Logout</a>
                 <form id="logout" method="POST" action="{% url 'logout' %}">
@@ -123,6 +108,7 @@
               <div class="login-alert login-user-error text-center">
                 <p>Username does not exist</p>
               </div>
+
               <form class="form" method="POST" id="loginForm">
                 {% csrf_token %}
                 <div class="card-body">
@@ -155,11 +141,9 @@
 
               <div class="modal-footer justify-content-center">
                 <button class="btn btn-primary btn-link btn-wd btn-lg" data-toggle="modal" data-target="#signupModal" data-dismiss="modal">
-                <i class="material-icons">assignment</i>
-                Register
-                </button>
+                <i class="material-icons">assignment</i>Register</button>
               </div>
-              
+  
             </div>
           </div>
         </div>
@@ -276,8 +260,7 @@
               </div>
             </div>
             <div class="modal-body">
-              <form class="form" action="{% url 'blog' %}" method="GET" id="search_form">
-                {% csrf_token %}
+              <form class="form" action="{% url 'search' %}" method="GET" id="search_form">
                 <div class="card-body">
 
                   <div class="form-group bmd-form-group">
@@ -303,28 +286,9 @@
 
     {% block content %} {% endblock %}
     <!-- Page Footer-->
-    <footer class="footer footer-default">
+    <footer class="footer footer-black">
       <div class="container">
-        <nav class="float-left">
-          <ul>
-            <li>
-              <a href="https://creative-tim.com/presentation">
-                About Us
-              </a>
-            </li>
-            <li>
-              <a href="http://blog.creative-tim.com">
-                Blog
-              </a>
-            </li>
-            <li>
-              <a href="https://www.creative-tim.com/license">
-                Licenses
-              </a>
-            </li>
-          </ul>
-        </nav>
-        <div class="copyright float-right">
+        <div class="copyright float-center">
           &copy; Håvard Kråkenes {% now "Y" %}
         </div>
       </div>
