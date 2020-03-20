@@ -1,3 +1,4 @@
 #!/bin/bash
-chmod 600 ~/.travis/id_rsa
-cat .travis/update.sh | ssh -o StrictHostKeyChecking=no -o BatchMode=yes -i ~/.travis/id_rsa "$SSHUSER@$IP"
+docker build -t haavardnk/krakenes .   
+echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+docker push haavardnk/krakenes
