@@ -21,4 +21,9 @@ script:
 - coverage run --source='.' manage.py test
 after_success:
 - codecov
-- bash .travis/deploy.sh
+
+deploy:
+  provider: script
+  script: .travis/deploy.sh
+  on:
+    branch: master
