@@ -146,6 +146,7 @@ class PostPageTests(BaseTestCase):
     #     self.assertContains(response, "testcomment")
     #     self.assertContains(response, "Comment submitted.")
     #     self.assertContains(response, "(1)")
+    
 
 class CategoryPageTests(BaseTestCase):
     '''
