@@ -1,0 +1,68 @@
+{% extends 'base.html' %} 
+{% load i18n %}
+{% load account socialaccount %}
+
+{% block head_title %}{% trans "Signup" %}{% endblock %}
+
+{% block content %} 
+{% load static %}
+<div class="page-header header-filter" style="background-image: url({% static 'img/login.jpg'%}); background-size: cover; background-position: top center;">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6 ml-auto mr-auto">
+        <div class="card card-signup signup-card-custom">
+          <h2 class="card-title text-center">Register</h2>
+          <div class="card-body">
+            <form class="form" id="signup_form" method="post" action="{% url 'account_signup' %}">
+              {% csrf_token %}
+              <div class="form-group">
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">
+                      <i class="material-icons">account_circle</i>
+                    </span>
+                  </div>
+                  <input type="text" class="form-control" placeholder="Username..." minlength="1" maxlength="150" required="required" name="username" id="id_username">
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">
+                      <i class="material-icons">email</i>
+                    </span>
+                  </div>
+                  <input type="email" class="form-control" placeholder="Email..." required="required" name="email" id="id_email">
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">
+                      <i class="material-icons">lock_outline</i>
+                    </span>
+                  </div>
+                  <input type="password" placeholder="Password..." class="form-control" minlength="8" required="required" name="password1" id="id_password1"/>
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">
+                      <i class="material-icons">lock_outline</i>
+                    </span>
+                  </div>
+                  <input type="password" placeholder="Password..." class="form-control" minlength="8" required="required" name="password2" id="id_password2"/>
+                </div>
+              </div>
+              <div class="form-group text-center">
+                <input type="submit" class="btn btn-primary btn-round" value="Sign Up"/>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
