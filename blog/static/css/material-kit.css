@@ -1700,7 +1700,6 @@ pre {
     background-color: transparent;
     border: 0; }
   .form-control:focus {
-    color: #d2d2d2;
     background-color: rgba(0, 0, 0, 0);
     border-color: #9acffa;
     outline: 0;
