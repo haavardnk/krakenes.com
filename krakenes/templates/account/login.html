@@ -49,6 +49,9 @@
                     </label>
                   </div>
                 </span>
+                {% if redirect_field_value %}
+                  <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+                {% endif %}
               </div>
               <br>
               <div class="text-center">

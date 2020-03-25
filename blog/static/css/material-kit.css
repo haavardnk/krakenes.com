@@ -1722,6 +1722,10 @@ pre {
   .form-control:disabled, .form-control[readonly] {
     background-color: #e9ecef;
     opacity: 1; }
+.form-control,
+.form-control-dark {
+  color: rgba(255, 255, 255, 0.76);
+}
 
 select.form-control:not([size]):not([multiple]) {
   height: calc(2.4375rem + 2px); }
@@ -12829,10 +12833,12 @@ h2.title {
   overflow: hidden;
   text-align: center;
   vertical-align: middle;
-  max-width: 360px; }
+  max-width: 360px;
+  -webkit-transform: translate3d(0, -50%, 0);
+  transform: translate3d(0, -50%, 0); }
   .fileinput .thumbnail.img-circle {
     border-radius: 50%;
-    max-width: 100px; }
+    max-width: 160px; }
 
 .fileinput .thumbnail > img {
   max-height: 100%;
