@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     'accounts.apps.AccountsConfig',
     'posts.apps.PostsConfig',
     'blog.apps.BlogConfig',
+    'portfolio.apps.PortfolioConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.sites',
@@ -47,6 +48,7 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
+    'imagekit'
 ]
 
 MIDDLEWARE = [
@@ -151,11 +153,19 @@ STATICFILES_DIRS = [
 
 ]
 
-STATIC_ROOT='/static'
+# For development
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATIC_URL = '/static/'
 
-MEDIA_ROOT = '/media'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
+
+# For production
+# STATIC_ROOT='/static'
+# STATIC_URL = '/static/'
+
+# MEDIA_ROOT = '/media'
+# MEDIA_URL = '/media/'
 
 ####################################
 ##  CKEDITOR CONFIGURATION ##

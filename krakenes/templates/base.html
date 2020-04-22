@@ -38,10 +38,10 @@
         </div>
         <div class="collapse navbar-collapse">
           <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
-              <a href="{% url 'home' %}"
-                class="nav-link {% if request.resolver_match.url_name == 'home' %}active{% endif %}">
-                Home
+            <li class="nav-item {% if request.resolver_match.url_name == 'portfolio' %}active{% endif %}">
+              <a href="{% url 'portfolio' %}"
+                class="nav-link">
+                Portfolio
               </a>
             </li>
             <li class="dropdown nav-item">
@@ -54,7 +54,7 @@
               </div>
               {% endfor %}
             </li>
-            <li class="nav-item">
+            <li class="nav-item {% if request.resolver_match.url_name == 'search' %}active{% endif %}">
               <a data-toggle="modal" data-target="#searchModal" class="nav-link"><i class="material-icons">search</i><div class="ripple-container"></div></a>
             </li>
            
@@ -196,7 +196,7 @@
                       <div class="input-group-prepend">
                         <div class="input-group-text"><i class="material-icons">search</i></div>
                       </div>
-                      <input type="search" name="search" id="search" class="form-control" placeholder="Search for..." required="required">
+                      <input type="search" name="search" id="search" class="form-control search-color" placeholder="Search for..." required="required">
                     </div>
                   </div>
 

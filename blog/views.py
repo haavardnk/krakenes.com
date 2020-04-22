@@ -5,8 +5,7 @@ from django.contrib.postgres.search import SearchVector
 from django.db.models import Count
 from django.contrib.auth.models import User
 
-
-def home(request):
+def blog(request):
     all_posts = BlogPost.objects.all().order_by('-id')
     post_list = all_posts
     categories = Category.objects.all()
@@ -16,7 +15,7 @@ def home(request):
     posts = paginator.get_page(page)
 
 
-    return render(request, 'blog/home.html', {'posts': posts, 'categories': categories, 'range': range(posts.paginator.num_pages+1)})
+    return render(request, 'blog/blog.html', {'posts': posts, 'categories': categories, 'range': range(posts.paginator.num_pages+1)})
 
 def search(request):
     all_posts = BlogPost.objects.all().order_by('-id')
