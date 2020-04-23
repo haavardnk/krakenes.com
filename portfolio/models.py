@@ -25,3 +25,13 @@ class Photo(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class Site(models.Model):
+    site_name = models.CharField(max_length=50)
+    title = models.CharField(max_length=50)
+    sub_title = models.CharField(max_length=75, blank=True)
+    background = models.ImageField(upload_to='images')
+
+    def __str__(self):
+        return self.site_name

@@ -11027,7 +11027,7 @@ footer {
     .info .icon > i {
       font-size: 3.85rem; }
   .info .info-title {
-    color: #3C4858;
+    color: #ffffff;
     margin: 1.75rem 0 0.875rem; }
   .info p {
     color: #999999; }
@@ -15549,7 +15549,7 @@ select.selectpicker {
 .contact-page .container {
   max-width: 970px; }
 
-.contact-page .big-map {
+.big-map {
   height: 55vh;
   width: 100%;
   display: block;
