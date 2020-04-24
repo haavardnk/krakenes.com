@@ -12,9 +12,21 @@
 <div class="main main-raised section-dark">
     <div class="container container-portfolio">
         <div class="section text-center">
-            <div class="row" id="lightgallery">
-                {% for photo in photos %}
-                <div class="col-md-4" data-src="{{photo.photo_large.url}}" data-download-url="{{photo.photo_full.url}}">
+            <div class="row flex-row-reverse wrap-reverse justify-content-center" id="lightgallery" style="flex-wrap: wrap-reverse;">
+                {% for photo, exif in photos_exif %}
+                <div class="col-md-4" 
+                    data-src="{{photo.photo_large.url}}" 
+                    data-download-url="{{photo.photo_full.url}}"
+                    data-filename="{{exif.filename}}"
+                    data-datetimeoriginal="{{exif.date}}"
+                    data-fnumber="{{exif.aperture}}"
+                    data-exposuretime="{{exif.exposure}}"
+                    data-isospeedratings="{{exif.iso}}"
+                    data-focallength="{{exif.focallength}}"
+                    data-lensmodel="{{exif.lens}}"
+                    data-model="{{exif.model}}"
+                    data-make="{{exif.make}}"
+                    >
                     <a href="">
                         <img class="img img-portfolio" src="{{photo.photo_thumb.url}}">
                     </a>

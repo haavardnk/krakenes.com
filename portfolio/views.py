@@ -14,9 +14,24 @@ def home(request):
 
 def portfolio(request):
     site_settings = get_object_or_404(Site, site_name="portfolio")
-    photos = Photo.objects.all().order_by('-id')
+    photos = Photo.objects.all().order_by('id')
     categories = Category.objects.all()
-    return render(request, 'portfolio/portfolio.html', {'photos': photos, 'categories': categories, 'site_settings': site_settings})
+    exif_list = []
+    for photo in photos:
+        exif_list.append({
+            'filename' : photo.exif['FileName']['val'],
+            'date' : photo.exif['DateTimeOriginal']['val'],
+            'aperture' : photo.exif['Aperture']['val'],
+            'exposure' : photo.exif['ExposureTime']['val'],
+            'iso' : photo.exif['ISO']['val'],
+            'focallength' : photo.exif['FocalLength']['val'],
+            'lens' : photo.exif['LensModel']['val'],
+            'model' : photo.exif['Model']['val'],
+            'make' : photo.exif['Make']['val'],
+        })
+    photos_exif = zip(photos, exif_list)
+    print(photos[0].exif['Model']['val'])
+    return render(request, 'portfolio/portfolio.html', {'photos_exif': photos_exif, 'categories': categories, 'site_settings': site_settings})
 
 def about(request):
     site_settings = get_object_or_404(Site, site_name="about")

@@ -3,6 +3,8 @@ from django.contrib.auth.models import User
 from django.utils import timezone
 from imagekit.models import ImageSpecField
 from imagekit.processors import ResizeToFit
+from exiffield.fields import ExifField
+from exiffield.getters import exifgetter
 
 class Photo(models.Model):
     title = models.CharField(max_length=50)
@@ -18,7 +20,9 @@ class Photo(models.Model):
                                       format='JPEG',
                                       options={'quality': 80})
     front_page = models.BooleanField(default=False)
-
+    exif = ExifField(
+        source='photo_full',
+    )
 
     class Meta:
         verbose_name_plural = "Photos"
