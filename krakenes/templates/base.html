@@ -46,13 +46,23 @@
                 Portfolio
               </a>
             </li>
+            <li class="dropdown nav-item">
+              <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false">
+                Albums
+              <div class="ripple-container"></div></a>
+              <div class="dropdown-menu dropdown-menu-right">
+                {% for album in albums %}
+                <a href="{% url 'album' album.slug %}" class="dropdown-item">{{ album.title }}</a>
+              </div>
+              {% endfor %}
+            </li>
             <li class="nav-item {% if request.resolver_match.url_name == 'about' %}active{% endif %}">
               <a href="{% url 'about' %}"
                 class="nav-link">
                 About
               </a>
             </li>
-            <li class="dropdown nav-item">
+            {% comment %} <li class="dropdown nav-item">
               <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false">
                 Categories
               <div class="ripple-container"></div></a>
@@ -63,8 +73,8 @@
               {% endfor %}
             </li>
             <li class="nav-item {% if request.resolver_match.url_name == 'search' %}active{% endif %}">
-              <a data-toggle="modal" data-target="#searchModal" class="nav-link"><i class="material-icons">search</i><div class="ripple-container"></div></a>
-            </li>
+              <a href="{% url 'search'  %}" class="nav-link"><i class="material-icons">search</i><div class="ripple-container"></div></a>
+            </li> {% endcomment %}
            
             {% if user.is_authenticated %}
             <li class="dropdown nav-item">
@@ -84,9 +94,8 @@
             </li>
             
             {% else %}
-            <button class="btn btn-rose btn-raised btn-round"
-              data-toggle="modal"
-              data-target="#loginModal">Log in<div class="ripple-container"></div>
+            <a class="btn btn-rose btn-raised btn-round"
+              href="{% url 'account_login' %}">Log in<div class="ripple-container"></div>
             </a>
             {% endif %}
           </ul>
@@ -94,131 +103,6 @@
       </div>
     </nav>
 
-    <!-- Login Modal -->
-    <div class="modal fade" id="loginModal" tabindex="-1" role="">
-      <div class="modal-dialog modal-login" role="document">
-        <div class="modal-content">
-          <div class="card card-signup card-plain">
-            <div class="modal-header">
-              <div class="card-header card-header-primary text-center">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-                  <i class="material-icons">clear</i>
-                </button>
-
-                <h4 class="card-title">Log in</h4>
-                <br>
-              </div>
-            </div>
-            <div class="modal-body">
-              <div class="login-alert login-password-error text-center">
-                <p>Wrong password</p>
-              </div>
-              <div class="login-alert login-user-error text-center">
-                <p>Username does not exist</p>
-              </div>
-
-              <form class="form" method="POST" id="loginForm">
-                {% csrf_token %}
-                <div class="card-body">
-
-                  <div class="form-group bmd-form-group">
-                    <div class="input-group">
-                      <div class="input-group-prepend">
-                        <div class="input-group-text"><i class="material-icons">account_circle</i></div>
-                      </div>
-                      <input type="text" class="form-control" placeholder="Username..." required="required" name="username">
-                    </div>
-                  </div>
-
-                  <div class="form-group bmd-form-group">
-                    <div class="input-group">
-                      <div class="input-group-prepend">
-                        <div class="input-group-text"><i class="material-icons">lock_outline</i></div>
-                      </div>
-                      <input type="password" placeholder="Password..." class="form-control" required="required" name="password">
-                    </div>
-                  </div>
-                </div>
-
-                <input type="hidden" name="next" value="{{ request.get_full_path }}"/>
-
-                <div class="form-group text-center">
-                  <input type="submit" class="btn btn-primary btn-round btn-raised" value="Log in"/>
-                </div>
-                <div class="text-center">
-                <a href="{% url 'account_reset_password' %}" class="fright">Forgot Password?</a>
-              </div>
-              </form>
-              <div class="modal-footer justify-content-center">
-                <a href="{% url 'account_signup' %}" class="btn btn-primary btn-link btn-wd btn-lg" role="button">
-                  <i class="material-icons">assignment</i>Register</a>
-              </div>
-  
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-
-    <!-- Error Modal -->
-    <div id="errorModal" class="modal fade" tabindex="-1" role="dialog">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title">Error</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <p>An unknown error has occured. Please try again.</p>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Search Modal -->
-    <div id="searchModal" class="modal fade" tabindex="-1" role="dialog">
-      <div class="modal-dialog modal-login" role="document">
-        <div class="modal-content">
-          <div class="card card-signup card-plain">
-            <div class="modal-header">
-              <div class="card-header card-header-primary text-center">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-                  <i class="material-icons">clear</i>
-                </button>
-                <h4 class="card-title">Search</h4>
-                <br>
-              </div>
-            </div>
-            <div class="modal-body">
-              <form class="form" action="{% url 'search' %}" method="GET" id="search_form">
-                <div class="card-body">
-
-                  <div class="form-group bmd-form-group">
-                    <div class="input-group">
-                      <div class="input-group-prepend">
-                        <div class="input-group-text"><i class="material-icons">search</i></div>
-                      </div>
-                      <input type="search" name="search" id="search" class="form-control search-color" placeholder="Search for..." required="required">
-                    </div>
-                  </div>
-
-                  <div class="form-group text-center">
-                    <input type="submit" class="btn btn-primary btn-round" value="Search"/>
-                  </div>
-                  
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
 
     {% block content %} {% endblock %}
     <!-- Page Footer-->
@@ -262,7 +146,10 @@
     {% comment %} <script src="{% static 'js/plugins/lightgallery/lg-share.min.js' %}"></script> {% endcomment %}
     <script src="{% static 'js/plugins/lightgallery/lg-zoom.min.js' %}"></script>
     <script src="{% static 'js/plugins/lightgallery/lg-exif.js' %}"></script>
+    <!-- Lightgallery -->
+    <script src="{% static 'js/plugins/sweetalert2.js' %}"></script>
     <!-- Custom Javascript -->
+    <script src="{% static 'js/email.js' %}"></script>
   </script>
   {% block body %}{% endblock body %}
   </body>

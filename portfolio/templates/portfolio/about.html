@@ -13,69 +13,58 @@
   <div class="main main-raised section-dark">
     <div class="contact-content">
       <div class="container">
-        <h2 class="title">Send us a message</h2>
+        <h2 class="title">Send me a message</h2>
         <div class="row">
           <div class="col-md-6">
-            <p class="description">You can contact us with anything related to our Products. We&apos;ll get in touch with you as soon as possible.<br><br>
+            <p class="description">You can contact me with anything related to my photos or services. I&apos;ll get in touch with you as soon as possible.<br><br>
             </p>
-            <form role="form" id="contact-form" method="post">
+            <form role="form" id="emailForm" method="post">
+              {% csrf_token %}
               <div class="form-group">
                 <label for="name" class="bmd-label-floating">Your name</label>
-                <input type="text" class="form-control" id="name">
+                <input type="text" class="form-control" id="name" name="name" required>
               </div>
               <div class="form-group">
-                <label for="exampleInputEmails" class="bmd-label-floating">Email address</label>
-                <input type="email" class="form-control" id="exampleInputEmails">
-                <span class="bmd-help">We'll never share your email with anyone else.</span>
+                <label for="email" class="bmd-label-floating">Email address</label>
+                <input type="email" class="form-control" id="email" name="email" required>
+                <span class="bmd-help">I'll never share your email with anyone else.</span>
               </div>
               <div class="form-group">
-                <label for="phone" class="bmd-label-floating">Phone</label>
-                <input type="text" class="form-control" id="phone">
+                <label for="phone" class="bmd-label-floating">Subject</label>
+                <input type="text" class="form-control" id="subject" name="subject" required>
               </div>
               <div class="form-group label-floating">
                 <label class="form-control-label bmd-label-floating" for="message"> Your message</label>
-                <textarea class="form-control" rows="6" id="message"></textarea>
+                <textarea class="form-control" rows="6" id="message" name="message" required></textarea>
               </div>
               <div class="submit text-center">
-                <input type="submit" class="btn btn-primary btn-raised btn-round" value="Contact Us">
+                <input type="submit" class="btn btn-rose btn-raised btn-round" value="Contact Us">
               </div>
             </form>
           </div>
           <div class="col-md-4 ml-auto">
+            <img class="img-fluid rounded img-raised" src="https://media-exp1.licdn.com/dms/image/C5603AQFKZIXzHOdUMA/profile-displayphoto-shrink_200_200/0?e=1593043200&v=beta&t=hSpBtizC6WeqXOzzpNf11G1xqDu-lF1T9pOchK7hyLU">
             <div class="info info-horizontal">
-              <div class="icon icon-primary">
+              <div class="icon icon-rose">
+                <i class="material-icons">info</i>
+              </div>
+              <div class="description">
+                <h4 class="info-title">About me</h4>
+                <p> Håvard Kråkenes<br>
+                Hobby photographer from <br>
+                western norway. Focusing on automotive photography.
+                </p>
+              </div>
+            </div>
+            <div class="info info-horizontal">
+              <div class="icon icon-rose">
                 <i class="material-icons">pin_drop</i>
               </div>
               <div class="description">
-                <h4 class="info-title">Find us at the office</h4>
-                <p> Bld Mihail Kogalniceanu, nr. 8,<br>
-                  7652 Bucharest,<br>
-                  Romania
-                </p>
-              </div>
-            </div>
-            <div class="info info-horizontal">
-              <div class="icon icon-primary">
-                <i class="material-icons">phone</i>
-              </div>
-              <div class="description">
-                <h4 class="info-title">Give us a ring</h4>
-                <p> Michael Jordan<br>
-                  +40 762 321 762<br>
-                  Mon - Fri, 8:00-22:00
-                </p>
-              </div>
-            </div>
-            <div class="info info-horizontal">
-              <div class="icon icon-primary">
-                <i class="material-icons">business_center</i>
-              </div>
-              <div class="description">
-                <h4 class="info-title">Legal Information</h4>
-                <p> Creative Tim Ltd.<br>
-                  VAT &#xB7; EN2341241<br>
-                  IBAN &#xB7; EN8732ENGB2300099123<br>
-                  Bank &#xB7; Great Britain Bank
+                <h4 class="info-title">Where I am located</h4>
+                <p> Vestland<br>
+                  5416 Stord,<br>
+                  Norway
                 </p>
               </div>
             </div>

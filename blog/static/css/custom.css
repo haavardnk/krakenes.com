@@ -85,3 +85,19 @@ transform: scale(1.015, 1.015);
 .search-color {
     color: #3C4858;
 }
+
+@-webkit-keyframes autofill {
+    0%,100% {
+        color: #666;
+        background: transparent;
+    }
+}
+
+input:-webkit-autofill {
+    -webkit-animation-delay: 1s; /* Safari support - any positive time runs instantly */
+    -webkit-animation-name: autofill;
+    -webkit-animation-fill-mode: both;
+}
+input:-webkit-autofill {
+    -webkit-text-fill-color: #ffffff !important;
+}
