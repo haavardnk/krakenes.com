@@ -9,16 +9,14 @@ from django.core.mail import send_mail
 from django.http import HttpResponse, JsonResponse
 
 def home(request):
-    albums = Album.objects.all()
     categories = Category.objects.all()
     photos = Photo.objects.all().filter(front_page=True)
     photo_num = list(range(len(photos)))
-    return render(request, 'portfolio/home.html', {'albums': albums, 'photos': photos, 'photo_num': photo_num, 'categories': categories})
+    return render(request, 'portfolio/home.html', {'photos': photos, 'photo_num': photo_num, 'categories': categories})
 
 def portfolio(request):
     site_settings = get_object_or_404(Site, site_name="portfolio")
     photos = Photo.objects.all().order_by('id')
-    albums = Album.objects.all()
     categories = Category.objects.all()
     exif_list = []
     for photo in photos:
@@ -34,13 +32,11 @@ def portfolio(request):
             'make' : photo.exif['Make']['val'],
         })
     photos_exif = zip(photos, exif_list)
-    print(photos[0].exif['Model']['val'])
-    return render(request, 'portfolio/gallery.html', {'albums': albums, 'photos_exif': photos_exif, 'categories': categories, 'site_settings': site_settings})
+    return render(request, 'portfolio/gallery.html', {'photos_exif': photos_exif, 'categories': categories, 'site_settings': site_settings})
 
 def album(request, album_slug):
     album = get_object_or_404(Album, slug=album_slug)
     photos = Photo.objects.all().filter(album=album).order_by('-id').distinct('id')
-    albums = Album.objects.all()
     categories = Category.objects.all()
     exif_list = []
     site_settings = {'title' : album.title,'sub_title' : album.sub_title,'background' : album.image}
@@ -58,12 +54,10 @@ def album(request, album_slug):
             'make' : photo.exif['Make']['val'],
         })
     photos_exif = zip(photos, exif_list)
-    print(photos[0].exif['Model']['val'])
-    return render(request, 'portfolio/gallery.html', {'albums': albums, 'photos_exif': photos_exif, 'categories': categories, 'site_settings': site_settings})
+    return render(request, 'portfolio/gallery.html', {'photos_exif': photos_exif, 'categories': categories, 'site_settings': site_settings})
 
 def about(request):
     site_settings = get_object_or_404(Site, site_name="about")
-    albums = Album.objects.all()
     categories = Category.objects.all()
 
     if request.method == 'POST' and request.is_ajax:
@@ -86,4 +80,4 @@ def about(request):
             response_data['send'] = "failed"
         return HttpResponse(JsonResponse(response_data))
 
-    return render(request, 'portfolio/about.html', {'albums': albums, 'categories': categories, 'site_settings': site_settings})
+    return render(request, 'portfolio/about.html', {'categories': categories, 'site_settings': site_settings})

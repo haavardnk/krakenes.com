@@ -9,7 +9,7 @@ from django.utils.text import slugify
 
 class Album(models.Model):
     title = models.CharField(max_length=50)
-    sub_title = models.CharField(max_length=75)
+    sub_title = models.CharField(max_length=75, blank=True)
     image = models.ImageField(upload_to='images/albums')
     slug = models.SlugField(unique=True, default='will-auto-update')
     
@@ -25,7 +25,7 @@ class Album(models.Model):
 
 class Photo(models.Model):
     title = models.CharField(max_length=50)
-    description = models.CharField(max_length=150)
+    description = models.CharField(max_length=150, blank=True)
     album = models.ForeignKey(Album, on_delete=models.CASCADE, blank=True, null=True)
     pub_date = models.DateTimeField(default=timezone.now)
     photo_full = models.ImageField(upload_to='photos')
