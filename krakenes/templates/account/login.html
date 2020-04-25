@@ -13,7 +13,7 @@
           <form id="login-form" name="login-form" class="form" action="{% url 'account_login' %}" method="POST">
             {% csrf_token %}
             <div class="card card-login card-hidden">
-              <div class="card-header card-header-primary text-center">
+              <div class="card-header card-header-rose text-center">
                 <h4 class="card-title">Log in</h4>
                 <br>
               </div>
@@ -49,17 +49,20 @@
                     </label>
                   </div>
                 </span>
+                {% if redirect_field_value %}
+                  <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+                {% endif %}
               </div>
               <br>
               <div class="text-center">
-                <input type="submit" class="btn btn-primary btn-round btn-raised" id="login-form-submit" name="login-form-submit" value="log in"/>
+                <input type="submit" class="btn btn-rose btn-round btn-raised" id="login-form-submit" name="login-form-submit" value="log in"/>
               </div>
               <div class="text-center">
-                <a href="{% url 'account_reset_password' %}" class="fright">Forgot Password?</a>
+                <a href="{% url 'account_reset_password' %}" class="fright" style="color:#e91e63;">Forgot Password?</a>
               </div>
               
               <div class="text-center">
-                <a href="{% url 'account_signup' %}" class="btn btn-primary btn-link btn-wd btn-lg" role="button"><i class="material-icons">assignment</i>Register</a>
+                <a href="{% url 'account_signup' %}" class="btn btn-rose btn-link btn-wd btn-lg" role="button"><i class="material-icons">assignment</i>Register</a>
               </div>
             </div>
           </form>

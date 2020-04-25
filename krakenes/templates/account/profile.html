@@ -1,0 +1,52 @@
+{% extends "account/base.html" %}
+{% block content %}
+{% load static %}
+
+  <div class="page-header header-small header-filter" data-parallax="true" style="background-image: url({% static 'img/bulb-background.jpg'%})"></div>
+  <div class="main main-raised section-dark">
+    <div class="profile-content">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6 ml-auto mr-auto text-center">
+            <form>
+              <div class="fileinput fileinput-new text-center" data-provides="fileinput">
+                <div class="fileinput-new thumbnail img-circle img-raised">
+                  <img src="user.profile.profile_picture.url" alt="...">
+                </div>
+                <div class="fileinput-preview fileinput-exists thumbnail img-circle img-raised"></div>
+                <div style="margin-top: -80px;">
+                  <span class="btn btn-raised btn-round btn-default btn-file">
+                  <span class="fileinput-new">Add Photo</span>
+                  <span class="fileinput-exists">Change</span>
+                  <input type="file" name="..." /></span>
+                  <br />
+                  <a href="#pablo" class="btn btn-danger btn-round fileinput-exists" data-dismiss="fileinput"><i class="fa fa-times"></i> Remove</a>
+                </div>
+              </div>
+            
+              <div class="form-row text-left">
+                <div class="col">
+                  <label for="firstName">First name</label>
+                  <input type="text" class="form-control form-control-dark" id="firstName" placeholder="First name">
+                </div>
+                <div class="col">
+                <label for="lastName">Last name</label>
+                  <input type="text" class="form-control form-control-dark" id="lastName" placeholder="Last name">
+                </div>
+              </div>
+              <div class="form-group text-left">
+                <label class="label-control">Birthdate</label>
+                <input type="text" class="form-control datetimepicker" value=""/>
+              </div>
+              <div class="form-group text-center">
+                <input type="submit" class="btn btn-rose btn-round" value="Save"/>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

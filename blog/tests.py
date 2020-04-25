@@ -27,35 +27,6 @@ class BaseTestCase(TestCase):
             blogpost.tags.add(tag)
 
 
-class HomePageTests(BaseTestCase):
-    '''
-    Tests of the home page
-    '''
-
-    def test_view_uses_correct_template(self):
-        response = self.client.get(reverse('home'))
-        self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'blog/home.html')
-
-    def test_home_page_contains_six_blogposts(self):
-        '''
-        Checks that home page contains correct amount of blog posts
-        '''
-        response = self.client.get('/')
-        for i in range(7, 1, -1):
-            self.assertContains(response, BlogPost.objects.get(id=i).summary)
-        self.assertNotContains(response, BlogPost.objects.get(id=1).summary)
-
-    def test_home_page_pagination(self):
-        '''
-        Checks that home page contains correct amount of pages.
-        '''
-        response = self.client.get('/')
-        self.assertContains(response, '?page=1')
-        self.assertContains(response, '?page=2')
-        self.assertNotContains(response, '?page=3')
-
-
 class SearchPageTests(BaseTestCase):
     '''
     Tests of the search page

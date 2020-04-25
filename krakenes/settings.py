@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     'accounts.apps.AccountsConfig',
     'posts.apps.PostsConfig',
     'blog.apps.BlogConfig',
+    'portfolio.apps.PortfolioConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.sites',
@@ -47,6 +48,7 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
+    'imagekit',
 ]
 
 MIDDLEWARE = [
@@ -72,6 +74,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'krakenes.context_processors.get_albums',
+                'krakenes.context_processors.get_categories'
             ],
         },
     },
@@ -151,6 +155,14 @@ STATICFILES_DIRS = [
 
 ]
 
+# For development
+# STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+# STATIC_URL = '/static/'
+
+# MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+# MEDIA_URL = '/media/'
+
+# For production
 STATIC_ROOT='/static'
 STATIC_URL = '/static/'
 
