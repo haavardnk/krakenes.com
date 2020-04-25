@@ -12,10 +12,11 @@ urlpatterns = [
     path('', home, name='home'),
     path('search/', blog.search, name='search'),
     path('about/', about, name='about'),
-    path('accounts/', include('accounts.urls')),
     path('portfolio/', include('portfolio.urls')),
+    path('<str:album_slug>/', album, name='album'),
+    path('accounts/', include('accounts.urls')),
+
     path('blog/', include('blog.urls')),
     path('ckeditor/', include('ckeditor_uploader.urls')),
-    path('<str:album_slug>/', album, name='album'),
     url(r'^accounts/', include('allauth.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
