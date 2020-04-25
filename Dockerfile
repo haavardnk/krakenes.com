@@ -14,7 +14,8 @@ RUN set -ex \
         | xargs -r apk info --installed \
         | sort -u)" \
     && apk add --virtual rundeps $runDeps \
-    && apk del .build-deps
+    && apk del .build-deps \
+    && apk --update add exiftool && rm -rf /var/cache/apk/*
 
 COPY / /app
 WORKDIR /app
