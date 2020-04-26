@@ -36,7 +36,7 @@ def portfolio(request):
 
 def album(request, album_slug):
     album = get_object_or_404(Album, slug=album_slug)
-    photos = Photo.objects.all().filter(album=album).order_by('-id').distinct('id')
+    photos = Photo.objects.all().filter(album=album).order_by('id').distinct('id')
     categories = Category.objects.all()
     exif_list = []
     site_settings = {'title' : album.title,'sub_title' : album.sub_title,'background' : album.image}
