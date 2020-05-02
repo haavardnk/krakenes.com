@@ -1,6 +1,8 @@
+{% load analytical %}
 <!DOCTYPE html>
 <html>
   <head>
+    {% analytical_head_top %}
     {% load static %}
     <meta charset="utf-8" />
     <link rel="apple-touch-icon" sizes="76x76" href="./assets/img/apple-icon.png">
@@ -20,9 +22,10 @@
     <link href="{% static 'css/lg-exif.min.css' %}" rel="stylesheet" />
     <!-- Code Hightlighter -->
     <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/styles/tomorrow-night.min.css">
-    
+    {% analytical_head_bottom %}
   </head>
   <body class="sidebar-collapse dark-background">
+    {% analytical_body_top %}
     <nav class="navbar navbar-color-on-scroll navbar-transparent fixed-top navbar-expand-lg  bg-dark" color-on-scroll="100" id="sectionsNav">
       <div class="container">
         <div class="navbar-translate">
@@ -152,5 +155,6 @@
     <script src="{% static 'js/email.js' %}"></script>
   </script>
   {% block body %}{% endblock body %}
+  {% analytical_body_bottom %}
   </body>
 </html>

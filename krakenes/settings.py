@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'imagekit',
+    'analytical',
 ]
 
 MIDDLEWARE = [
@@ -258,6 +259,9 @@ EMAIL_PORT = 587
 EMAIL_HOST_USER = os.getenv('GMAIL_ADDRESS')
 EMAIL_HOST_PASSWORD = os.getenv('GMAIL_PASSWORD')
 
+#Site tracking
+GOOGLE_ANALYTICS_GTAG_PROPERTY_ID = 'UA-165344763-1'
+
 ###################################
 
 
@@ -305,4 +309,6 @@ logging.config.dictConfig({
         },
     },
 })
+
+
 
