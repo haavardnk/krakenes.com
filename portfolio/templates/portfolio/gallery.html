@@ -12,9 +12,9 @@
 <div class="main main-raised section-dark">
     <div class="container container-portfolio">
         <div class="section text-center">
-            <div class="row flex-row-reverse wrap-reverse justify-content-center" id="lightgallery" style="flex-wrap: wrap-reverse;">
-                {% for photo, exif in photos_exif %}
-                <div class="col-md-4" 
+            <div class="row justify-content-center" id="lightgallery">
+                {% for photo, exif, order in photos_exif %}
+                <div class="col-md-4 {{ order }}" 
                     data-src="{{photo.photo_large.url}}" 
                     data-download-url="{{photo.photo_full.url}}"
                     data-filename="{{exif.filename}}"

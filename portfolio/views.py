@@ -31,7 +31,11 @@ def portfolio(request):
             'model' : photo.exif['Model']['val'],
             'make' : photo.exif['Make']['val'],
         })
-    photos_exif = zip(photos, exif_list)
+    order_list = []
+    for n in range(len(photos),0,-1):
+        order_list.append('order-'+str(n))
+
+    photos_exif = zip(photos, exif_list, order_list)
     return render(request, 'portfolio/gallery.html', {'photos_exif': photos_exif, 'categories': categories, 'site_settings': site_settings})
 
 def album(request, album_slug):
@@ -53,7 +57,11 @@ def album(request, album_slug):
             'model' : photo.exif['Model']['val'],
             'make' : photo.exif['Make']['val'],
         })
-    photos_exif = zip(photos, exif_list)
+    order_list = []
+    for n in range(len(photos),0,-1):
+        order_list.append('order-'+str(n))
+
+    photos_exif = zip(photos, exif_list, order_list)
     return render(request, 'portfolio/gallery.html', {'photos_exif': photos_exif, 'categories': categories, 'site_settings': site_settings})
 
 def about(request):
