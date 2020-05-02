@@ -22,3 +22,4 @@ gunicorn==20.0.4
 django-imagekit==4.0.2
 django-exiffield==2.1.0
 django-analytical==2.6.0
+django-meta==1.6.1

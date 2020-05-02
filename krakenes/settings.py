@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'imagekit',
     'analytical',
+    'meta',
 ]
 
 MIDDLEWARE = [
