@@ -1,6 +1,5 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from posts.models import BlogPost, Comment, Tag, Category
-from .models import Photo, Site, Album
+from .models import Photo, Site, Album, Frontpage
 from django.core.paginator import Paginator
 from django.contrib.postgres.search import SearchVector
 from django.db.models import Count
@@ -10,21 +9,19 @@ from django.http import HttpResponse, JsonResponse
 from meta.views import Meta
 
 def home(request):
-    categories = Category.objects.all()
-    photos = Photo.objects.all().filter(front_page=True)
-    photo_num = list(range(len(photos)))
+    frontpage_elements = Frontpage.objects.all().order_by('order')
+    photo_num = list(range(len(frontpage_elements)))
     meta = Meta(
         use_title_tag=True,
         title="Kråkenes Photography",
         description='Portfolio for Håvard Kråkenes, a hobby photographer residing in Norway specializing in automotive photography.',
         keywords=['photography', 'portfolio', 'cars', 'automotive', 'automotive photography', 'porsche', 'car photography', 'krakenes photography', 'håvard kråkenes'],
         )
-    return render(request, 'portfolio/home.html', {'photos': photos, 'photo_num': photo_num, 'categories': categories, 'meta': meta})
+    return render(request, 'portfolio/home.html', {'frontpage_elements': frontpage_elements, 'photo_num': photo_num, 'meta': meta})
 
 def portfolio(request):
     site_settings = get_object_or_404(Site, site_name="portfolio")
-    photos = Photo.objects.all().order_by('id')
-    categories = Category.objects.all()
+    photos = Photo.objects.all().filter(portfolio=True).order_by('-id').distinct('id')
     meta = Meta(
         use_title_tag=True,
         title="Kråkenes Photography - Portfolio",
@@ -44,17 +41,13 @@ def portfolio(request):
             'model' : photo.exif['Model']['val'],
             'make' : photo.exif['Make']['val'],
         })
-    order_list = []
-    for n in range(len(photos),0,-1):
-        order_list.append('order-'+str(n))
 
-    photos_exif = zip(photos, exif_list, order_list)
-    return render(request, 'portfolio/gallery.html', {'photos_exif': photos_exif, 'categories': categories, 'site_settings': site_settings, 'meta': meta})
+    photos_exif = zip(photos, exif_list)
+    return render(request, 'portfolio/gallery.html', {'photos_exif': photos_exif, 'site_settings': site_settings, 'meta': meta})
 
 def album(request, album_slug):
     album = get_object_or_404(Album, slug=album_slug)
-    photos = Photo.objects.all().filter(album=album).order_by('id').distinct('id')
-    categories = Category.objects.all()
+    photos = Photo.objects.all().filter(album=album).order_by('-id').distinct('id')
     exif_list = []
     site_settings = {'title' : album.title,'sub_title' : album.sub_title,'background' : album.image}
     meta = Meta(
@@ -74,16 +67,12 @@ def album(request, album_slug):
             'model' : photo.exif['Model']['val'],
             'make' : photo.exif['Make']['val'],
         })
-    order_list = []
-    for n in range(len(photos),0,-1):
-        order_list.append('order-'+str(n))
 
-    photos_exif = zip(photos, exif_list, order_list)
-    return render(request, 'portfolio/gallery.html', {'photos_exif': photos_exif, 'categories': categories, 'site_settings': site_settings, 'meta': meta})
+    photos_exif = zip(photos, exif_list)
+    return render(request, 'portfolio/gallery.html', {'photos_exif': photos_exif, 'site_settings': site_settings, 'meta': meta})
 
 def about(request):
     site_settings = get_object_or_404(Site, site_name="about")
-    categories = Category.objects.all()
     meta = Meta(
         use_title_tag=True,
         title="Kråkenes Photography - About",
@@ -108,4 +97,4 @@ def about(request):
             response_data['send'] = "failed"
         return HttpResponse(JsonResponse(response_data))
 
-    return render(request, 'portfolio/about.html', {'categories': categories, 'site_settings': site_settings, 'meta': meta})
+    return render(request, 'portfolio/about.html', {'site_settings': site_settings, 'meta': meta})
