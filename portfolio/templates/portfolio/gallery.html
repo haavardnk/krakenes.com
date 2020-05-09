@@ -13,9 +13,10 @@
     <div class="container container-portfolio">
         <div class="section text-center">
             <div class="row justify-content-center" id="lightgallery">
-                {% for photo, exif, order in photos_exif %}
-                <div class="col-md-4 {{ order }}" 
+                {% for photo, exif in photos_exif %}
+                <div class="col-md-4" 
                     data-src="{{photo.photo_large.url}}" 
+                    data-lg-slide-name="{{photo.id}}"
                     data-download-url="{{photo.photo_full.url}}"
                     data-filename="{{exif.filename}}"
                     data-datetimeoriginal="{{exif.date}}"

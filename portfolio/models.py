@@ -37,7 +37,7 @@ class Photo(models.Model):
                                       processors=[ResizeToFit(width=2048, upscale=False)],
                                       format='JPEG',
                                       options={'quality': 80})
-    front_page = models.BooleanField(default=False)
+    portfolio = models.BooleanField(default=False)
     exif = ExifField(
         source='photo_full',
     )
@@ -48,6 +48,9 @@ class Photo(models.Model):
     def __str__(self):
         return self.title
 
+class Frontpage(models.Model):
+    image = models.ForeignKey(Photo, on_delete=models.CASCADE)
+    order = models.IntegerField(blank=False)
 
 class Site(models.Model):
     site_name = models.CharField(max_length=50)
