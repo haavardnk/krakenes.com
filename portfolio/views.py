@@ -14,7 +14,7 @@ def home(request):
     meta = Meta(
         use_title_tag=True,
         title="Kråkenes Photography",
-        description='Portfolio for Håvard Kråkenes, a hobby photographer residing in Norway specializing in automotive photography.',
+        description='Portfolio for Håvard Kråkenes, a hobby photographer from the west coast of Norway specializing in automotive photography.',
         keywords=['photography', 'portfolio', 'cars', 'automotive', 'automotive photography', 'porsche', 'car photography', 'krakenes photography', 'håvard kråkenes'],
         )
     return render(request, 'portfolio/home.html', {'frontpage_elements': frontpage_elements, 'photo_num': photo_num, 'meta': meta})
@@ -25,7 +25,7 @@ def portfolio(request):
     meta = Meta(
         use_title_tag=True,
         title="Kråkenes Photography - Portfolio",
-        description='Portfolio for Håvard Kråkenes, a hobby photographer residing in Norway specializing in car photography.',
+        description='Portfolio for Håvard Kråkenes, a hobby photographer from the west coast of Norway specializing in automotive photography.',
         keywords=['photography', 'portfolio', 'cars', 'automotive', 'automotive photography', 'porsche', 'car photography', 'krakenes photography', 'håvard kråkenes'],
         )
     exif_list = []
@@ -49,7 +49,7 @@ def album(request, album_slug):
     album = get_object_or_404(Album, slug=album_slug)
     photos = Photo.objects.all().filter(album=album).order_by('-id').distinct('id')
     exif_list = []
-    site_settings = {'title' : album.title,'sub_title' : album.sub_title,'background' : album.image}
+    site_settings = {'title' : album.title,'sub_title' : album.sub_title,'background_small' : album.image_small}
     meta = Meta(
         use_title_tag=True,
         title="Kråkenes Photography - "+album.title,

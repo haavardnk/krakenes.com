@@ -49,7 +49,6 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'imagekit',
-    'analytical',
     'meta',
 ]
 
@@ -61,6 +60,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'compression_middleware.middleware.CompressionMiddleware',
 ]
 
 ROOT_URLCONF = 'krakenes.urls'
@@ -260,8 +260,8 @@ EMAIL_PORT = 587
 EMAIL_HOST_USER = os.getenv('GMAIL_ADDRESS')
 EMAIL_HOST_PASSWORD = os.getenv('GMAIL_PASSWORD')
 
-#Site tracking
-GOOGLE_ANALYTICS_GTAG_PROPERTY_ID = 'UA-165344763-1'
+# #Site tracking
+# GOOGLE_ANALYTICS_GTAG_PROPERTY_ID = 'UA-165344763-1'
 
 ###################################
 

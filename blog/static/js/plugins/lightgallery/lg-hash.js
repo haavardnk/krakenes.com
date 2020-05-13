@@ -26,13 +26,15 @@
     
             // Change hash value on after each slide transition
             _this.core.$el.on('onAfterSlide.lg.tm', function(event, prevIndex, index) {
-
                 var slideName = _this.core.s.customSlideName ? _this.core.$items.eq(index).data('lgSlideName') : index;
                 if (history.replaceState) {
                     history.replaceState(null, null, window.location.pathname + '#lg=' + _this.core.s.galleryId + '&pid=' + slideName);
                 } else {
                     window.location.hash = 'lg=' + _this.core.s.galleryId + '&pid=' + slideName;
                 }
+                gtag('config', 'UA-165344763-1', {
+                    'page_path': window.location.pathname + '#lg=' + _this.core.s.galleryId + '&pid=' + slideName
+                    });
             });
     
             // Listen hash change and change the slide according to slide value

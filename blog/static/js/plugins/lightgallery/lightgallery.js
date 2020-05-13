@@ -139,7 +139,6 @@
         var hash = hash || window.location.hash;
         var slideName = hash.split('&pid=')[1];
         var _idx;
-        console.log(slideName)
         if(this.s.customSlideName) {
             this.$items.each(function(index) {
                 if($(this).data('lgSlideName') == slideName) {
@@ -150,7 +149,6 @@
         } else {
             _idx = parseInt(slideName, 10);
         }
-        console.log(_idx);
         return isNaN(_idx) ? 0 : _idx;
     }
 
@@ -168,7 +166,6 @@
         if (_hash.indexOf('lg=' + this.s.galleryId) > 0) {
 
             _this.index = _this.getIndexFromUrl(_hash);
-
             $('body').addClass('lg-from-hash');
             if (!$('body').hasClass('lg-on')) {
                 setTimeout(function() {

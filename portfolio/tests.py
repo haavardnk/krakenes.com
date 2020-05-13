@@ -32,13 +32,3 @@ class HomePageTests(BaseTestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'portfolio/home.html')
 
-class AlbumPageTests(BaseTestCase):
-    '''
-    Tests of the album page
-    '''
-
-    def test_view_uses_correct_template(self):
-        response = self.client.get('/test-album/')
-        self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'portfolio/gallery.html')
-
