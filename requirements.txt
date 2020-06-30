@@ -24,3 +24,4 @@ django-exiffield==2.1.0
 django-meta==1.6.1
 django-compression-middleware==0.4.1
 django-compressor==2.4
+django-dbbackup==3.3.0

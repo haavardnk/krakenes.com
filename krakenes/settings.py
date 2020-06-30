@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'imagekit',
     'meta',
     'compressor',
+    'dbbackup',
 ]
 
 MIDDLEWARE = [
@@ -102,6 +103,9 @@ DATABASES = {
         ),
     }
 }
+
+DBBACKUP_STORAGE = 'django.core.files.storage.FileSystemStorage'
+DBBACKUP_STORAGE_OPTIONS = {'location': '/static/backup'}
 
 # Password validation
 # https://docs.djangoproject.com/en/2.1/ref/settings/#auth-password-validators
