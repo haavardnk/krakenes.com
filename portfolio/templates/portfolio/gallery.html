@@ -34,7 +34,7 @@
 				</div>
         {% endfor %}
       </div>
-      {% if request.user.is_superuser and site_settings.title != "Portfolio" %}    
+      {% if request.user.is_superuser and request.resolver_match.url_name != 'portfolio' %}    
         <br>
         <a href="#" data-toggle="modal" data-target="#addPhotoModal" class="btn btn-rose btn-round">
             Add photos

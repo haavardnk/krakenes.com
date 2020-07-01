@@ -80,12 +80,9 @@ a:hover {
 -webkit-transform: scale(1.015, 1.015);
 transform: scale(1.015, 1.015);
 }
-
-
 .search-color {
     color: #3C4858;
 }
-
 .homepage-link {
     left: 15%;
     position: absolute;
@@ -104,21 +101,24 @@ transform: scale(1.015, 1.015);
 }
 .homepage-text {
     position: absolute;
-    top: 30vh;
+    top: 40vh;
     width: 96.66666666666666%;
     color: #FFF;
+}
+
+.homepage-logo {
+    width:50%;
+    padding-bottom: 15px;
 }
 .dark-form {
     color: rgba(255, 255, 255, 0.76)
 }
-
 @-webkit-keyframes autofill {
     0%,100% {
         color: #666;
         background: transparent;
     }
 }
-
 input:-webkit-autofill {
     -webkit-animation-delay: 1s; /* Safari support - any positive time runs instantly */
     -webkit-animation-name: autofill;
