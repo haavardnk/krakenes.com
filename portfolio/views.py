@@ -9,6 +9,7 @@ from django.http import HttpResponse, JsonResponse
 from meta.views import Meta
 
 def home(request):
+    site_settings = get_object_or_404(Site, site_name="home")
     frontpage_elements = Frontpage.objects.all().order_by('order')
     photo_num = list(range(len(frontpage_elements)))
     meta = Meta(
@@ -17,7 +18,7 @@ def home(request):
         description='Portfolio for Håvard Kråkenes, a hobby photographer from the west coast of Norway specializing in automotive photography.',
         keywords=['photography', 'portfolio', 'cars', 'automotive', 'automotive photography', 'porsche', 'car photography', 'krakenes photography', 'håvard kråkenes'],
         )
-    return render(request, 'portfolio/home.html', {'frontpage_elements': frontpage_elements, 'photo_num': photo_num, 'meta': meta})
+    return render(request, 'portfolio/home.html', {'site_settings': site_settings, 'frontpage_elements': frontpage_elements, 'photo_num': photo_num, 'meta': meta})
 
 def portfolio(request):
     site_settings = get_object_or_404(Site, site_name="portfolio")

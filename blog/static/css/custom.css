@@ -102,6 +102,12 @@ transform: scale(1.015, 1.015);
     text-align: center;
     opacity: 0.5;
 }
+.homepage-text {
+    position: absolute;
+    top: 35vh;
+    width: 96.66666666666666%;
+    color: #FFF;
+}
 
 @-webkit-keyframes autofill {
     0%,100% {

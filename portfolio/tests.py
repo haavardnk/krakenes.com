@@ -4,7 +4,7 @@ from django.utils import timezone
 from django.contrib.auth.models import User
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.contrib.sessions.middleware import SessionMiddleware
-from .models import Album, Photo
+from .models import Album, Photo, Site
 
 class BaseTestCase(TestCase):
     '''
@@ -17,6 +17,7 @@ class BaseTestCase(TestCase):
         image1 = SimpleUploadedFile(name='foo1.gif', content=b'GIF87a\x01\x00\x01\x00\x80\x01\x00\x00\x00\x00ccc\x00\x00\x00\x00\x01\x00\x01\x00\x00\x02\x02D\x01\x00')
         image2 = SimpleUploadedFile(name='foo2.gif', content=b'GIF87a\x01\x00\x01\x00\x80\x01\x00\x00\x00\x00ccc\x00\x00\x00\x00\x01\x00\x01\x00\x00\x02\x02D\x01\x00')
         album = Album.objects.create(id=11, title='test album', image=image1)
+        site = Site.objects.create(site_name='home', title='test')
         # photo1 = Photo.objects.create(id=1, title='test_photo1', photo_full=image1, front_page=True)
         # photo2 = Photo.objects.create(id=2, title='test_photo2', photo_full=image2, album=album, front_page=False)
         # photo3 = Photo.objects.create(id=3, title='test_photo3', photo_full=image2, front_page=True)

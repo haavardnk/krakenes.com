@@ -28,7 +28,6 @@ class Album(models.Model):
         return self.title
 
 class Photo(models.Model):
-    title = models.CharField(max_length=50)
     description = models.CharField(max_length=150, blank=True)
     album = models.ForeignKey(Album, on_delete=models.CASCADE, blank=True, null=True)
     pub_date = models.DateTimeField(default=timezone.now)
@@ -50,7 +49,7 @@ class Photo(models.Model):
         verbose_name_plural = "Photos"
 
     def __str__(self):
-        return self.title
+        return self.photo_full.name
 
 class Frontpage(models.Model):
     image = models.ForeignKey(Photo, on_delete=models.CASCADE)
@@ -60,9 +59,16 @@ class Site(models.Model):
     site_name = models.CharField(max_length=50)
     title = models.CharField(max_length=50)
     sub_title = models.CharField(max_length=75, blank=True)
-    background = models.ImageField(upload_to='images/sites')
+    background = models.ImageField(upload_to='images/sites', null=True, blank=True)
     background_small = ImageSpecField(source='background',
-                                      processors=[ResizeToFit(width=1024, upscale=False)],
+                                      processors=[ResizeToFit(width=1440, upscale=False)],
+                                      format='JPEG',
+                                      options={'quality': 80})
+    text1 = models.TextField(max_length=500, blank=True)
+    text2 = models.TextField(max_length=500, blank=True)
+    photo1 = models.ImageField(upload_to='images/sites', null=True, blank=True)
+    photo1_thumb = ImageSpecField(source='photo1',
+                                      processors=[ResizeToFit(width=200, upscale=False)],
                                       format='JPEG',
                                       options={'quality': 80})
 

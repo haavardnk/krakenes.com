@@ -43,17 +43,14 @@
             </form>
           </div>
           <div class="col-md-4 ml-auto">
-            <img class="img-fluid rounded img-raised" src="https://media-exp1.licdn.com/dms/image/C5603AQFKZIXzHOdUMA/profile-displayphoto-shrink_200_200/0?e=1593043200&v=beta&t=hSpBtizC6WeqXOzzpNf11G1xqDu-lF1T9pOchK7hyLU">
+            <img class="img-fluid rounded img-raised" src="{{ site_settings.photo1_thumb.url }}">
             <div class="info info-horizontal">
               <div class="icon icon-rose">
                 <i class="material-icons">info</i>
               </div>
               <div class="description">
                 <h4 class="info-title">About me</h4>
-                <p> Håvard Kråkenes<br>
-                Hobby photographer from the<br>
-                west coast of norway specializing in automotive photography.
-                </p>
+                <p>{{ site_settings.text1 }}</p>
               </div>
             </div>
             <div class="info info-horizontal">
@@ -62,9 +59,7 @@
               </div>
               <div class="description">
                 <h4 class="info-title">Where I am located</h4>
-                <p>Stord<br>
-                  Norway
-                </p>
+                <p>{{ site_settings.text2 }}</p>
               </div>
             </div>
           </div>
