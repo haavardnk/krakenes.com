@@ -108,6 +108,9 @@ transform: scale(1.015, 1.015);
     width: 96.66666666666666%;
     color: #FFF;
 }
+.dark-form {
+    color: rgba(255, 255, 255, 0.76)
+}
 
 @-webkit-keyframes autofill {
     0%,100% {

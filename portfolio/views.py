@@ -47,6 +47,15 @@ def portfolio(request):
     return render(request, 'portfolio/gallery.html', {'photos_exif': photos_exif, 'site_settings': site_settings, 'meta': meta})
 
 def album(request, album_slug):
+    if request.method == 'POST':
+        title = request.POST.get('title')
+        image = request.FILES.get('image')
+        
+        album = Album.objects.create(title=title, image=image)
+        album.save()
+
+        return redirect('album', album_slug=album.slug)
+
     album = get_object_or_404(Album, slug=album_slug)
     photos = Photo.objects.all().filter(album=album).order_by('-id').distinct('id')
     exif_list = []

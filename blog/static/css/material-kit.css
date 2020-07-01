@@ -1723,9 +1723,9 @@ pre {
     background-color: #e9ecef;
     opacity: 1; }
 .form-control,
-.form-control-dark {
-  color: rgba(255, 255, 255, 0.76);
-}
+/* .form-control-dark {
+  color: #3C4858;
+} */
 
 select.form-control:not([size]):not([multiple]) {
   height: calc(2.4375rem + 2px); }

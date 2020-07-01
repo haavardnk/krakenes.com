@@ -65,7 +65,11 @@
               <div class="dropdown-menu dropdown-menu-right">
                 {% for album in albums %}
                 <a href="{% url 'album' album.slug %}" class="dropdown-item">{{ album.title }}</a>
-              {% endfor %}
+                {% endfor %}
+                {% if request.user.is_superuser %}
+                <div class="dropdown-divider"></div>
+                <a href="#" data-toggle="modal" data-target="#albumModal" class="dropdown-item">New Album</a>
+                {% endif %}
               </div>
             </li>
             <li class="nav-item {% if request.resolver_match.url_name == 'about' %}active{% endif %}">
@@ -114,6 +118,50 @@
         </div>
       </div>
     </nav>
+
+    <div class="modal fade" id="albumModal" tabindex="-1" role="dialog" style="display: none;" aria-hidden="true">
+      <div class="modal-dialog modal-login" role="document">
+        <div class="modal-content">
+          <div class="card card-signup card-plain">
+            <div class="modal-header">
+              <div class="card-header card-header-rose text-center">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="material-icons">clear</i></button>
+                <h4 class="card-title">New Album</h4>
+              </div>
+            </div>
+            <div class="modal-body">
+              <form class="form" action="/album/" id="albumForm" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="card-body">
+                  <div class="form-group bmd-form-group">
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text">
+                        </span>
+                      </div>
+                      <input type="text" class="form-control" id="title" name="title" placeholder="Title...">
+                    </div>
+                  </div>
+                  <div class="form-group form-file-upload form-file-multiple bmd-form-group">
+                    <input type="file" multiple="" id="image" name="image" class="inputFileHidden">
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text">
+                        </span>
+                      </div>
+                      <input type="text" class="form-control inputFileVisible" placeholder="Header image...">
+                    </div>
+                  </div>         
+                  <div class="submit text-center">
+                    <input type="submit" class="btn btn-rose btn-raised btn-round" value="Create">
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
     {% block content %} {% endblock %}
     <!-- Page Footer-->
