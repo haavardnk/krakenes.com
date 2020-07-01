@@ -15,6 +15,25 @@
     </div>
     {% endfor %}
   </div>
+  <div class="homepage-text" >
+    <div class="col-md-5 ml-auto mr-auto text-center">
+      <h1 class="title">{{ site_settings.title }}</h1>
+      <h6>{{ site_settings.text1 }}</h6>
+      <div class="buttons">
+      
+        <a href="{% url 'portfolio' %}" class="btn btn-white btn-link btn-round" style="border: 2px solid white;">
+          Portfolio
+        <div class="ripple-container"></div></a>
+      </div>
+      <div class="buttons">
+        <a href="https://www.facebook.com/krakenesphotography" class="btn btn-just-icon btn-white btn-link">
+          <i class="fa fa-facebook-square"></i>
+        <a href="https://www.flickr.com/photos/187999850@N04/" class="btn btn-just-icon btn-white btn-link">
+          <i class="fa fa-flickr"></i>
+        </a>
+      </div>
+    </div>
+  </div>
   <a class="carousel-control-prev" href="" data-target="#carouselIndicators" role="button" data-slide="prev">
     <i class="material-icons">keyboard_arrow_left</i>
     <span class="sr-only">Previous</span>
@@ -25,22 +44,5 @@
   </a>
 </div>
 <!-- End Carousel Card -->
-<div class="homepage-text" >
-  <div class="col-md-5 ml-auto mr-auto text-center">
-    <h1 class="title">{{ site_settings.title }}</h1>
-    <h4>{{ site_settings.text1 }}</h4>
-    <div class="buttons">
-      <a href="{% url 'portfolio' %}" class="btn btn-rose btn-round">
-        Portfolio
-      <div class="ripple-container"></div></a>
-    </div>
-    <div class="buttons">
-      <a href="https://www.facebook.com/krakenesphotography" class="btn btn-just-icon btn-white btn-link">
-        <i class="fa fa-facebook-square"></i>
-      <a href="https://www.flickr.com/photos/187999850@N04/" class="btn btn-just-icon btn-white btn-link">
-        <i class="fa fa-flickr"></i>
-      </a>
-    </div>
-  </div>
-</div>
+
 {% endblock %}

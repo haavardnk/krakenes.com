@@ -10,33 +10,77 @@
     </div>
   </div>
 <div class="main main-raised section-dark">
-    <div class="container container-portfolio">
-        <div class="section text-center">
-            <div class="row justify-content-center" id="lightgallery">
-                {% for photo, exif in photos_exif %}
-                <div class="col-md-4" 
-                    data-src="{{photo.photo_large.url}}" 
-                    data-lg-slide-name="{{photo.id}}"
-                    data-download-url="{{photo.photo_full.url}}"
-                    data-filename="{{exif.filename}}"
-                    data-datetimeoriginal="{{exif.date}}"
-                    data-fnumber="{{exif.aperture}}"
-                    data-exposuretime="{{exif.exposure}}"
-                    data-isospeedratings="{{exif.iso}}"
-                    data-focallength="{{exif.focallength}}"
-                    data-lensmodel="{{exif.lens}}"
-                    data-model="{{exif.model}}"
-                    data-make="{{exif.make}}"
-                    >
-                    <a href="">
-                        <img class="img img-portfolio" src="{{photo.photo_thumb.url}}">
-                    </a>
+	<div class="container container-portfolio">
+		<div class="section text-center">
+			<div class="row justify-content-center" id="lightgallery">
+				{% for photo, exif in photos_exif %}
+				<div class="col-md-4" 
+						data-src="{{photo.photo_large.url}}" 
+						data-lg-slide-name="{{photo.id}}"
+						data-download-url="{{photo.photo_full.url}}"
+            data-filename="{{exif.filename}}"
+						data-datetimeoriginal="{{exif.date}}"
+						data-fnumber="{{exif.aperture}}"
+						data-exposuretime="{{exif.exposure}}"
+						data-isospeedratings="{{exif.iso}}"
+						data-focallength="{{exif.focallength}}"
+						data-lensmodel="{{exif.lens}}"
+						data-model="{{exif.model}}"
+						data-make="{{exif.make}}"
+						>
+						<a href="">
+								<img class="img img-portfolio" src="{{photo.photo_thumb.url}}">
+						</a>
+				</div>
+        {% endfor %}
+      </div>
+      {% if request.user.is_superuser and site_settings.title != "Portfolio" %}    
+        <br>
+        <a href="#" data-toggle="modal" data-target="#addPhotoModal" class="btn btn-rose btn-round">
+            Add photos
+        <div class="ripple-container"></div></a>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+<!-- Add photos modal-->
+<div class="modal fade" id="addPhotoModal" tabindex="-1" role="dialog" style="display: none;" aria-hidden="true">
+  <div class="modal-dialog modal-login" role="document">
+    <div class="modal-content">
+      <div class="card card-signup card-plain">
+        <div class="modal-header">
+          <div class="card-header card-header-rose text-center">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="material-icons">clear</i></button>
+            <h4 class="card-title">Add photos</h4>
+          </div>
+        </div>
+        <div class="modal-body">
+          <form class="form" action="/album/" id="albumForm" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="card-body">
+              <div class="form-group form-file-upload form-file-multiple bmd-form-group">
+                <input type="file" multiple="" id="images" name="images" class="inputFileHidden">
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">
+                    </span>
+                  </div>
+                  <input type="text" class="form-control inputFileVisible" placeholder="Velg bilder..." multiple="">
                 </div>
-                {% endfor %}
+              </div> 
+              <input type="hidden" id="slug" name="slug" value="{{ slug }}">     
+              <div class="submit text-center">
+                <input type="submit" class="btn btn-rose btn-raised btn-round" value="Upload">
+              </div>
             </div>
+          </form>
+        </div>
         </div>
     </div>
+    </div>
 </div>
+
 {% endblock %}
 {% block body %}
 <script type="text/javascript">

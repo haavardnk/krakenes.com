@@ -47,13 +47,20 @@ def portfolio(request):
     return render(request, 'portfolio/gallery.html', {'photos_exif': photos_exif, 'site_settings': site_settings, 'meta': meta})
 
 def album(request, album_slug):
-    if request.method == 'POST':
+    if request.method == 'POST' and 'title' in request.POST:
         title = request.POST.get('title')
         image = request.FILES.get('image')
         
         album = Album.objects.create(title=title, image=image)
         album.save()
 
+        return redirect('album', album_slug=album.slug)
+
+    elif request.method == 'POST' and 'slug' in request.POST:
+        slug = request.POST.get('slug')
+        album = get_object_or_404(Album, slug=slug)
+        for i in request.FILES.getlist('images'):
+            Photo.objects.create(album=album, photo_full=i)
         return redirect('album', album_slug=album.slug)
 
     album = get_object_or_404(Album, slug=album_slug)
@@ -79,7 +86,7 @@ def album(request, album_slug):
         })
 
     photos_exif = zip(photos, exif_list)
-    return render(request, 'portfolio/gallery.html', {'photos_exif': photos_exif, 'site_settings': site_settings, 'meta': meta})
+    return render(request, 'portfolio/gallery.html', {'photos_exif': photos_exif, 'site_settings': site_settings, 'meta': meta, 'slug': album.slug})
 
 def about(request):
     site_settings = get_object_or_404(Site, site_name="about")
