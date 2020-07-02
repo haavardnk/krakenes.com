@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     'meta',
     'compressor',
     'dbbackup',
+    'adminsortable2',
 ]
 
 MIDDLEWARE = [

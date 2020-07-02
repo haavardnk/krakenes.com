@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import Photo, Site, Album, Frontpage
+from .models import Photo, Site, Album, Frontpage, Portfolio
 from django.core.paginator import Paginator
 from django.contrib.postgres.search import SearchVector
 from django.db.models import Count
@@ -22,7 +22,7 @@ def home(request):
 
 def portfolio(request):
     site_settings = get_object_or_404(Site, site_name="portfolio")
-    photos = Photo.objects.all().filter(portfolio=True).order_by('-id').distinct('id')
+    photos = Portfolio.objects.all().order_by('order')
     meta = Meta(
         use_title_tag=True,
         title="Kråkenes Photography - Portfolio",
@@ -30,20 +30,22 @@ def portfolio(request):
         keywords=['photography', 'portfolio', 'cars', 'automotive', 'automotive photography', 'porsche', 'car photography', 'krakenes photography', 'håvard kråkenes'],
         )
     exif_list = []
+    photo_list = []
     for photo in photos:
         exif_list.append({
-            'filename' : photo.exif['FileName']['val'],
-            'date' : photo.exif['DateTimeOriginal']['val'],
-            'aperture' : photo.exif['Aperture']['val'],
-            'exposure' : photo.exif['ExposureTime']['val'],
-            'iso' : photo.exif['ISO']['val'],
-            'focallength' : photo.exif['FocalLength']['val'],
-            'lens' : photo.exif['LensModel']['val'],
-            'model' : photo.exif['Model']['val'],
-            'make' : photo.exif['Make']['val'],
+            'filename' : photo.image.exif['FileName']['val'],
+            'date' : photo.image.exif['DateTimeOriginal']['val'],
+            'aperture' : photo.image.exif['Aperture']['val'],
+            'exposure' : photo.image.exif['ExposureTime']['val'],
+            'iso' : photo.image.exif['ISO']['val'],
+            'focallength' : photo.image.exif['FocalLength']['val'],
+            'lens' : photo.image.exif['LensModel']['val'],
+            'model' : photo.image.exif['Model']['val'],
+            'make' : photo.image.exif['Make']['val'],
         })
+        photo_list.append(photo.image)
 
-    photos_exif = zip(photos, exif_list)
+    photos_exif = zip(photo_list, exif_list)
     return render(request, 'portfolio/gallery.html', {'photos_exif': photos_exif, 'site_settings': site_settings, 'meta': meta})
 
 def album(request, album_slug):
@@ -64,7 +66,7 @@ def album(request, album_slug):
         return redirect('album', album_slug=album.slug)
 
     album = get_object_or_404(Album, slug=album_slug)
-    photos = Photo.objects.all().filter(album=album).order_by('-id').distinct('id')
+    photos = Photo.objects.all().filter(album=album).order_by('order')
     exif_list = []
     site_settings = {'title' : album.title,'sub_title' : album.sub_title,'background_small' : album.image_small}
     meta = Meta(

@@ -28,32 +28,66 @@ class Album(models.Model):
         return self.title
 
 class Photo(models.Model):
-    description = models.CharField(max_length=150, blank=True)
-    album = models.ForeignKey(Album, on_delete=models.CASCADE, blank=True, null=True)
+    album = models.ForeignKey(Album, on_delete=models.CASCADE)
+    order = models.PositiveIntegerField(default=0, blank=False, null=False)
     pub_date = models.DateTimeField(default=timezone.now)
     photo_full = models.ImageField(upload_to='photos')
     photo_thumb = ImageSpecField(source='photo_full',
                                       processors=[ResizeToFit(width=400, upscale=False)],
                                       format='JPEG',
                                       options={'quality': 80})
+    photo_mini_thumb = ImageSpecField(source='photo_full',
+                                      processors=[ResizeToFit(width=200, upscale=False)],
+                                      format='JPEG',
+                                      options={'quality': 80})
     photo_large = ImageSpecField(source='photo_full',
                                       processors=[ResizeToFit(width=2048, upscale=False)],
                                       format='JPEG',
                                       options={'quality': 80})
-    portfolio = models.BooleanField(default=False)
+    portfolio_bool = models.BooleanField(default=False)
+    frontpage_bool = models.BooleanField(default=False)
     exif = ExifField(
         source='photo_full',
     )
 
     class Meta:
         verbose_name_plural = "Photos"
+        ordering = ['order']
 
     def __str__(self):
         return self.photo_full.name
+    
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+        if self.portfolio_bool and not Portfolio.objects.filter(image=self):
+            Portfolio.objects.create(image=self)
+        elif Portfolio.objects.filter(image=self) and not self.portfolio_bool:
+            Portfolio.objects.filter(image=self).delete()
+
+        if self.frontpage_bool and not Frontpage.objects.filter(image=self):
+            Frontpage.objects.create(image=self)
+        elif Frontpage.objects.filter(image=self) and not self.frontpage_bool:
+            Frontpage.objects.filter(image=self).delete()
 
 class Frontpage(models.Model):
-    image = models.ForeignKey(Photo, on_delete=models.CASCADE)
-    order = models.IntegerField(blank=False)
+    image = models.OneToOneField(Photo, on_delete=models.CASCADE, unique=True)
+    order = models.PositiveIntegerField(default=0, blank=False, null=False)
+
+    class Meta:
+        ordering = ['order']
+
+    def __str__(self):
+        return self.image.photo_full.name
+
+class Portfolio(models.Model):
+    image = models.OneToOneField(Photo, on_delete=models.CASCADE, unique=True)
+    order = models.PositiveIntegerField(default=0, blank=False, null=False)
+
+    class Meta:
+        ordering = ['order']
+
+    def __str__(self):
+        return self.image.photo_full.name
 
 class Site(models.Model):
     site_name = models.CharField(max_length=50)
