@@ -15,8 +15,9 @@ class AlbumAdmin(admin.ModelAdmin):
     inlines = [
         PhotoInline,
     ]
-class FrontpageAdmin(SortableAdminMixin, admin.ModelAdmin):
-    list_display = ('__str__', 'admin_thumbnail')
+class FrontpageAdmin(admin.ModelAdmin):
+    list_display = ('order', '__str__', 'admin_thumbnail')
+    ordering = ['order']
 
     def admin_thumbnail(self, obj):
         return format_html('<img src="{}" style="width: 200px; \
@@ -24,8 +25,9 @@ class FrontpageAdmin(SortableAdminMixin, admin.ModelAdmin):
 
     admin_thumbnail.short_description = 'thumbnail'
 
-class PortfolioAdmin(SortableAdminMixin, admin.ModelAdmin):
-    list_display = ('__str__', 'admin_thumbnail')
+class PortfolioAdmin(admin.ModelAdmin):
+    list_display = ('order', '__str__', 'admin_thumbnail')
+    ordering = ['order']
 
     def admin_thumbnail(self, obj):
         return format_html('<img src="{}" style="width: 200px; \

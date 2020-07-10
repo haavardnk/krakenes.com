@@ -109,7 +109,7 @@ transform: scale(1.015, 1.015);
 .homepage-text {
     position: absolute;
     top: 40vh;
-    width: 96.66666666666666%;
+    width: 100%;
     color: #FFF;
 }
 

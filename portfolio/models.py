@@ -73,21 +73,9 @@ class Frontpage(models.Model):
     image = models.OneToOneField(Photo, on_delete=models.CASCADE, unique=True)
     order = models.PositiveIntegerField(default=0, blank=False, null=False)
 
-    class Meta:
-        ordering = ['order']
-
-    def __str__(self):
-        return self.image.photo_full.name
-
 class Portfolio(models.Model):
     image = models.OneToOneField(Photo, on_delete=models.CASCADE, unique=True)
     order = models.PositiveIntegerField(default=0, blank=False, null=False)
-
-    class Meta:
-        ordering = ['order']
-
-    def __str__(self):
-        return self.image.photo_full.name
 
 class Site(models.Model):
     site_name = models.CharField(max_length=50)
