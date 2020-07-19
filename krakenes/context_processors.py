@@ -2,7 +2,7 @@ from portfolio.models import Album
 from posts.models import Category
 
 def get_albums(request):
-    albums = Album.objects.all()
+    albums = Album.objects.all().order_by('id')
     return {
         'albums': albums
     }

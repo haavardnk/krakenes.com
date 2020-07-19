@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.utils import timezone
 from imagekit.models import ImageSpecField, ProcessedImageField
-from imagekit.processors import ResizeToFit
+from imagekit.processors import ResizeToFit, ResizeToFill
 from exiffield.fields import ExifField
 from exiffield.getters import exifgetter
 from django.utils.text import slugify
@@ -33,7 +33,7 @@ class Photo(models.Model):
     pub_date = models.DateTimeField(default=timezone.now)
     photo_full = models.ImageField(upload_to='photos')
     photo_thumb = ImageSpecField(source='photo_full',
-                                      processors=[ResizeToFit(width=400, upscale=False)],
+                                      processors=[ResizeToFill(width=400, height=267, upscale=False)],
                                       format='JPEG',
                                       options={'quality': 80})
     photo_mini_thumb = ImageSpecField(source='photo_full',
