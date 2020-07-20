@@ -7,6 +7,7 @@ from django.contrib.auth.models import User
 from django.core.mail import send_mail
 from django.http import HttpResponse, JsonResponse
 from meta.views import Meta
+from django.urls import reverse
 
 def home(request):
     site_settings = get_object_or_404(Site, site_name="home")
@@ -14,9 +15,11 @@ def home(request):
     photo_num = list(range(len(frontpage_elements)))
     meta = Meta(
         use_title_tag=True,
-        title="Kråkenes Photography",
-        description='Portfolio for Håvard Kråkenes, a hobby photographer from the west coast of Norway specializing in automotive photography.',
-        keywords=['photography', 'portfolio', 'cars', 'automotive', 'automotive photography', 'porsche', 'car photography', 'krakenes photography', 'håvard kråkenes'],
+        title=site_settings.meta_title,
+        description=site_settings.meta_description,
+        url=reverse('home'),
+        image=frontpage_elements[0].image.photo_thumb.url,
+        keywords=['photography', 'portfolio', 'cars', 'automotive', 'automotive photography', 'porsche', 'car photography', 'krakenes photography', 'kråkenes photography', 'håvard kråkenes'],
         )
     return render(request, 'portfolio/home.html', {'site_settings': site_settings, 'frontpage_elements': frontpage_elements, 'photo_num': photo_num, 'meta': meta})
 
@@ -25,9 +28,10 @@ def portfolio(request):
     photos = Portfolio.objects.all().order_by('order')
     meta = Meta(
         use_title_tag=True,
-        title="Kråkenes Photography - Portfolio",
-        description='Portfolio for Håvard Kråkenes, a hobby photographer from the west coast of Norway specializing in automotive photography.',
-        keywords=['photography', 'portfolio', 'cars', 'automotive', 'automotive photography', 'porsche', 'car photography', 'krakenes photography', 'håvard kråkenes'],
+        title=site_settings.meta_title,
+        description=site_settings.meta_description,
+        url=reverse('portfolio'),
+        image=site_settings.background_small.url,
         )
     exif_list = []
     photo_list = []
@@ -71,7 +75,10 @@ def album(request, album_slug):
     site_settings = {'title' : album.title,'sub_title' : album.sub_title,'background_small' : album.image_small}
     meta = Meta(
         use_title_tag=True,
-        title="Kråkenes Photography - "+album.title,
+        title=album.title+" - Kråkenes Photography",
+        description=album.sub_title,
+        url=album.get_absolute_url(),
+        image=album.image_small.url,
         )
 
     for photo in photos:
@@ -94,7 +101,10 @@ def about(request):
     site_settings = get_object_or_404(Site, site_name="about")
     meta = Meta(
         use_title_tag=True,
-        title="Kråkenes Photography - About",
+        title=site_settings.meta_title,
+        description=site_settings.meta_description,
+        url=reverse('about'),
+        image=site_settings.background_small.url,
         )
     if request.method == 'POST' and request.is_ajax:
         response_data = {}

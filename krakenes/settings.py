@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.sites',
+    'django.contrib.sitemaps',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
@@ -289,6 +290,10 @@ EMAIL_HOST_PASSWORD = os.getenv('GMAIL_PASSWORD')
 
 ###################################
 
+#Meta
+META_SITE_PROTOCOL = 'https'
+META_USE_SITES = True
+META_USE_OG_PROPERTIES = True
 
 if 'TRAVIS' in os.environ:
     DATABASES = {

@@ -6,10 +6,12 @@ from imagekit.processors import ResizeToFit, ResizeToFill
 from exiffield.fields import ExifField
 from exiffield.getters import exifgetter
 from django.utils.text import slugify
+from django.urls import reverse
 
 class Album(models.Model):
     title = models.CharField(max_length=50)
     sub_title = models.CharField(max_length=75, blank=True)
+    pub_date = models.DateTimeField(default=timezone.now)
     image = models.ImageField(upload_to='images/albums')
     image_small = ImageSpecField(source='image',
                                       processors=[ResizeToFit(width=1024, upscale=False)],
@@ -26,6 +28,9 @@ class Album(models.Model):
 
     def __str__(self):
         return self.title
+
+    def get_absolute_url(self):
+        return reverse('album', args=[str(self.slug)])
 
 class Photo(models.Model):
     album = models.ForeignKey(Album, on_delete=models.CASCADE)
@@ -93,6 +98,8 @@ class Site(models.Model):
                                       processors=[ResizeToFit(width=200, upscale=False)],
                                       format='JPEG',
                                       options={'quality': 80})
+    meta_title = models.CharField(max_length=100, blank=True)
+    meta_description = models.CharField(max_length=200, blank=True)
 
     def __str__(self):
         return self.site_name
